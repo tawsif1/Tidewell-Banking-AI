@@ -1,16 +1,16 @@
 from uuid import uuid4
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-from llm import get_reply
+from llm import run_agent
+from models import Session
+import traceback
+import anthropic
+from fastapi import FastAPI, HTTPException
 
 app = FastAPI()
   # Replace with your actual OpenAI API key
 
-class Session(BaseModel):
-    id: str = Field(default_factory=lambda: str(uuid4()))
-    verified: bool = False
-    customer_id: int | None = None
-    messages: list[dict] = Field(default_factory=list)
+
 
 class ChatRequest(BaseModel):
     session_id: str | None = None   # None means "start a new conversation"
@@ -38,7 +38,10 @@ def post_chat(request: ChatRequest):
     session.messages.append({"role": "user", "content": request.message})
 
     # 3. Placeholder until the agent is connected
-    reply = get_reply(session.messages)  # call the LLM to get a reply
-    session.messages.append({"role": "assistant", "content": reply})
+    try:
+        reply = run_agent(session)
+    except anthropic.APIError:
+        traceback.print_exc()
+        raise HTTPException(status_code=503, detail="The assistant is temporarily unavailable. Please try again.")  # call the LLM to get a reply
 
     return ChatResponse(session_id=session.id, reply=reply, verified=session.verified)
