@@ -7,4 +7,6 @@ class Session(BaseModel):
     customer_id: int | None = None
     messages: list[dict] = Field(default_factory=list)
     failed_attempts: int = 0
-    locked: bool = False  # True if the session is locked due to too many failed attempts
+    locked: bool = False  
+    actions_taken: list[str] = Field(default_factory=list) 
+    escalation_id: str | None = None                       

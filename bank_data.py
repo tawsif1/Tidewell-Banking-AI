@@ -32,8 +32,13 @@ TRANSACTIONS = {
     5007: {"account_id": 201, "date": today - timedelta(days=75), "description": "Gas Station 24",         "amount": -52.30,   "type": "purchase", "status": "posted"},
     5008: {"account_id": 301, "date": today - timedelta(days=7),  "description": "Airline Tickets",        "amount": -1210.00, "type": "purchase", "status": "posted"},
     5009: {"account_id": 401, "date": today - timedelta(days=4),  "description": "Food Delivery",          "amount": -38.50,   "type": "purchase", "status": "posted"},
-    5010: {"account_id": 401, "date": today - timedelta(days=4),  "description": "Overdraft Fee",          "amount": -45.00,   "type": "fee",      "status": "posted"},
-    5011: {"account_id": 401, "date": today - timedelta(days=40), "description": "Overdraft Fee",          "amount": -45.00,   "type": "fee",      "status": "posted"},
+    5010: {"account_id": 401, "date": today - timedelta(days=4),  "description": "Overdraft Fee",          "amount": -45.00,   "type": "fee",  "fee_type": "nsf",     "status": "posted"},
+    5011: {"account_id": 401, "date": today - timedelta(days=40), "description": "Overdraft Fee",          "amount": -45.00,   "type": "fee",  "fee_type": "nsf",     "status": "posted"},
+    5012: {"account_id": 301, "date": today - timedelta(days=10),  "description": "Monthly Account Fee", "amount": -16.95, "type": "fee", "fee_type": "monthly",   "status": "posted"},
+    5013: {"account_id": 201, "date": today - timedelta(days=15),  "description": "NSF Fee",             "amount": -48.00, "type": "fee", "fee_type": "nsf",       "status": "posted"},
+    5014: {"account_id": 201, "date": today - timedelta(days=152), "description": "Overdraft Fee",       "amount": -45.00, "type": "fee", "fee_type": "overdraft", "status": "posted"},
+    5015: {"account_id": 101, "date": today - timedelta(days=6),   "description": "Wire Transfer Fee",   "amount": -25.00, "type": "fee", "fee_type": "wire",      "status": "posted"},
+    5016: {"account_id": 401, "date": today - timedelta(days=120), "description": "Overdraft Fee",       "amount": -45.00, "type": "fee", "fee_type": "overdraft", "status": "posted"},
 }
 
 CARDS = {
@@ -56,3 +61,15 @@ DISPUTES = {
         "filed_on": today - timedelta(days=3),
     },
 }
+
+FEE_REVERSALS = {
+    "FR-2001": {
+        "transaction_id": 5014,
+        "customer_id": 2,
+        "amount": 45.00,
+        "reason": "first overdraft, customer requested courtesy reversal",
+        "reversed_on": today - timedelta(days=150),
+    },
+}
+
+ESCALATIONS = {}
