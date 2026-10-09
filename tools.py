@@ -5,23 +5,34 @@ run_tool() decides what actually happens. Who the customer is always comes
 from the session, never from Claude's input.
 """
 
-from datetime import date, timedelta
-from pydantic import BaseModel, Field
-from bank_data import ACCOUNTS, CUSTOMERS, TRANSACTIONS, CARDS, DISPUTES, FEE_REVERSALS, ESCALATIONS 
-from models import Session
+from datetime import date, datetime, timedelta
 from typing import Literal
-from datetime import datetime
 
-MAX_TRANSACTIONS = 15  # keeps tool results short, which saves tokens
+from pydantic import BaseModel, Field
+
+from bank_data import ACCOUNTS, CARDS, CUSTOMERS, DISPUTES, ESCALATIONS, FEE_REVERSALS, TRANSACTIONS
+from models import Session
+from rag import search as rag_search
+
+
+# ---------------------------------------------------------------------------
+# Constants: bank policy and limits, kept in one place
+# ---------------------------------------------------------------------------
+
+MAX_TRANSACTIONS = 15                 # keeps tool results short, which saves tokens
 
 # Display names for account types; anything not listed is shown with .title()
 ACCOUNT_TYPE_LABELS = {"checking": "Checking", "savings": "Savings", "tfsa": "TFSA"}
-VERIFY_IDENTITY_MAX_ATTEMPTS = 3  # after this many failed attempts, the session is locked
-DISPUTE_WINDOW_DAYS = 60   # put this with your other constants at the top
+
+VERIFY_IDENTITY_MAX_ATTEMPTS = 3      # after this many failed attempts, verification is locked
+DISPUTE_WINDOW_DAYS = 60              # charges older than this can't be disputed
 
 REVERSIBLE_FEE_TYPES = {"overdraft", "nsf"}
 FEE_REVERSAL_WINDOW_DAYS = 90         # only recent fees can be reversed
 COURTESY_REVERSAL_PERIOD_DAYS = 365   # one courtesy reversal per customer per year
+
+MIN_SEARCH_SCORE = 0.45               # only show help center sections at least this relevant
+SEARCH_TOP_K = 5                      # how many help center sections to return, at most
 
 ESCALATION_QUEUES = {
     "fraud": "Fraud", "disputes": "Disputes", "fees": "Billing", "cards": "Cards",
@@ -32,6 +43,7 @@ CALLBACK_TIMES = {
     "high": "within 4 business hours",
     "normal": "within 1 business day",
 }
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -53,7 +65,9 @@ def customer_accounts(customer_id: int) -> dict:
     """All accounts owned by one customer, keyed by account number."""
     return {acc_id: acc for acc_id, acc in ACCOUNTS.items() if acc["customer_id"] == customer_id}
 
+
 def format_handoff(ticket_id: str, t: dict) -> str:
+    """The specialist's view of an escalation ticket."""
     customer = f"{t['customer_name']} (#{t['customer_id']})" if t["verified"] else "Not verified"
     actions = "; ".join(t["actions_taken"]) or "None"
     return (
@@ -73,8 +87,9 @@ def format_handoff(ticket_id: str, t: dict) -> str:
 
 def verify_identity(session: Session, full_name: str, date_of_birth: str, card_last4: str) -> str:
     if session.failed_attempts >= VERIFY_IDENTITY_MAX_ATTEMPTS:
-                return ("Verification is locked after too many failed attempts. Do not try to verify again. "
+        return ("Verification is locked after too many failed attempts. Do not try to verify again. "
                 "Tell the customer to call Tidewell Bank support at 1-800-555-0199.")
+
     name = full_name.strip().lower()
     dob = date_of_birth.strip()
     card = card_last4.strip()
@@ -92,7 +107,8 @@ def verify_identity(session: Session, full_name: str, date_of_birth: str, card_l
     # Same message whichever detail was wrong, so someone guessing learns nothing.
     session.failed_attempts += 1
     if session.failed_attempts >= VERIFY_IDENTITY_MAX_ATTEMPTS:
-        return ("Verification is now locked after too many failed attempts. ""Tell the customer to call Tidewell Bank support at 1-800-555-0199.")
+        return ("Verification is now locked after too many failed attempts. "
+                "Tell the customer to call Tidewell Bank support at 1-800-555-0199.")
     return "The details provided don't match our records."
 
 
@@ -145,7 +161,12 @@ def get_recent_transactions(session: Session, account_id: int | None = None, day
         )
     return "\n".join(lines)
 
-def freeze_card(session: Session, card_last4: str, reason: Literal["lost", "stolen", "suspicious_activity", "other"]) -> str:
+
+def freeze_card(
+    session: Session,
+    card_last4: str,
+    reason: Literal["lost", "stolen", "suspicious_activity", "other"],
+) -> str:
     if not session.verified:
         return "Identity not verified. Cannot freeze card."
 
@@ -160,8 +181,10 @@ def freeze_card(session: Session, card_last4: str, reason: Literal["lost", "stol
                 card["status"] = "frozen"
                 card["freeze_reason"] = reason
                 session.actions_taken.append(f"Froze card ending {card_last4} (reason: {reason})")
-                return f"Card ending in {card_last4} is now frozen (reason: {reason.replace('_', ' ')}). New purchases on this card will be declined."
-    
+                return (f"Card ending in {card_last4} is now frozen (reason: {reason.replace('_', ' ')}). "
+                        "New purchases on this card will be declined.")
+
+    # Card not found: list the customer's own cards so Claude can ask which one they meant.
     customer_cards = [
         f"{c['last4']} ({c['type']})"
         for c in CARDS.values()
@@ -169,27 +192,32 @@ def freeze_card(session: Session, card_last4: str, reason: Literal["lost", "stol
     ]
     if not customer_cards:
         return "This customer has no cards on file."
-    
+
     return f"Card not found. This customer's cards end in: {', '.join(customer_cards)}."
 
-def dispute_transaction(session: Session, transaction_id: int, reason: Literal["unauthorized", "not_received", "duplicate_charge", "incorrect_amount", "other"], details: str) -> str:
-    if not session.verified:    
+
+def dispute_transaction(
+    session: Session,
+    transaction_id: int,
+    reason: Literal["unauthorized", "not_received", "duplicate_charge", "incorrect_amount", "other"],
+    details: str,
+) -> str:
+    # 1. Verified?
+    if not session.verified:
         return "Identity not verified. Cannot dispute transaction."
 
-    
-
+    # 2. Exists AND belongs to this customer? Nothing about the transaction is revealed before this.
     tx = TRANSACTIONS.get(transaction_id)
-
     if not tx or tx["account_id"] not in customer_accounts(session.customer_id):
-            return "Transaction not found for this customer."
+        return "Transaction not found for this customer."
 
+    # 3. Already disputed?
     for dispute_id, dispute in DISPUTES.items():
         if dispute["transaction_id"] == transaction_id:
             return (f"Transaction #{transaction_id} already has a dispute: "
                     f"{dispute_id} (status: {dispute['status']}).")
-    
-    
 
+    # 4. Policy rules
     if tx["status"] == "pending":
         return (f"Transaction #{transaction_id} is still pending and can't be disputed until it posts, "
                 "usually within a few business days.")
@@ -200,9 +228,9 @@ def dispute_transaction(session: Session, transaction_id: int, reason: Literal["
         return f"Transaction #{transaction_id} is money coming into the account, so there's nothing to dispute."
     if tx["date"] < date.today() - timedelta(days=DISPUTE_WINDOW_DAYS):
         return (f"Transaction #{transaction_id} is more than {DISPUTE_WINDOW_DAYS} days old, outside the dispute "
-                "window. Tell the customer to call Tidewell Bank support at 1-800-555-0199.")    
+                "window. Tell the customer to call Tidewell Bank support at 1-800-555-0199.")
 
-    # Here we would normally record the dispute in a database or system.
+    # 5. File the dispute
     dispute_id = f"DSP-{1001 + len(DISPUTES)}"
     DISPUTES[dispute_id] = {
         "transaction_id": transaction_id,
@@ -218,8 +246,11 @@ def dispute_transaction(session: Session, transaction_id: int, reason: Literal["
                "A specialist will review it and contact the customer within 10 business days.")
     if reason == "unauthorized":
         message += " If the card used for this charge isn't frozen yet, offer to freeze it."
-    session.actions_taken.append(f"Filed dispute {dispute_id} for transaction #{transaction_id} ({format_amount(tx['amount'])})")
+    session.actions_taken.append(
+        f"Filed dispute {dispute_id} for transaction #{transaction_id} ({format_amount(tx['amount'])})"
+    )
     return message
+
 
 def request_fee_reversal(session: Session, transaction_id: int, reason: str) -> str:
     # 1. Verified?
@@ -283,7 +314,15 @@ def request_fee_reversal(session: Session, transaction_id: int, reason: str) -> 
             f"{format_account(tx['account_id'], account)}. New balance: ${account['balance']:,.2f}.")
 
 
-def escalate_to_human(session: Session, category: Literal["fraud", "disputes", "fees", "cards", "account_access", "complaint", "other"], priority: Literal["urgent", "high", "normal"], summary: str, still_needed: str, customer_sentiment: Literal["calm", "confused", "frustrated", "angry", "worried", "distressed"], requested_by_customer: bool) -> str:
+def escalate_to_human(
+    session: Session,
+    category: Literal["fraud", "disputes", "fees", "cards", "account_access", "complaint", "other"],
+    priority: Literal["urgent", "high", "normal"],
+    summary: str,
+    still_needed: str,
+    customer_sentiment: Literal["calm", "confused", "frustrated", "angry", "worried", "distressed"],
+    requested_by_customer: bool,
+) -> str:
     # 1. Already escalated in this session? Return the existing ticket, no duplicates.
     if session.escalation_id is not None:
         existing = ESCALATIONS[session.escalation_id]
@@ -331,6 +370,24 @@ def escalate_to_human(session: Session, category: Literal["fraud", "disputes", "
                      "1-800-555-0199 and quote this reference.")
     return (f"Escalation {ticket_id} sent to the {ticket['queue']} team with a full summary, so the customer "
             f"won't need to repeat themselves. {next_step} Give the customer the reference {ticket_id}.")
+
+
+def search_help_center(query: str) -> str:
+    """Search the help center and return the relevant sections, labelled for citation."""
+    results = rag_search(query, k=SEARCH_TOP_K)
+    print("Search scores:", [(r["id"], round(r["score"], 3)) for r in results])  # for calibrating
+
+    relevant = [r for r in results if r["score"] >= MIN_SEARCH_SCORE]
+    if not relevant:
+        return ("The help center doesn't cover this question. Don't guess or use general knowledge. "
+                "Tell the customer you don't have that information, and offer Tidewell Bank support "
+                "at 1-800-555-0199 or to connect them with a specialist.")
+
+    sections = [f"Source: {r['text']}" for r in relevant]  # text starts with "Article > Section"
+    return ("Answer only from these help center sections, and cite the article title.\n\n"
+            + "\n\n".join(sections))
+
+
 # ---------------------------------------------------------------------------
 # Tool input schemas: exactly what Claude is allowed to provide
 # ---------------------------------------------------------------------------
@@ -355,22 +412,28 @@ class GetRecentTransactionsInput(BaseModel):
         description="How many days back to look, from 1 to 90.",
     )
 
+
 class FreezeCardInput(BaseModel):
     card_last4: str = Field(description="Last 4 digits of the card to freeze, as confirmed by the customer")
     reason: Literal["lost", "stolen", "suspicious_activity", "other"] = Field(
         description="Why the card is being frozen"
     )
 
+
 class DisputeTransactionInput(BaseModel):
-    transaction_id: int = Field(description="ID of the transaction to dispute, from get_recent_transactions (e.g. 5006)")
+    transaction_id: int = Field(
+        description="ID of the transaction to dispute, from get_recent_transactions (e.g. 5006)"
+    )
     reason: Literal["unauthorized", "not_received", "duplicate_charge", "incorrect_amount", "other"] = Field(
         description="Why the customer is disputing the charge"
     )
     details: str = Field(max_length=500, description="Short summary of the problem in the customer's own words")
 
+
 class RequestFeeReversalInput(BaseModel):
     transaction_id: int = Field(description="ID of the fee transaction to reverse, from get_recent_transactions")
     reason: str = Field(max_length=300, description="Short summary of why the customer is asking")
+
 
 class EscalateToHumanInput(BaseModel):
     category: Literal["fraud", "disputes", "fees", "cards", "account_access", "complaint", "other"] = Field(
@@ -380,10 +443,24 @@ class EscalateToHumanInput(BaseModel):
         description="urgent: suspected fraud or money at immediate risk; high: very upset or vulnerable customer, "
                     "or a blocked account; normal: everything else"
     )
-    summary: str = Field(max_length=400, description="Two or three sentences on what the customer needs, written for a human specialist")
+    summary: str = Field(
+        max_length=400,
+        description="Two or three sentences on what the customer needs, written for a human specialist",
+    )
     still_needed: str = Field(max_length=300, description="What the specialist needs to do next")
     customer_sentiment: Literal["calm", "confused", "frustrated", "angry", "worried", "distressed"]
     requested_by_customer: bool = Field(description="True if the customer asked to speak to a person")
+
+
+class SearchHelpCenterInput(BaseModel):
+    query: str = Field(
+        min_length=3, max_length=200,
+        description=(
+            "A short search query written from the customer's question, focused on the topic, "
+            "e.g. 'deadline to dispute a card charge' or 'overdraft fee courtesy reversal'"
+        ),
+    )
+
 
 # ---------------------------------------------------------------------------
 # Tool registry: the menu of tools Claude sees
@@ -417,49 +494,62 @@ TOOLS = [
         "input_schema": GetRecentTransactionsInput.model_json_schema(),
     },
     {
-    "name": "freeze_card",
-    "description": (
-        "Freeze one of the verified customer's cards so new purchases are declined. "
-        "Use when the customer reports a card lost, stolen, or used without their permission. "
-        "Confirm which card (by its last 4 digits) with the customer before calling."
-    ),
-    "input_schema": FreezeCardInput.model_json_schema(),
+        "name": "freeze_card",
+        "description": (
+            "Freeze one of the verified customer's cards so new purchases are declined. "
+            "Use when the customer reports a card lost, stolen, or used without their permission. "
+            "Confirm which card (by its last 4 digits) with the customer before calling."
+        ),
+        "input_schema": FreezeCardInput.model_json_schema(),
     },
     {
-    "name": "dispute_transaction",
-    "description": (
-        "File a dispute for a posted charge on the verified customer's account. Use when the "
-        "customer says they didn't make a charge, didn't receive what they paid for, or were "
-        "charged the wrong amount. Get the transaction ID from get_recent_transactions and "
-        "confirm the charge with the customer before calling."
-    ),
-    "input_schema": DisputeTransactionInput.model_json_schema(),
+        "name": "dispute_transaction",
+        "description": (
+            "File a dispute for a posted charge on the verified customer's account. Use when the "
+            "customer says they didn't make a charge, didn't receive what they paid for, or were "
+            "charged the wrong amount. Get the transaction ID from get_recent_transactions and "
+            "confirm the charge with the customer before calling."
+        ),
+        "input_schema": DisputeTransactionInput.model_json_schema(),
     },
     {
-    "name": "request_fee_reversal",
-    "description": (
-        "Reverse an eligible fee on the verified customer's account and credit the amount back immediately. "
-        f"Policy: customers can get one courtesy reversal every {COURTESY_REVERSAL_PERIOD_DAYS} days, for "
-        f"{' or '.join(sorted(REVERSIBLE_FEE_TYPES))} fees charged within the last {FEE_REVERSAL_WINDOW_DAYS} days. "
-        "Other fees, such as wire transfer or monthly account fees, aren't eligible. "
-        "Explain this policy before asking the customer which fee to reverse. Get the fee's transaction ID "
-        "from get_recent_transactions and confirm it with the customer before calling. "
-        "The tool checks eligibility itself and explains any refusal."
-    ),
-    "input_schema": RequestFeeReversalInput.model_json_schema(),
-},
+        "name": "request_fee_reversal",
+        "description": (
+            "Reverse an eligible fee on the verified customer's account and credit the amount back immediately. "
+            f"Policy: customers can get one courtesy reversal every {COURTESY_REVERSAL_PERIOD_DAYS} days, for "
+            f"{' or '.join(sorted(REVERSIBLE_FEE_TYPES))} fees charged within the last {FEE_REVERSAL_WINDOW_DAYS} days. "
+            "Other fees, such as wire transfer or monthly account fees, aren't eligible. "
+            "Explain this policy before asking the customer which fee to reverse. Get the fee's transaction ID "
+            "from get_recent_transactions and confirm it with the customer before calling. "
+            "The tool checks eligibility itself and explains any refusal."
+        ),
+        "input_schema": RequestFeeReversalInput.model_json_schema(),
+    },
     {
-    "name": "escalate_to_human",
-    "description": (
-        "Hand the conversation to a human specialist by creating a support ticket. Use when the customer asks "
-        "for a person, the request is outside what your other tools can do, you suspect fraud beyond a single "
-        "dispute, the customer is very upset or seems vulnerable, or identity verification is locked. It can be "
-        "used without verification, but never include account details for an unverified customer. Don't escalate "
-        "issues already resolved with other tools. This is not a live transfer: tell the customer exactly what "
-        "the tool result says will happen next."
-    ),
-    "input_schema": EscalateToHumanInput.model_json_schema(),
-}
+        "name": "escalate_to_human",
+        "description": (
+            "Hand the conversation to a human specialist by creating a support ticket. Use when the customer asks "
+            "for a person, the request is outside what your other tools can do, you suspect fraud beyond a single "
+            "dispute, the customer is very upset or seems vulnerable, or identity verification is locked. It can be "
+            "used without verification, but never include account details for an unverified customer. Don't escalate "
+            "issues already resolved with other tools. This is not a live transfer: tell the customer exactly what "
+            "the tool result says will happen next."
+        ),
+        "input_schema": EscalateToHumanInput.model_json_schema(),
+    },
+        {
+        "name": "search_help_center",
+        "description": (
+            "Search Tidewell Bank's help center for policies, fees, limits, and how-to information, "
+            "for example 'how long do I have to dispute a charge?' or 'what is an NSF fee?'. "
+            "Use it for any question about bank policies or procedures, even if you think you know "
+            "the answer, and before explaining a policy to the customer, such as the fee reversal or "
+            "dispute rules. No identity verification is needed. Answer only from the sections it "
+            "returns, summarized in your own words, and cite the article title. If nothing relevant "
+            "is found, don't guess."
+        ),
+        "input_schema": SearchHelpCenterInput.model_json_schema(),
+    },
 ]
 
 
@@ -471,23 +561,23 @@ def run_tool(name: str, tool_input: dict, session: Session) -> str:
     if name == "verify_identity":
         args = VerifyIdentityInput(**tool_input)  # validate before touching any data
         return verify_identity(session, **args.model_dump())
-    
+
     if name == "get_accounts":
         GetAccountsInput(**tool_input)  # nothing to pass on, but keep the same pattern
         return get_accounts(session)
-    
+
     if name == "get_recent_transactions":
         args = GetRecentTransactionsInput(**tool_input)
         return get_recent_transactions(session, **args.model_dump())
-    
+
     if name == "freeze_card":
         args = FreezeCardInput(**tool_input)
         return freeze_card(session, **args.model_dump())
-    
+
     if name == "dispute_transaction":
         args = DisputeTransactionInput(**tool_input)
         return dispute_transaction(session, **args.model_dump())
-    
+
     if name == "request_fee_reversal":
         args = RequestFeeReversalInput(**tool_input)
         return request_fee_reversal(session, **args.model_dump())
@@ -495,6 +585,9 @@ def run_tool(name: str, tool_input: dict, session: Session) -> str:
     if name == "escalate_to_human":
         args = EscalateToHumanInput(**tool_input)
         return escalate_to_human(session, **args.model_dump())
-    
+
+    if name == "search_help_center":
+        args = SearchHelpCenterInput(**tool_input)
+        return search_help_center(**args.model_dump())
 
     raise ValueError(f"No handler in run_tool for tool: {name}")

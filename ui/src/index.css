@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap");
+
+:root {
+  /* Tidewell palette: cool harbor water, not beach sand */
+  --fog: #edf1f0;            /* chat background */
+  --surface: #ffffff;        /* input, buttons */
+  --line: #cfdcda;           /* borders on light surfaces */
+  --ink: #12333a;            /* main text, customer bubbles */
+  --ink-muted: #4f6a6c;      /* secondary text on light */
+  --tide: #256b65;           /* accent on light: agent rule, citations, focus */
+  --tide-wash: #dcebe8;      /* light accent fill */
+  --signal: #b23a28;         /* errors on light */
+
+  --harbor: #12333a;         /* ledger background */
+  --harbor-raised: #1a424a;  /* rows in the ledger */
+  --harbor-line: #2c5961;    /* lines in the ledger */
+  --harbor-text: #e6efee;    /* text in the ledger */
+  --mist: #a9c3bf;           /* secondary text in the ledger */
+  --tide-bright: #6fc2b5;    /* accent on dark */
+  --signal-bright: #f2907b;  /* errors on dark */
+  --amber-bright: #e8b95a;   /* escalation on dark */
+
+  --font-ui: "Hanken Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-code: "JetBrains Mono", ui-monospace, "Cascadia Code", Consolas, monospace;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-ui);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink);
+  background: var(--fog);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--tide);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
