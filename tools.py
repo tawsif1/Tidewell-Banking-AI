@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field
 from bank_data import ACCOUNTS, CARDS, CUSTOMERS, DISPUTES, ESCALATIONS, FEE_REVERSALS, TRANSACTIONS
 from models import Session
 from rag import search as rag_search
+from db import pool
 
 
 # ---------------------------------------------------------------------------
@@ -116,15 +117,19 @@ def get_accounts(session: Session) -> str:
     if not session.verified:
         return "Identity not verified. Cannot retrieve account information."
 
-    accounts = customer_accounts(session.customer_id)
+    with pool.connection() as conn:
+        accounts = conn.execute(
+            "SELECT id, type, balance FROM accounts WHERE customer_id = %s ORDER BY id",
+            (session.customer_id,),
+        ).fetchall()
+
     if not accounts:
         return "No accounts found for this customer."
 
     return "\n".join(
-        f"{format_account(acc_id, acc)}: ${acc['balance']:,.2f}"
-        for acc_id, acc in accounts.items()
+        f"{format_account(acc['id'], acc)}: ${acc['balance']:,.2f}"
+        for acc in accounts
     )
-
 
 def get_recent_transactions(session: Session, account_id: int | None = None, days: int = 30) -> str:
     if not session.verified:
