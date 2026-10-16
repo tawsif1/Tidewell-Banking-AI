@@ -87,22 +87,24 @@ def format_handoff(ticket_id: str, t: dict) -> str:
 # ---------------------------------------------------------------------------
 
 def verify_identity(session: Session, full_name: str, date_of_birth: str, card_last4: str) -> str:
+    
     if session.failed_attempts >= VERIFY_IDENTITY_MAX_ATTEMPTS:
         return ("Verification is locked after too many failed attempts. Do not try to verify again. "
                 "Tell the customer to call Tidewell Bank support at 1-800-555-0199.")
 
     name = full_name.strip().lower()
-    dob = date_of_birth.strip()
+    dob = date_of_birth
     card = card_last4.strip()
 
-    for customer_id, customer in CUSTOMERS.items():
-        if (
-            customer["full_name"].lower() == name
-            and customer["date_of_birth"] == dob
-            and customer["card_last4"] == card
-        ):
+    with pool.connection() as conn:
+        customer = conn.execute(
+            "SELECT id FROM customers WHERE lower(full_name) = %s AND date_of_birth = %s AND card_last4 = %s ORDER BY id",
+            (name, dob, card),
+        ).fetchone()
+
+        if customer:
             session.verified = True
-            session.customer_id = customer_id
+            session.customer_id = customer["id"]
             return "Identity verified successfully."
 
     # Same message whichever detail was wrong, so someone guessing learns nothing.
@@ -135,11 +137,51 @@ def get_recent_transactions(session: Session, account_id: int | None = None, day
     if not session.verified:
         return "Identity not verified. Cannot retrieve transactions."
 
-    accounts = customer_accounts(session.customer_id)
+    cutoff = date.today() - timedelta(days=days)
 
-    # Same answer whether the account doesn't exist or belongs to someone else.
-    if account_id is not None and account_id not in accounts:
-        return "Account not found."
+    with pool.connection() as conn:
+        sql = """
+            SELECT t.id, t.date, t.description, t.amount, t.status, t.account_id,
+                a.type AS account_type
+            FROM transactions t
+            JOIN accounts a ON a.id = t.account_id
+            WHERE a.customer_id = %s AND t.date >= %s
+        """
+        params = [session.customer_id, cutoff]
+
+        if account_id is not None:
+            # Same answer whether the account doesn't exist or belongs to someone else.
+            owned = conn.execute(
+                "SELECT 1 FROM accounts WHERE id = %s AND customer_id = %s",
+                (account_id, session.customer_id),
+            ).fetchone()
+            if owned is None:
+                return "Account not found."
+            sql += " AND t.account_id = %s"
+            params.append(account_id)
+
+            sql += " ORDER BY t.date DESC, t.id DESC LIMIT %s"
+            params.append(MAX_TRANSACTIONS)
+            transactions = conn.execute(sql, params).fetchall()
+
+            if not transactions:
+                return "No transactions found for the specified criteria."
+
+            return "\n".join(
+                f"{tx['date']} | #{tx['id']} | {format_account(tx['account_id'], tx['account_type'])} | "
+                f"{tx['description']} | {format_amount(tx['amount'])} | {tx['status']}"
+                for tx in transactions
+            )
+
+def get_recent_transactions(session: Session, account_id: int | None = None, days: int = 30) -> str:
+    if not session.verified:
+        return "Identity not verified. Cannot retrieve transactions."
+
+    with pool.connection() as conn:
+            accounts = conn.execute(
+                "SELECT id, type, balance FROM accounts WHERE customer_id = %s ORDER BY id",
+                (session.customer_id,),
+            ).fetchall()
 
     cutoff = date.today() - timedelta(days=days)
     matches = []
@@ -165,7 +207,6 @@ def get_recent_transactions(session: Session, account_id: int | None = None, day
             f"{format_amount(tx['amount'])} | {tx['status']}"
         )
     return "\n".join(lines)
-
 
 def freeze_card(
     session: Session,
@@ -399,7 +440,7 @@ def search_help_center(query: str) -> str:
 
 class VerifyIdentityInput(BaseModel):
     full_name: str = Field(description="Customer's full name")
-    date_of_birth: str = Field(description="Date of birth in YYYY-MM-DD format")
+    date_of_birth: date = Field(description="Date of birth in YYYY-MM-DD format")
     card_last4: str = Field(description="Last 4 digits of the customer's card")
 
 
