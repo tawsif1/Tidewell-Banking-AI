@@ -1,0 +1,120 @@
+[
+  {
+    "conversation": "priya",
+    "customer_message": "Hi, I'm Priya Sharma, 1992-07-25, card 1167. Freeze my credit card ending 2290, I lost it.",
+    "output": {
+      "status": 200,
+      "session_id": "031eb17b-1ece-438f-891a-a6fdf5864a79",
+      "reply": "Good news—your card ending in 2290 is already frozen, so no new charges can be made on it.\n\nTo replace it, call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm. They'll send you a replacement card.\n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Priya Sharma",
+            "date_of_birth": "1992-07-25",
+            "card_last4": "1167"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "2290",
+            "reason": "lost"
+          },
+          "result": "Card ending in 2290 is already frozen. Cards can't be unfrozen or replaced in chat; the customer can call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "sofia",
+    "customer_message": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. Freeze my card ending 7702, I lost it.",
+    "output": {
+      "status": 200,
+      "session_id": "abbcbc3a-a22d-41f5-acc7-0993508e6644",
+      "reply": "I need to verify your identity first before I can freeze your card. Let me confirm your details:\n\n**Name:** Sofia Rossi  \n**Date of birth:** September 18, 1964  \n**Card ending in:** 7702\n\nIs that all correct?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "7702",
+            "reason": "lost"
+          },
+          "result": "Identity not verified. Cannot freeze card.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "maria",
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Freeze my card ending 9999, I lost it.",
+    "output": {
+      "status": 200,
+      "session_id": "caa0d5ff-3ea4-48fd-9e49-d3f736c6f249",
+      "reply": "I don't see a card ending in 9999 on your account. Your cards are:\n- **4821** (debit)\n- **7310** (credit)\n\nWhich one did you lose? I'll freeze it right away.",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9999",
+            "reason": "lost"
+          },
+          "result": "Card not found. This customer's cards end in: 4821 (debit), 7310 (credit).",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "sofia",
+    "customer_message": "Yes.",
+    "output": {
+      "status": 200,
+      "session_id": "abbcbc3a-a22d-41f5-acc7-0993508e6644",
+      "reply": "Good news! Your card ending in 7702 has already been cancelled, so it can't be used anyway. You're protected.\n\nTo order a replacement card, call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm.\n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "7702",
+            "reason": "lost"
+          },
+          "result": "Card ending in 7702 has been cancelled and cannot be frozen. A cancelled card can't be used, so nothing more is needed for it. To order a replacement card, the customer can call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

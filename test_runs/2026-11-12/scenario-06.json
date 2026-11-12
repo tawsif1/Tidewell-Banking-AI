@@ -1,0 +1,144 @@
+[
+  {
+    "conversation": "s6a",
+    "customer_message": "Hi, I'm James Okafor, 1975-11-03, card 9034. I want to dispute the Gas Station 24 charge from about two and a half months ago.",
+    "output": {
+      "status": 200,
+      "session_id": "63ce505d-756c-4169-96aa-2bd9fac1779e",
+      "reply": "I found the Gas Station 24 charge from August 29th for $52.30. Before I file the dispute, can you tell me why you're disputing it? For example:\n- Did you not make this purchase?\n- Did you make it but were charged the wrong amount?\n- Or is there another issue?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "Transactions from 2026-08-14 to 2026-11-12, newest first:\n2026-11-09 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted | disputed (DSP-1002)\n2026-10-28 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted\n2026-08-29 | #5007 | Checking (201) | Gas Station 24 | -$52.30 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s6a",
+    "customer_message": "The amount looks wrong.",
+    "output": {
+      "status": 200,
+      "session_id": "63ce505d-756c-4169-96aa-2bd9fac1779e",
+      "reply": "Got it—you were charged the wrong amount. Can you tell me what the correct amount should have been, or what you think happened with the charge?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s6a",
+    "customer_message": "I'm not sure of the exact amount, it just looks too high.",
+    "output": {
+      "status": 200,
+      "session_id": "63ce505d-756c-4169-96aa-2bd9fac1779e",
+      "reply": "I understand. I'll file the dispute for you with the reason that you were charged an incorrect amount. Let me confirm the details:\n\n**Transaction:** Gas Station 24, August 29, 2026  \n**Amount charged:** $52.30  \n**Reason:** Incorrect amount (charged too high)\n\nDoes that sound right?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s6a",
+    "customer_message": "Yes",
+    "output": {
+      "status": 200,
+      "session_id": "63ce505d-756c-4169-96aa-2bd9fac1779e",
+      "reply": "Unfortunately, that charge from August 29th is more than 60 days old, which is outside our dispute window. To dispute charges older than 60 days, you'll need to call Tidewell Bank support at **1-800-555-0199**. They're available Monday to Friday, 8am to 8pm, and can review your situation and help you from there.\n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5007,
+            "reason": "incorrect_amount",
+            "details": "Customer believes the amount charged was too high"
+          },
+          "result": "Transaction #5007 is more than 60 days old, outside the dispute window. Tell the customer to call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s6b",
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Dispute the Streamly charge.",
+    "output": {
+      "status": 200,
+      "session_id": "b70621ac-3c9c-4f43-bf8c-cef20440853c",
+      "reply": "I found the Streamly charge — it's a $15.99 subscription from November 7th (Transaction #5002). I see it's already been marked as disputed with reference DSP-1001.\n\nIt looks like this charge has already been disputed on your account. Is there something else you need help with regarding this dispute, or a different charge you'd like to dispute?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-11 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-10 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-07 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-06 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-10-31 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-10-23 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s6b",
+    "customer_message": "Dispute the Coffee Corner charge.",
+    "output": {
+      "status": 200,
+      "session_id": "b70621ac-3c9c-4f43-bf8c-cef20440853c",
+      "reply": "I found the Coffee Corner charge — it's $4.75 from November 11th (Transaction #5003), and it's still pending.\n\nBefore I file the dispute, can you tell me what the issue is? For example:\n- Did you not make this purchase?\n- Was it charged twice?\n- Something else?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s6b",
+    "customer_message": "The amount is wrong.",
+    "output": {
+      "status": 200,
+      "session_id": "b70621ac-3c9c-4f43-bf8c-cef20440853c",
+      "reply": "The Coffee Corner charge is still pending, so I can't dispute it yet. Once it posts to your account (usually within a few business days), you'll be able to dispute it. Check back then, or contact us at 1-800-555-0199 if you need help with the dispute after it posts.",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5003,
+            "reason": "incorrect_amount",
+            "details": "Charged the wrong amount"
+          },
+          "result": "Transaction #5003 is still pending and can't be disputed until it posts, usually within a few business days.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

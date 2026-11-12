@@ -1,0 +1,118 @@
+[
+  {
+    "conversation": "s7",
+    "customer_message": "Can you waive my overdraft fee?",
+    "output": {
+      "status": 200,
+      "session_id": "439f6498-e45f-4901-808a-cfa10c6ede83",
+      "reply": "I'd be happy to help with that! First, I need to verify your identity to access your account information.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "Liam Tremblay, 2001-01-30, card 5580",
+    "output": {
+      "status": 200,
+      "session_id": "439f6498-e45f-4901-808a-cfa10c6ede83",
+      "reply": "Good news! Your overdraft fee from November 8th qualifies for a courtesy reversal—it's within the 90-day window and is eligible. We can reverse one overdraft or NSF fee every 12 months. \n\nCan you confirm you'd like me to request a reversal of the $45.00 overdraft fee from November 8th?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Liam Tremblay",
+            "date_of_birth": "2001-01-30",
+            "card_last4": "5580"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-08 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted\n2026-11-08 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted",
+          "is_error": false
+        },
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "overdraft fee courtesy reversal policy eligibility"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Fees and courtesy reversals > Fees that aren't eligible for a courtesy reversal\nWire transfer fees and monthly account fees aren't eligible for courtesy reversals. Overdraft and NSF fees charged more than 90 days ago also aren't eligible.\n\nSource: Fees and courtesy reversals > Courtesy reversals\nAs a courtesy, Tidewell Bank can reverse one overdraft or NSF fee every 12 months (365 days). To be eligible, the fee must have been charged within the last 90 days. You can request a courtesy reversal in chat after verifying your identity.\n\nSource: Overdraft and NSF fees explained > Getting an overdraft or NSF fee refunded\nEligible overdraft and NSF fees can be refunded through a courtesy reversal, available once every 12 months for fees charged within the last 90 days. See \"Fees and courtesy reversals.\"\n\nSource: Fees and courtesy reversals > If you've already had a courtesy reversal\nOnly one courtesy reversal is available every 12 months. If you've had a courtesy reversal in the last 12 months, you become eligible again 12 months after the date of that reversal.\n\nSource: Disputing a transaction > Fees can't be disputed\nFees, such as overdraft or NSF fees, can't be disputed. Eligible overdraft and NSF fees can be refunded through a courtesy reversal instead. See \"Fees and courtesy reversals.\"",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "Yes, the most recent one.",
+    "output": {
+      "status": 200,
+      "session_id": "439f6498-e45f-4901-808a-cfa10c6ede83",
+      "reply": "Perfect! Your overdraft fee has been reversed. Here's what happened:\n\n- **$45.00 credited** to your Checking account\n- **New balance: $57.60**\n- **Reference #FR-2002**\n\nYou'll be eligible for another courtesy reversal on November 12, 2027. Is there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5010,
+            "reason": "Customer requesting courtesy reversal of overdraft fee"
+          },
+          "result": "Fee reversal FR-2002 complete: +$45.00 credited to Checking (401). New balance: $57.60. This was the customer's courtesy reversal for the next 12 months; they'll be eligible again on 2027-11-12. Any other fee they ask about before then won't qualify, but still call this tool for it.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "What's my balance now?",
+    "output": {
+      "status": 200,
+      "session_id": "439f6498-e45f-4901-808a-cfa10c6ede83",
+      "reply": "Your checking account balance is now **$57.60** (after the $45.00 fee reversal that just posted).\n\nIs there anything else you need?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "Can you also reverse the overdraft fee from about 40 days ago?",
+    "output": {
+      "status": 200,
+      "session_id": "439f6498-e45f-4901-808a-cfa10c6ede83",
+      "reply": "I found an overdraft fee from October 3rd (about 40 days ago). Unfortunately, I can't reverse that one—you've already used your one courtesy reversal for the 12-month period (the one we just processed on the November 8th fee). \n\nYou'll be eligible for another courtesy reversal on **November 12, 2027**. (Source: Fees and courtesy reversals)\n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "Transactions from 2026-08-14 to 2026-11-12, newest first:\n2026-11-12 | #5017 | Checking (401) | Overdraft Fee Reversal | +$45.00 | posted\n2026-11-08 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted | reversed (FR-2002)\n2026-11-08 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted\n2026-10-03 | #5011 | Checking (401) | Overdraft Fee | -$45.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "And the one from about 4 months ago?",
+    "output": {
+      "status": 200,
+      "session_id": "439f6498-e45f-4901-808a-cfa10c6ede83",
+      "reply": "Looking at your transaction history, I don't see an overdraft fee from 4 months ago. The oldest overdraft fee I can see is from October 3rd (about 40 days ago), which we just discussed.\n\nWould you like me to check further back, or is there something else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  }
+]

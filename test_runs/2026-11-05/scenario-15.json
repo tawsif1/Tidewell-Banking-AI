@@ -1,0 +1,50 @@
+[
+  {
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. What are my balances?",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "3b5b51e1-d9b0-4e5f-a339-415703467f00",
+      "reply": "Here are your balances:\n\n- **Checking (101):** $2,450.75\n- **Savings (102):** $10,200.00\n\nIs there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "Checking (101): $2,450.75\nSavings (102): $10,200.00",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "And my recent transactions?",
+    "session_arg": "3b5b51e1-d9b0-4e5f-a339-415703467f00",
+    "output": {
+      "status": 200,
+      "session_id": "3b5b51e1-d9b0-4e5f-a339-415703467f00",
+      "reply": "Here are your recent transactions (newest first):\n\n1. **Nov 4** | Coffee Corner | -$4.75 | Pending (ID: #5003)\n2. **Nov 3** | Grocery Mart | -$86.42 | Posted (ID: #5001)\n3. **Oct 31** | Streamly Subscription | -$15.99 | Posted (ID: #5002)\n4. **Oct 30** | Wire Transfer Fee | -$25.00 | Posted (ID: #5015)\n5. **Oct 24** | Payroll Deposit | +$2,100.00 | Posted (ID: #5004)\n6. **Oct 16** | Transfer from Checking to Savings | +$500.00 | Posted (ID: #5005)\n\nDo any of these look unfamiliar, or is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "2026-11-04 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-03 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-10-31 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted\n2026-10-30 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-10-24 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-10-16 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,38 @@
+[
+  {
+    "customer_message": "I'm locked out of online banking. Just get me a human.",
+    "output": {
+      "status": 200,
+      "session_id": "de850cbd-88a6-4dda-a815-e63463d98613",
+      "reply": "Your support ticket has been created. Please call Tidewell Bank support at **1-800-555-0199** and quote reference **ESC-3001**. The Account Access team has your full summary, so you won't need to repeat everything. They're available Monday to Friday, 8am to 8pm.",
+      "verified": false,
+      "escalation_id": "ESC-3001",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs a human specialist to regain access.",
+            "still_needed": "Investigate why the customer is locked out and help restore their online banking access.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Are you sure someone's coming? Get me a person.",
+    "output": {
+      "status": 200,
+      "session_id": "de850cbd-88a6-4dda-a815-e63463d98613",
+      "reply": "I understand your frustration. To be clear: no one will call you. This is not a live transfer.\n\nYou need to **call us** at **1-800-555-0199** and give them your reference number **ESC-3001**. The specialist team already has your information about the online banking lockout, so you won't need to explain it all again.\n\nWe're open Monday to Friday, 8am to 8pm. Is there anything else I can help with while you wait to call?",
+      "verified": false,
+      "escalation_id": "ESC-3001",
+      "tool_events": []
+    }
+  }
+]

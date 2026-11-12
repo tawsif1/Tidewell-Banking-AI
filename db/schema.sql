@@ -1,8 +1,11 @@
 -- Tidewell Bank schema. Running this file DELETES all bank data and recreates empty tables.
 
 -- Start clean. CASCADE also removes anything that depends on these tables.
-DROP TABLE IF EXISTS escalations, fee_reversals, disputes, cards, transactions, accounts, customers CASCADE;
+-- pgvector adds the vector column type. Safe to run every time.
+CREATE EXTENSION IF NOT EXISTS vector;
 
+-- Start clean. CASCADE also removes anything that depends on these tables.
+DROP TABLE IF EXISTS sessions, help_center_chunks, escalations, fee_reversals, disputes, cards, transactions, accounts, customers CASCADE;
 CREATE TABLE customers (
     id            INTEGER PRIMARY KEY,
     full_name     TEXT    NOT NULL,
@@ -81,3 +84,26 @@ CREATE TABLE escalations (
     created_at            TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 ALTER SEQUENCE escalation_number_seq OWNED BY escalations.id;
+
+-- Help center: one row per article section, with its Voyage embedding (voyage-3.5 = 1024 numbers).
+CREATE TABLE help_center_chunks (
+    id        TEXT PRIMARY KEY,            -- e.g. 'disputing-a-transaction#when-you-can-dispute-a-charge'
+    article   TEXT NOT NULL,
+    section   TEXT NOT NULL,
+    source    TEXT NOT NULL,               -- the markdown file it came from
+    text      TEXT NOT NULL,               -- "Article > Section" + body: what Claude reads
+    embedding vector(1024) NOT NULL
+);
+
+-- One row per conversation. The UI sends the id back with every message.
+CREATE TABLE sessions (
+    id              TEXT        PRIMARY KEY,                -- the UUID the Session model creates
+    verified        BOOLEAN     NOT NULL DEFAULT false,
+    customer_id     INTEGER     REFERENCES customers(id),   -- empty until verified
+    failed_attempts INTEGER     NOT NULL DEFAULT 0,
+    actions_taken   TEXT[]      NOT NULL DEFAULT '{}',
+    escalation_id   TEXT,
+    messages        JSONB       NOT NULL DEFAULT '[]',      -- the full history sent to Claude
+    created_at      TIMESTAMPTZ NOT NULL DEFAULT now(),
+    updated_at      TIMESTAMPTZ NOT NULL DEFAULT now()
+);

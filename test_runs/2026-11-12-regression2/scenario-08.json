@@ -1,0 +1,81 @@
+[
+  {
+    "conversation": "s8a",
+    "customer_message": "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?",
+    "output": {
+      "status": 200,
+      "session_id": "c8e03f53-e520-4b54-8f10-78844f3657d0",
+      "reply": "Unfortunately, this NSF fee doesn't qualify. You received a courtesy reversal on June 15, 2026, so you'll be eligible for your next one on June 15, 2027. \n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 30
+          },
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-09 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted | disputed (DSP-1002)\n2026-10-28 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5013,
+            "reason": "Customer requesting NSF fee reversal",
+            "confirmed": false
+          },
+          "result": "This customer already received a courtesy reversal on 2026-06-15. They'll be eligible again on 2027-06-15.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s8b",
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Can you reverse the wire transfer fee?",
+    "output": {
+      "status": 200,
+      "session_id": "3d1c4074-b1cd-4397-b9b9-99fd3d9fc7a3",
+      "reply": "I checked, but the wire transfer fee doesn't qualify for our courtesy reversal program. Those reversals are only available for NSF (non-sufficient funds) and overdraft fees.\n\nIf you think you were charged in error, you can call our support team at 1-800-555-0199 (Monday–Friday, 8am–8pm) to discuss it further.",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-11 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-10 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-07 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-06 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-10-31 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-10-23 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5015,
+            "reason": "Customer requesting reversal of wire transfer fee"
+          },
+          "result": "Transaction #5015 isn't eligible for a courtesy reversal. Only nsf and overdraft fees qualify. If the customer believes it was charged in error, they can call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

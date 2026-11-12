@@ -1,0 +1,132 @@
+[
+  {
+    "conversation": "s7",
+    "customer_message": "Can you waive my overdraft fee?",
+    "output": {
+      "status": 200,
+      "session_id": "96d9028e-745e-4e0c-bb77-cedd78a356c2",
+      "reply": "I'd be happy to help! To look into waiving your overdraft fee, I'll need to verify your identity first.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "Liam Tremblay, 2001-01-30, card 5580",
+    "output": {
+      "status": 200,
+      "session_id": "96d9028e-745e-4e0c-bb77-cedd78a356c2",
+      "reply": "I found an overdraft fee of $45.00 from November 1st (transaction #5010). Is this the fee you'd like me to request a reversal for?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Liam Tremblay",
+            "date_of_birth": "2001-01-30",
+            "card_last4": "5580"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-06 to 2026-11-05, newest first:\n2026-11-01 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted\n2026-11-01 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "Yes, the most recent one.",
+    "output": {
+      "status": 200,
+      "session_id": "96d9028e-745e-4e0c-bb77-cedd78a356c2",
+      "reply": "Good news! Your $45.00 overdraft fee has been reversed and credited back to your Checking account. Your new balance is $57.60.\n\nYour reversal reference number is **FR-2002**. Is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5010,
+            "reason": "Customer requesting overdraft fee reversal"
+          },
+          "result": "Fee reversal FR-2002 complete: +$45.00 credited to Checking (401). New balance: $57.60.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "What's my balance now?",
+    "output": {
+      "status": 200,
+      "session_id": "96d9028e-745e-4e0c-bb77-cedd78a356c2",
+      "reply": "Your current Checking account balance is **$57.60** (after the fee reversal we just completed).\n\nIs there anything else you need?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "Can you also reverse the overdraft fee from about 40 days ago?",
+    "output": {
+      "status": 200,
+      "session_id": "96d9028e-745e-4e0c-bb77-cedd78a356c2",
+      "reply": "I found an overdraft fee from September 26th (about 40 days ago) for $45.00 (transaction #5011). Would you like me to request a reversal for that one?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "Transactions from 2026-08-07 to 2026-11-05, newest first:\n2026-11-05 | #5017 | Checking (401) | Overdraft Fee Reversal | +$45.00 | posted\n2026-11-01 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted\n2026-11-01 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted\n2026-09-26 | #5011 | Checking (401) | Overdraft Fee | -$45.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "And the one from about 4 months ago?",
+    "output": {
+      "status": 200,
+      "session_id": "96d9028e-745e-4e0c-bb77-cedd78a356c2",
+      "reply": "Looking at my transaction history, the furthest back I can see is August 7th, which is about 3 months ago. I don't have transactions older than that available.\n\nThe overdraft fee from September 26th is the oldest one showing. Would you like me to go ahead and request a reversal for that one (transaction #5011), or do you want to check on fees from earlier than August?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s7",
+    "customer_message": "Yes, the one from about 40 days ago.",
+    "output": {
+      "status": 200,
+      "session_id": "96d9028e-745e-4e0c-bb77-cedd78a356c2",
+      "reply": "Unfortunately, the system shows you've already received a courtesy reversal today (the $45.00 fee we just reversed). You'll be eligible for another courtesy reversal on **November 5th, 2027**.\n\nI wasn't able to reverse the September fee, but if you'd like to discuss this further or explore other options, I can connect you with a specialist. Would that help?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "reason": "Customer requesting overdraft fee reversal from September 26th",
+            "transaction_id": 5011
+          },
+          "result": "This customer already received a courtesy reversal on 2026-11-05. They'll be eligible again on 2027-11-05.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

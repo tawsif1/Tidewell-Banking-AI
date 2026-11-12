@@ -1,0 +1,79 @@
+-- SELECT current_date;
+ current_date 
+--------------
+ 2026-11-12
+(1 row)
+
+-- SELECT id, full_name, date_of_birth, card_last4 FROM customers ORDER BY id;
+ id |   full_name   | date_of_birth | card_last4 
+----+---------------+---------------+------------
+  1 | Maria Chen    | 1988-04-12    | 4821
+  2 | James Okafor  | 1975-11-03    | 9034
+  3 | Priya Sharma  | 1992-07-25    | 1167
+  4 | Liam Tremblay | 2001-01-30    | 5580
+  5 | Sofia Rossi   | 1964-09-18    | 7702
+(5 rows)
+
+-- SELECT id, customer_id, type, balance FROM accounts ORDER BY id;
+ id  | customer_id |   type   | balance  
+-----+-------------+----------+----------
+ 101 |           1 | checking |  2450.75
+ 102 |           1 | savings  | 10200.00
+ 201 |           2 | checking |   830.10
+ 301 |           3 | checking |  5120.40
+ 302 |           3 | savings  | 25000.00
+ 303 |           3 | tfsa     | 14750.25
+ 401 |           4 | checking |    12.60
+(7 rows)
+
+-- SELECT id, customer_id, last4, type, status FROM cards ORDER BY id;
+  id  | customer_id | last4 |  type  |  status   
+------+-------------+-------+--------+-----------
+ 9001 |           1 | 4821  | debit  | active
+ 9002 |           1 | 7310  | credit | active
+ 9003 |           2 | 9034  | debit  | active
+ 9004 |           3 | 1167  | debit  | active
+ 9005 |           3 | 2290  | credit | frozen
+ 9006 |           4 | 5580  | debit  | active
+ 9007 |           5 | 7702  | credit | cancelled
+(7 rows)
+
+-- SELECT t.id, a.customer_id AS cust, t.account_id AS acct, t.date, current_date - t.date AS days_ago, t.description, t.amount, t.type, t.fee_type, t.status FROM transactions t JOIN accounts a ON a.id = t.account_id ORDER BY a.customer_id, t.date DESC, t.id DESC;
+  id  | cust | acct |    date    | days_ago |      description       |  amount  |   type   | fee_type  | status  
+------+------+------+------------+----------+------------------------+----------+----------+-----------+---------
+ 5003 |    1 |  101 | 2026-11-11 |        1 | Coffee Corner          |    -4.75 | purchase |           | pending
+ 5001 |    1 |  101 | 2026-11-10 |        2 | Grocery Mart           |   -86.42 | purchase |           | posted
+ 5002 |    1 |  101 | 2026-11-07 |        5 | Streamly Subscription  |   -15.99 | purchase |           | posted
+ 5015 |    1 |  101 | 2026-11-06 |        6 | Wire Transfer Fee      |   -25.00 | fee      | wire      | posted
+ 5004 |    1 |  101 | 2026-10-31 |       12 | Payroll Deposit        |  2100.00 | deposit  |           | posted
+ 5005 |    1 |  102 | 2026-10-23 |       20 | Transfer from Checking |   500.00 | transfer |           | posted
+ 5006 |    2 |  201 | 2026-11-09 |        3 | ElectroWorld Online    |  -649.99 | purchase |           | posted
+ 5013 |    2 |  201 | 2026-10-28 |       15 | NSF Fee                |   -48.00 | fee      | nsf       | posted
+ 5007 |    2 |  201 | 2026-08-29 |       75 | Gas Station 24         |   -52.30 | purchase |           | posted
+ 5014 |    2 |  201 | 2026-06-13 |      152 | Overdraft Fee          |   -45.00 | fee      | overdraft | posted
+ 5008 |    3 |  301 | 2026-11-05 |        7 | Airline Tickets        | -1210.00 | purchase |           | posted
+ 5012 |    3 |  301 | 2026-11-02 |       10 | Monthly Account Fee    |   -16.95 | fee      | monthly   | posted
+ 5010 |    4 |  401 | 2026-11-08 |        4 | Overdraft Fee          |   -45.00 | fee      | nsf       | posted
+ 5009 |    4 |  401 | 2026-11-08 |        4 | Food Delivery          |   -38.50 | purchase |           | posted
+ 5011 |    4 |  401 | 2026-10-03 |       40 | Overdraft Fee          |   -45.00 | fee      | nsf       | posted
+ 5016 |    4 |  401 | 2026-07-15 |      120 | Overdraft Fee          |   -45.00 | fee      | overdraft | posted
+(16 rows)
+
+-- SELECT id, transaction_id, customer_id, status, filed_on FROM disputes ORDER BY id;
+    id    | transaction_id | customer_id | status |  filed_on  
+----------+----------------+-------------+--------+------------
+ DSP-1001 |           5002 |           1 | open   | 2026-11-09
+(1 row)
+
+-- SELECT id, transaction_id, customer_id, amount, reversed_on, reversed_on + 365 AS eligible_again FROM fee_reversals ORDER BY id;
+   id    | transaction_id | customer_id | amount | reversed_on | eligible_again 
+---------+----------------+-------------+--------+-------------+----------------
+ FR-2001 |           5014 |           2 |  45.00 | 2026-06-15  | 2027-06-15
+(1 row)
+
+-- SELECT count(*) FROM escalations;
+ count 
+-------
+     0
+(1 row)
+

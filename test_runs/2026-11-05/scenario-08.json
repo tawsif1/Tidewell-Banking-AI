@@ -1,0 +1,98 @@
+[
+  {
+    "customer_message": "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "396f5a2d-7ae6-49fb-99df-e9f6a3eb93c5",
+      "reply": "Perfect! I found your NSF fee. Here's our policy:\n\nYou can get **one courtesy reversal every 365 days** for NSF or overdraft fees charged within the last 90 days. (Source: Fees and courtesy reversals)\n\nI can see you have an **NSF Fee of $48.00** from October 21, 2026 (Transaction #5013), which is well within the 90-day window and eligible for reversal.\n\nWould you like me to go ahead and reverse this fee? The $48.00 will be credited back to your checking account immediately.",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "NSF fee courtesy reversal policy"
+          },
+          "result": "Answer only from these help center sections, and cite the article title.\n\nSource: Fees and courtesy reversals > Courtesy reversals\nAs a courtesy, Tidewell Bank can reverse one overdraft or NSF fee every 12 months (365 days). To be eligible, the fee must have been charged within the last 90 days. You can request a courtesy reversal in chat after verifying your identity.\n\nSource: Fees and courtesy reversals > Fees that aren't eligible for a courtesy reversal\nWire transfer fees and monthly account fees aren't eligible for courtesy reversals. Overdraft and NSF fees charged more than 90 days ago also aren't eligible.\n\nSource: Overdraft and NSF fees explained > Getting an overdraft or NSF fee refunded\nEligible overdraft and NSF fees can be refunded through a courtesy reversal, available once every 12 months for fees charged within the last 90 days. See \"Fees and courtesy reversals.\"\n\nSource: Disputing a transaction > Fees can't be disputed\nFees, such as overdraft or NSF fees, can't be disputed. Eligible overdraft and NSF fees can be refunded through a courtesy reversal instead. See \"Fees and courtesy reversals.\"\n\nSource: Fees and courtesy reversals > What happens when a fee is reversed\nA reversed fee is credited back immediately to the account it was charged to. You receive a reference number starting with FR, and the refund appears in your transactions as a separate credit, such as \"Overdraft Fee Reversal.\" The original fee also stays in your transaction history.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "2026-11-02 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-10-21 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted\n2026-08-22 | #5007 | Checking (201) | Gas Station 24 | -$52.30 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Yes, that one.",
+    "session_arg": "396f5a2d-7ae6-49fb-99df-e9f6a3eb93c5",
+    "output": {
+      "status": 200,
+      "session_id": "396f5a2d-7ae6-49fb-99df-e9f6a3eb93c5",
+      "reply": "I'm sorry, but I'm unable to reverse this fee. You've already used your one courtesy reversal in the last 12 months (on June 8, 2026), so you won't be eligible for another one until June 8, 2027. (Source: Fees and courtesy reversals)\n\nIs there anything else I can help you with today?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5013,
+            "reason": "Customer requested NSF fee reversal"
+          },
+          "result": "This customer already received a courtesy reversal on 2026-06-08. They'll be eligible again on 2027-06-08.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Can you reverse the wire transfer fee?",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "baa6e80a-0930-46eb-98ff-23b48dfb4b15",
+      "reply": "Great! Now let me check our fee reversal policy. Before I look into reversing that wire transfer fee, I need to let you know about our policy:\n\nWe can provide one courtesy reversal every 365 days, but it's only for **NSF (insufficient funds) or overdraft fees** charged within the last 90 days. Wire transfer fees and other charges like monthly account fees aren't eligible for reversal under this policy.\n\nUnfortunately, a wire transfer fee falls outside what we can reverse. Is there a different fee I can help you with, or would you like to speak with a specialist about your wire transfer fee?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Yes.",
+    "session_arg": "baa6e80a-0930-46eb-98ff-23b48dfb4b15",
+    "output": {
+      "status": 200,
+      "session_id": "baa6e80a-0930-46eb-98ff-23b48dfb4b15",
+      "reply": "I want to make sure I understand—are you saying:\n\n1. You'd like help with a different fee (like an NSF or overdraft fee), or\n2. You'd like to speak with a specialist about the wire transfer fee?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  }
+]

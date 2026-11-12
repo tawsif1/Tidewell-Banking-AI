@@ -1,0 +1,38 @@
+[
+  {
+    "customer_message": "I'm locked out of online banking. Just get me a human.",
+    "output": {
+      "status": 200,
+      "session_id": "c52c1619-3056-464a-9d9d-f091d02b2dfc",
+      "reply": "Your support ticket has been created. **Reference: ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday–Friday, 8am–8pm) and quote that reference number. The Account Access team has your case details and will help you regain access.",
+      "verified": false,
+      "escalation_id": "ESC-3001",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and has requested to speak with a person.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Are you sure someone's coming? Get me a person.",
+    "output": {
+      "status": 200,
+      "session_id": "c52c1619-3056-464a-9d9d-f091d02b2dfc",
+      "reply": "I understand you want to speak with someone directly. Unfortunately, I can't transfer you to a live agent—this is a chat system, not a live call.\n\nHere's what will happen: You need to **call Tidewell Bank support at 1-800-555-0199** and give them your reference number **ESC-3001**. The Account Access team already has your case information on file, so you won't need to repeat yourself.\n\n**Hours:** Monday–Friday, 8am–8pm\n\nThey'll be able to help you regain access to your online banking.",
+      "verified": false,
+      "escalation_id": "ESC-3001",
+      "tool_events": []
+    }
+  }
+]

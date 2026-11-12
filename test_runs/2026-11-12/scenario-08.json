@@ -1,0 +1,128 @@
+[
+  {
+    "conversation": "s8a",
+    "customer_message": "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?",
+    "output": {
+      "status": 200,
+      "session_id": "a34f773d-0cbc-45fd-babd-fa83a218440a",
+      "reply": "I found an NSF fee of $48.00 from October 28th (Transaction #5013). Is that the one you'd like me to help reverse?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-09 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted | disputed (DSP-1002)\n2026-10-28 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s8a",
+    "customer_message": "Yes, that one.",
+    "output": {
+      "status": 200,
+      "session_id": "a34f773d-0cbc-45fd-babd-fa83a218440a",
+      "reply": "Before I request the reversal, can you tell me why you're asking for it to be reversed? For example, was it an unexpected overdraft, or is there another reason?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s8a",
+    "customer_message": "Money was tight that week.",
+    "output": {
+      "status": 200,
+      "session_id": "a34f773d-0cbc-45fd-babd-fa83a218440a",
+      "reply": "Unfortunately, you're not eligible for a reversal right now. You received a courtesy reversal on June 15, 2026, and you'll be eligible for another one on June 15, 2027. \n\nIs there anything else I can help you with today?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5013,
+            "reason": "Money was tight that week"
+          },
+          "result": "This customer already received a courtesy reversal on 2026-06-15. They'll be eligible again on 2027-06-15.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s8b",
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Can you reverse the wire transfer fee?",
+    "output": {
+      "status": 200,
+      "session_id": "60609d67-a77c-4d11-b9d4-d7f58763909f",
+      "reply": "I found the wire transfer fee from November 6th for $25.00. Before I submit a reversal request, can you tell me why you'd like it reversed? For example, was it charged incorrectly, or is there another reason?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-11 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-10 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-07 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-06 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-10-31 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-10-23 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s8b",
+    "customer_message": "Yes.",
+    "output": {
+      "status": 200,
+      "session_id": "60609d67-a77c-4d11-b9d4-d7f58763909f",
+      "reply": "I need a bit more detail to process the reversal. Can you tell me what the issue is with the fee? For example:\n\n- Was it charged incorrectly or the wrong amount?\n- Did you not authorize the wire transfer?\n- Something else?\n\nThis helps me submit your request with the right reason.",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s8b",
+    "customer_message": "I just think the fee is too high.",
+    "output": {
+      "status": 200,
+      "session_id": "60609d67-a77c-4d11-b9d4-d7f58763909f",
+      "reply": "Unfortunately, the wire transfer fee doesn't qualify for a courtesy reversal under our policy. Those reversals are limited to NSF and overdraft fees only.\n\nIf you believe the fee was charged in error or have other concerns, you can call Tidewell Bank support at **1-800-555-0199** (Monday–Friday, 8am–8pm) to discuss it further with a specialist. Is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5015,
+            "reason": "Customer believes the wire transfer fee is too high"
+          },
+          "result": "Transaction #5015 isn't eligible for a courtesy reversal. Only nsf and overdraft fees qualify. If the customer believes it was charged in error, they can call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

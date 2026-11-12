@@ -1,0 +1,49 @@
+[
+  {
+    "customer_message": "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?",
+    "output": {
+      "status": 200,
+      "session_id": "3aa07b30-7628-461d-9949-b3141af3c533",
+      "reply": "Unfortunately, you're not eligible for another courtesy reversal right now. You received a courtesy reversal on June 15, 2026, and won't be eligible for another one until June 15, 2027.\n\nIs there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 30
+          },
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-09 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-10-28 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "NSF fee courtesy reversal policy"
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5013,
+            "reason": "Customer requesting reversal of NSF fee"
+          },
+          "result": "This customer already received a courtesy reversal on 2026-06-15. They'll be eligible again on 2027-06-15.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

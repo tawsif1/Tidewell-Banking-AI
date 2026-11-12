@@ -1,0 +1,100 @@
+[
+  {
+    "conversation": "c",
+    "customer_message": "There's a charge on my account I don't recognize.",
+    "output": {
+      "status": 200,
+      "session_id": "ad0d9452-d50d-48bc-8f13-347a957338f6",
+      "reply": "I'd be happy to help you with that. To look into the charge, I'll need to verify your identity first.\n\nCan you please provide:\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format, for example 1990-03-15)\n3. The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "James Okafor, 1975-11-03, card ending 9034",
+    "output": {
+      "status": 200,
+      "session_id": "ad0d9452-d50d-48bc-8f13-347a957338f6",
+      "reply": "I can see two recent transactions on your checking account:\n\n1. **ElectroWorld Online** on Nov 9 for **$649.99** (Transaction #5006)\n2. **NSF Fee** on Oct 28 for **$48.00** (Transaction #5013)\n\nWhich one don't you recognize, or is there a different charge you're concerned about?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-09 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-10-28 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "The ElectroWorld Online one for $649.99. I didn't make it.",
+    "output": {
+      "status": 200,
+      "session_id": "ad0d9452-d50d-48bc-8f13-347a957338f6",
+      "reply": "I can help you dispute that charge. Before I file the dispute, let me confirm the details:\n\n- **Transaction:** ElectroWorld Online, $649.99 on November 9\n- **Transaction ID:** #5006\n- **Reason:** You didn't make this purchase\n\nIs that correct?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "Yes, please file the dispute.",
+    "output": {
+      "status": 200,
+      "session_id": "ad0d9452-d50d-48bc-8f13-347a957338f6",
+      "reply": "Done! I've filed a dispute for the ElectroWorld Online charge. Here's what to expect:\n\n- **Dispute ID:** DSP-1002\n- **Status:** Open\n- **Next steps:** A specialist will review it and contact you within 10 business days\n\nSince this was an unauthorized charge, would you like me to freeze the card ending in 9034 to prevent any future unauthorized purchases?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5006,
+            "reason": "unauthorized",
+            "details": "Did not make this purchase"
+          },
+          "result": "Dispute DSP-1002 filed for transaction #5006 (ElectroWorld Online, -$649.99). Status: open. A specialist will review it and contact the customer within 10 business days. If the card used for this charge isn't frozen yet, offer to freeze it.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "Yes, freeze my card ending 9034.",
+    "output": {
+      "status": 200,
+      "session_id": "ad0d9452-d50d-48bc-8f13-347a957338f6",
+      "reply": "Done! Your card ending in 9034 is now frozen. New purchases will be declined, but your accounts and money are safe. \n\nTo get a replacement card or if you need anything else, you can call us at **1-800-555-0199** (Monday–Friday, 8am–8pm).\n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9034",
+            "reason": "suspicious_activity"
+          },
+          "result": "Card ending in 9034 is now frozen (reason: suspicious activity). New purchases on this card will be declined. Freezing doesn't cancel or replace the card, and the customer's accounts and money aren't affected.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

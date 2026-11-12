@@ -1,0 +1,110 @@
+[
+  {
+    "conversation": "q1",
+    "customer_message": "How long do I have to dispute a charge?",
+    "output": {
+      "status": 200,
+      "session_id": "39a75fb4-df81-410a-a8b7-00731e11dbbe",
+      "reply": "You have **60 days from the transaction date** to dispute a charge. \n\nCharges older than 60 days can't be disputed through chat, but you can call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to ask about older charges.\n\nIs there a specific charge you'd like to dispute? (Source: Disputing a transaction)",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "deadline to dispute a charge"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Disputing a transaction > When you can dispute a charge\nYou can dispute a posted charge on your Tidewell Bank account if you didn't make it, didn't receive what you paid for, were charged twice, or were charged the wrong amount. Disputes must be filed within 60 days of the transaction date.\n\nSource: Disputing a transaction > Charges older than 60 days\nCharges older than 60 days can't be disputed through chat. To ask about an older charge, call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.\n\nSource: Pending and posted transactions > Disputing a pending transaction\nPending transactions can't be disputed until they post. If a charge still looks wrong after it posts, you can dispute it within 60 days of the transaction date.\n\nSource: Disputing a transaction > What happens after you file a dispute\nWhen you file a dispute, you receive a case number starting with DSP. A specialist reviews every dispute and contacts you within 10 business days. Each charge can only be disputed once; if a dispute already exists for a charge, we'll share its case number and status.\n\nSource: Disputing a transaction > Pending charges\nPending charges can't be disputed until they post, which usually takes a few business days. Many charges that look wrong while pending, such as hotel or gas station holds, are corrected automatically when they post.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "q2",
+    "customer_message": "What is an NSF fee?",
+    "output": {
+      "status": 200,
+      "session_id": "2fb83754-4f8f-4829-86e9-0ccc585ae3f3",
+      "reply": "An NSF (non-sufficient funds) fee is $48.00, charged when a payment is declined or returned because your account doesn't have enough money to cover it.\n\nIf you've been charged an NSF fee and think it should be reversed, you may be eligible for a one-time courtesy reversal every 12 months, as long as the fee was charged within the last 90 days. (Source: Overdraft and NSF fees explained)",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "NSF fee"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Overdraft and NSF fees explained > What an NSF fee is\nAn NSF (non-sufficient funds) fee of $48.00 is charged when a payment is declined or returned because your account doesn't have enough money to cover it.\n\nSource: Fees and courtesy reversals > Fee schedule\nTidewell Bank charges the following fees: an overdraft fee of $45.00, an NSF (non-sufficient funds) fee of $48.00, a wire transfer fee of $25.00, and a monthly account fee of $16.95 on checking accounts.\n\nSource: Disputing a transaction > Fees can't be disputed\nFees, such as overdraft or NSF fees, can't be disputed. Eligible overdraft and NSF fees can be refunded through a courtesy reversal instead. See \"Fees and courtesy reversals.\"\n\nSource: Overdraft and NSF fees explained > Getting an overdraft or NSF fee refunded\nEligible overdraft and NSF fees can be refunded through a courtesy reversal, available once every 12 months for fees charged within the last 90 days. See \"Fees and courtesy reversals.\"\n\nSource: Fees and courtesy reversals > Courtesy reversals\nAs a courtesy, Tidewell Bank can reverse one overdraft or NSF fee every 12 months (365 days). To be eligible, the fee must have been charged within the last 90 days. You can request a courtesy reversal in chat after verifying your identity.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "q3",
+    "customer_message": "Can I unfreeze my card here?",
+    "output": {
+      "status": 200,
+      "session_id": "ad0dc64f-4275-4a27-a3a5-ab086a312d7a",
+      "reply": "Unfortunately, I can't unfreeze your card through chat. To unfreeze it, you'll need to **call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm**. (Source: Lost or stolen cards)\n\nIs there anything else I can help you with?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "unfreeze card"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Lost or stolen cards > Unfreezing or replacing a card\nCards can't be unfrozen or replaced through chat. To unfreeze a card or order a replacement card, call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.\n\nSource: Lost or stolen cards > What freezing a card does\nA frozen card can't be used for new purchases. Your accounts stay open, and the money in them is not affected. Freezing a card does not cancel or replace it.\n\nSource: Lost or stolen cards > Freezing a lost or stolen card\nIf your Tidewell Bank card is lost, stolen, or has been used without your permission, you can freeze it in chat after verifying your identity. Freezing a card takes effect immediately, and new purchases on the card are declined.\n\nSource: Lost or stolen cards > Cancelled cards\nA cancelled card can no longer be used, so it can't be frozen. If a cancelled card is lost or stolen, no further action is needed for that card.\n\nSource: Lost or stolen cards > If someone used your card without permission\nIf someone used your card without permission, freeze the card first to stop any new charges. Then review your recent transactions and dispute any charges you didn't make. For more details, see \"Disputing a transaction\" and \"Fraud and scams.\"",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "q4",
+    "customer_message": "Do your savings accounts come with a debit card?",
+    "output": {
+      "status": 200,
+      "session_id": "e058927c-47d0-4412-accb-d0ef640562bb",
+      "reply": "No, Tidewell Bank savings accounts don't come with a debit card. Savings accounts are designed for setting money aside and earning interest.\n\nIf you need a debit card for everyday spending, a checking account comes with one. (Source: Account types > Savings accounts)",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "savings account debit card"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Account types > Savings accounts\nA Tidewell Bank savings account is for setting money aside and earning interest. Savings accounts don't come with a debit card.\n\nSource: Account types > Checking accounts\nA Tidewell Bank checking account is for everyday spending, bill payments, and deposits. Checking accounts come with a debit card and have a monthly account fee of $16.95.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "q5",
+    "customer_message": "Do you offer mortgages?",
+    "output": {
+      "status": 200,
+      "session_id": "d3261417-feba-49fb-be7d-1f5de2d91dbf",
+      "reply": "Tidewell Bank's primary services are checking and savings accounts, debit cards, and related banking products. I don't have information about mortgage offerings.\n\nFor questions about mortgages or other services not covered here, I'd recommend calling Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm). They can tell you what products are available.\n\nIs there anything else I can help you with regarding your Tidewell Bank account?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "q6",
+    "customer_message": "What's the weather tomorrow?",
+    "output": {
+      "status": 200,
+      "session_id": "36cb7f55-fdb6-4055-93d6-2ca6be0611b1",
+      "reply": "I appreciate the question, but I'm here to help with Tidewell Bank accounts and services. I can't help with weather forecasts.\n\nIs there anything I can help you with regarding your bank account, cards, or transactions?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  }
+]

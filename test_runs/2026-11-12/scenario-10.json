@@ -1,0 +1,69 @@
+[
+  {
+    "conversation": "s10",
+    "customer_message": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. What accounts do I have?",
+    "output": {
+      "status": 200,
+      "session_id": "09742d00-29e3-48e4-84a6-a16e3d7dfbaa",
+      "reply": "That's unusual—no accounts are showing up under your profile. This might be a data issue. I'd recommend calling our support team at **1-800-555-0199** (Monday–Friday, 8am–8pm) so they can look into this for you.\n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "No accounts found for this customer.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s10",
+    "customer_message": "I'd like to talk to a person.",
+    "output": {
+      "status": 200,
+      "session_id": "09742d00-29e3-48e4-84a6-a16e3d7dfbaa",
+      "reply": "Perfect! I've created a support ticket for you: **ESC-3002**\n\nA specialist from our Account Access team will call you at the number we have on file within 1 business day. They'll investigate why your accounts aren't showing up and help get this sorted.\n\nIs there anything else I can do in the meantime?",
+      "verified": true,
+      "escalation_id": "ESC-3002",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "normal",
+            "summary": "Verified customer Sofia Rossi has no accounts showing in the system. She needs a specialist to investigate why her accounts aren't appearing and help restore access.",
+            "still_needed": "Investigate account visibility issue and confirm what accounts Sofia should have access to.",
+            "customer_sentiment": "calm",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3002 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 1 business day. Give the customer the reference ESC-3002.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s10",
+    "customer_message": "Can you get me a person?",
+    "output": {
+      "status": 200,
+      "session_id": "09742d00-29e3-48e4-84a6-a16e3d7dfbaa",
+      "reply": "You're already set up with a specialist! A person from our Account Access team will call you within 1 business day at the number on file. Your reference number is **ESC-3002**.\n\nIf you need to reach someone sooner, you can also call our support team directly at **1-800-555-0199** (Monday–Friday, 8am–8pm) and mention your reference number.",
+      "verified": true,
+      "escalation_id": "ESC-3002",
+      "tool_events": []
+    }
+  }
+]

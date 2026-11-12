@@ -1,0 +1,112 @@
+[
+  {
+    "customer_message": "There's a charge on my account I don't recognize.",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+      "reply": "I'd be happy to help you look into that charge. To show you your recent transactions, I'll need to verify your identity first.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format, like 1990-03-15)\n3. The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "James Okafor, 1975-11-03, card ending 9034",
+    "session_arg": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+    "output": {
+      "status": 200,
+      "session_id": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+      "reply": "I see two recent charges on your checking account:\n\n1. **ElectroWorld Online** - $649.99 on Nov 2 (Transaction #5006)\n2. **NSF Fee** - $48.00 on Oct 21 (Transaction #5013)\n\nWhich one don't you recognize, or is it something else?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "2026-11-02 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-10-21 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "The ElectroWorld Online one for $649.99. I didn't make it.",
+    "session_arg": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+    "output": {
+      "status": 200,
+      "session_id": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+      "reply": "Got it. The charge from ElectroWorld Online for $649.99 on Nov 2 (Transaction #5006) that you didn't make.\n\nBefore I file a dispute, I want to confirm: did someone else use your card without permission, or is there another reason you're disputing this charge?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "Yes, please file the dispute.",
+    "session_arg": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+    "output": {
+      "status": 200,
+      "session_id": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+      "reply": "Perfect. I'll file a dispute for that ElectroWorld Online charge of $649.99. \n\nTo complete the dispute, I need to know the reason. Did someone use your card without your permission, or is there a different issue with this charge?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "Someone used my card without my permission. I didn't make this purchase.",
+    "session_arg": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+    "output": {
+      "status": 200,
+      "session_id": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+      "reply": "Done! I've filed a dispute (DSP-1002) for that unauthorized charge of $649.99. A specialist will review it and contact you within 10 business days.\n\nSince someone used your card without permission, would you like me to freeze your card ending in 9034 to prevent any further unauthorized charges?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5006,
+            "reason": "unauthorized",
+            "details": "I did not make this purchase. Someone used my card without my permission."
+          },
+          "result": "Dispute DSP-1002 filed for transaction #5006 (ElectroWorld Online, -$649.99). Status: open. A specialist will review it and contact the customer within 10 business days. If the card used for this charge isn't frozen yet, offer to freeze it.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Yes, freeze my card.",
+    "session_arg": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+    "output": {
+      "status": 200,
+      "session_id": "d9a86528-eae9-4268-ba81-bb3399dd9eff",
+      "reply": "Your card ending in 9034 is now frozen. New purchases will be declined to prevent further unauthorized charges.\n\nHere's what happens next:\n- **Dispute DSP-1002** will be reviewed within 10 business days, and a specialist will contact you\n- You'll need a new card for future purchases once this one is replaced\n\nIs there anything else I can help with regarding this issue?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9034",
+            "reason": "suspicious_activity"
+          },
+          "result": "Card ending in 9034 is now frozen (reason: suspicious activity). New purchases on this card will be declined.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

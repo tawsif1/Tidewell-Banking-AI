@@ -1,0 +1,50 @@
+[
+  {
+    "conversation": "s15",
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. What are my balances?",
+    "output": {
+      "status": 200,
+      "session_id": "529a5b99-8853-41af-a755-51917398fd74",
+      "reply": "Here are your balances, Maria:\n\n- **Checking (101):** $2,450.75\n- **Savings (102):** $10,200.00\n\nIs there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "Checking (101): $2,450.75\nSavings (102): $10,200.00",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s15",
+    "customer_message": "And my recent transactions?",
+    "output": {
+      "status": 200,
+      "session_id": "529a5b99-8853-41af-a755-51917398fd74",
+      "reply": "Here are your recent transactions (last 30 days), newest first:\n\n| Date | ID | Account | Description | Amount | Status |\n|------|----|----|-------------|--------|--------|\n| 11/04 | #5003 | Checking | Coffee Corner | -$4.75 | Pending |\n| 11/03 | #5001 | Checking | Grocery Mart | -$86.42 | Posted |\n| 10/31 | #5002 | Checking | Streamly Subscription | -$15.99 | Posted |\n| 10/30 | #5015 | Checking | Wire Transfer Fee | -$25.00 | Posted |\n| 10/24 | #5004 | Checking | Payroll Deposit | +$2,100.00 | Posted |\n| 10/16 | #5005 | Savings | Transfer from Checking | +$500.00 | Posted |\n\nDo any of these look unfamiliar or need help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-06 to 2026-11-05, newest first:\n2026-11-04 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-03 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-10-31 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted\n2026-10-30 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-10-24 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-10-16 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

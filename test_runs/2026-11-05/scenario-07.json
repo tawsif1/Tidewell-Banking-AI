@@ -1,0 +1,103 @@
+[
+  {
+    "customer_message": "Can you waive my overdraft fee?",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+      "reply": "I can help with that! Let me first explain our overdraft fee reversal policy.\n\nWe can reverse one overdraft or NSF fee as a courtesy every 365 days, but only if the fee was charged within the last 90 days. Other types of fees aren't eligible for reversal.\n\nTo check if your fee qualifies, I'll need to verify your identity first. Can you provide:\n\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format, like 1990-01-15)\n3. The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "Liam Tremblay, 2001-01-30, card 5580",
+    "session_arg": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+    "output": {
+      "status": 200,
+      "session_id": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+      "reply": "I found two overdraft fees in the last 90 days:\n\n- **November 1st** — $45.00 overdraft fee (Transaction #5010)\n- **September 26th** — $45.00 overdraft fee (Transaction #5011)\n\nSince you can only reverse one fee per 365 days, which one would you like me to reverse?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Liam Tremblay",
+            "date_of_birth": "2001-01-30",
+            "card_last4": "5580"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "2026-11-01 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted\n2026-11-01 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted\n2026-09-26 | #5011 | Checking (401) | Overdraft Fee | -$45.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Yes, the most recent one.",
+    "session_arg": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+    "output": {
+      "status": 200,
+      "session_id": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+      "reply": "Done! I've reversed the $45.00 overdraft fee from November 1st. The credit has been applied to your checking account, and your new balance is $57.60. Your reference number is FR-2002.\n\nIs there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5010,
+            "reason": "Customer requesting courtesy reversal of overdraft fee"
+          },
+          "result": "Fee reversal FR-2002 complete: +$45.00 credited to Checking (401). New balance: $57.60.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "What's my balance now?",
+    "session_arg": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+    "output": {
+      "status": 200,
+      "session_id": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+      "reply": "Your checking account balance is now $57.60 (after the fee reversal we just completed).\n\nWould you like to see your other accounts, or is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "Can you also reverse the overdraft fee from about 40 days ago?",
+    "session_arg": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+    "output": {
+      "status": 200,
+      "session_id": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+      "reply": "I understand, but unfortunately I can only reverse one overdraft or NSF fee per 365 days as a courtesy. Since we just reversed your most recent fee, you won't be eligible for another reversal until November 1st, 2027.\n\nHowever, if you'd like to discuss your situation further or explore other options, I can connect you with a specialist. Would that be helpful?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "And the one from about 4 months ago?",
+    "session_arg": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+    "output": {
+      "status": 200,
+      "session_id": "c4186875-f461-4495-bcc7-8027e37ea3fc",
+      "reply": "That fee from about 4 months ago (September 26th) is also outside what I can do right now, for the same reason — you get one courtesy reversal every 365 days, and we just used yours for the November fee.\n\nIf you'd like to discuss your overdraft situation or explore other options, I'm happy to connect you with a specialist who may be able to help further. Would you like me to do that?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  }
+]

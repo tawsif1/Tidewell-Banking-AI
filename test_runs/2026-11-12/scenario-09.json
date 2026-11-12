@@ -1,0 +1,110 @@
+[
+  {
+    "conversation": "s9p",
+    "customer_message": "Hi, I'm Priya Sharma, 1992-07-25, card 1167. Freeze my credit card ending 2290, I lost it.",
+    "output": {
+      "status": 200,
+      "session_id": "0e43b6ab-77bc-49c6-bc7b-3483abc8d749",
+      "reply": "Good news—your card ending in 2290 is already frozen, so no new purchases can be made with it. Since you've reported it lost, you'll want to order a replacement card. I'd recommend calling our support team at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to request a replacement card. Is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Priya Sharma",
+            "date_of_birth": "1992-07-25",
+            "card_last4": "1167"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "2290",
+            "reason": "lost"
+          },
+          "result": "Card ending in 2290 is already frozen.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s9s",
+    "customer_message": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. Freeze my card ending 7702, I lost it.",
+    "output": {
+      "status": 200,
+      "session_id": "c958e8a4-6945-4b1f-8e0a-0745289643b4",
+      "reply": "I've verified your identity. However, your card ending in 7702 has already been cancelled and can't be frozen. Since your card is already deactivated, it's protected from unauthorized use. \n\nIf you need a replacement card, you can order one through your online banking account or by calling us at 1-800-555-0199, Monday to Friday, 8am to 8pm. Is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "7702",
+            "reason": "lost"
+          },
+          "result": "Card ending in 7702 has been cancelled and cannot be frozen.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s9m",
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Freeze my card ending 9999, I lost it.",
+    "output": {
+      "status": 200,
+      "session_id": "b30f54dd-ac05-4b2e-9c22-761cd3d10358",
+      "reply": "Hi Maria! I can help you freeze that card right away.\n\nJust to confirm before I proceed: you want to freeze the card ending in **9999** because you lost it, correct?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s9m",
+    "customer_message": "Yes.",
+    "output": {
+      "status": 200,
+      "session_id": "b30f54dd-ac05-4b2e-9c22-761cd3d10358",
+      "reply": "I've verified your identity, but I don't see a card ending in 9999 on your account. Your cards with us are:\n- **4821** (debit)\n- **7310** (credit)\n\nDid you mean to freeze one of these instead?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9999",
+            "reason": "lost"
+          },
+          "result": "Card not found. This customer's cards end in: 4821 (debit), 7310 (credit).",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

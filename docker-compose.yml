@@ -1,0 +1,14 @@
+services:
+  db:                                   # the name of this service; you'll use it in commands
+    image: pgvector/pgvector:pg17       # Postgres 17 with pgvector built in
+    environment:
+      POSTGRES_USER: tidewell           # creates this user the first time it starts
+      POSTGRES_PASSWORD: tidewell_dev   # local development only; never reuse a real password
+      POSTGRES_DB: tidewell             # creates a database with this name
+    ports:
+      - "5432:5432"                     # your computer's port : the container's port
+    volumes:
+      - pgdata:/var/lib/postgresql/data # store the database files in the volume below
+
+volumes:
+  pgdata:                               # Docker-managed storage that outlives the container

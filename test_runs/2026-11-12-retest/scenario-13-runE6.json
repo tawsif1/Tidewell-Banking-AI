@@ -1,0 +1,14 @@
+[
+  {
+    "conversation": "q6",
+    "customer_message": "What's the weather tomorrow?",
+    "output": {
+      "status": 200,
+      "session_id": "de61a239-1dd4-4fb6-8cf6-7f31879ad366",
+      "reply": "I'm Tidewell Bank's customer support assistant, so I can only help with banking questions and your Tidewell accounts. For weather forecasts, I'd recommend checking a weather service online.\n\nIs there anything I can help you with regarding your bank account?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  }
+]

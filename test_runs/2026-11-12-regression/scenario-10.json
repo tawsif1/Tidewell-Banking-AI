@@ -1,0 +1,69 @@
+[
+  {
+    "conversation": "s10",
+    "customer_message": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. What accounts do I have?",
+    "output": {
+      "status": 200,
+      "session_id": "cd2a5d37-2cbd-4998-924a-4b6f075cea40",
+      "reply": "That's unusual—I'm not finding any accounts in our system under your name. This might be a data issue on our end. Please call our support team at **1-800-555-0199** (Monday to Friday, 8am to 8pm) so they can look into this for you.\n\nIs there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "No accounts found for this customer.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s10",
+    "customer_message": "I'd like to talk to a person.",
+    "output": {
+      "status": 200,
+      "session_id": "cd2a5d37-2cbd-4998-924a-4b6f075cea40",
+      "reply": "Your support ticket has been created. A specialist will call you within 4 business hours at the number on file.\n\n**Your reference number is ESC-3002.** Keep it handy in case you need to follow up.\n\nIs there anything else I can help with in the meantime?",
+      "verified": true,
+      "escalation_id": "ESC-3002",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Verified customer Sofia Rossi has no accounts showing in the system, which is unexpected. She needs a specialist to investigate why her accounts aren't appearing.",
+            "still_needed": "Investigate why Sofia Rossi's accounts are missing from the system and restore access or explain the situation.",
+            "customer_sentiment": "calm",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3002 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 4 business hours. Give the customer the reference ESC-3002.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s10",
+    "customer_message": "Can you get me a person?",
+    "output": {
+      "status": 200,
+      "session_id": "cd2a5d37-2cbd-4998-924a-4b6f075cea40",
+      "reply": "A specialist is already on the way—they'll call you within 4 business hours at the number on file. That's the quickest way to get help.\n\nIf you need to reach someone sooner, you can also call Tidewell Bank support directly at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and mention your reference number **ESC-3002**.",
+      "verified": true,
+      "escalation_id": "ESC-3002",
+      "tool_events": []
+    }
+  }
+]

@@ -1,0 +1,40 @@
+[
+  {
+    "customer_message": "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?",
+    "output": {
+      "status": 200,
+      "session_id": "ed3b92c5-3f4f-42a4-a3e9-eaa9a3147dcb",
+      "reply": "Unfortunately, the NSF fee doesn't qualify for reversal right now. You received a courtesy reversal on June 15, 2026, and you'll be eligible for another one on June 15, 2027.\n\nIs there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-09 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-10-28 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5013,
+            "reason": "Customer requesting NSF fee reversal",
+            "confirmed": false
+          },
+          "result": "This customer already received a courtesy reversal on 2026-06-15. They'll be eligible again on 2027-06-15.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

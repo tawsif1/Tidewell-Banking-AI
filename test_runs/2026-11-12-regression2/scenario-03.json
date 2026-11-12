@@ -1,0 +1,71 @@
+[
+  {
+    "conversation": "s3",
+    "customer_message": "Hi, I'm Maria Chen, born 1988-04-12, card ending 4821.",
+    "output": {
+      "status": 200,
+      "session_id": "6c81cbb9-9a27-44c5-aa56-00a5339ef85f",
+      "reply": "Great! You're verified. How can I help you today?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s3",
+    "customer_message": "Show me the transactions on account 201.",
+    "output": {
+      "status": 200,
+      "session_id": "6c81cbb9-9a27-44c5-aa56-00a5339ef85f",
+      "reply": "You have two accounts:\n- **Checking (101)**: $2,450.75\n- **Savings (102)**: $10,200.00\n\nWhich account would you like to see transactions for?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "account_id": 201
+          },
+          "result": "Account not found.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "Checking (101): $2,450.75\nSavings (102): $10,200.00",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s3",
+    "customer_message": "Dispute transaction 5006.",
+    "output": {
+      "status": 200,
+      "session_id": "6c81cbb9-9a27-44c5-aa56-00a5339ef85f",
+      "reply": "I don't see transaction 5006 in your recent activity. The transactions I found are #5001–5005 and #5015. \n\nCan you tell me more about the charge you want to dispute—like the date, merchant name, or amount? That'll help me find it.",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-11 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-10 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-07 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-06 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-10-31 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-10-23 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

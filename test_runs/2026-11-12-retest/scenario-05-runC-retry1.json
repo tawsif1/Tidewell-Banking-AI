@@ -1,0 +1,100 @@
+[
+  {
+    "conversation": "c",
+    "customer_message": "There's a charge on my account I don't recognize.",
+    "output": {
+      "status": 200,
+      "session_id": "3a4921a7-1f03-48a8-b049-f80e4395c647",
+      "reply": "I'd be happy to help you look into that charge. To pull up your recent transactions, I'll need to verify your identity first.\n\nPlease provide:\n- Your full name\n- Your date of birth (YYYY-MM-DD format)\n- The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "James Okafor, 1975-11-03, card ending 9034",
+    "output": {
+      "status": 200,
+      "session_id": "3a4921a7-1f03-48a8-b049-f80e4395c647",
+      "reply": "I can see two recent transactions on your checking account:\n\n1. **Nov 9** - ElectroWorld Online: $649.99 (posted)\n2. **Oct 28** - NSF Fee: $48.00 (posted)\n\nWhich charge don't you recognize? Or is it a different transaction from further back?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-13 to 2026-11-12, newest first:\n2026-11-09 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-10-28 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "The ElectroWorld Online one for $649.99. I didn't make it.",
+    "output": {
+      "status": 200,
+      "session_id": "3a4921a7-1f03-48a8-b049-f80e4395c647",
+      "reply": "I can help you dispute that charge. Just to confirm before I file it: you're saying you didn't make the $649.99 purchase from ElectroWorld Online on November 9th, correct?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "Yes, please file the dispute.",
+    "output": {
+      "status": 200,
+      "session_id": "3a4921a7-1f03-48a8-b049-f80e4395c647",
+      "reply": "Done! I've filed dispute **DSP-1002** for the $649.99 ElectroWorld Online charge. A specialist will review it and contact you within 10 business days.\n\nTo protect your account, would you like me to freeze the card ending in 9034 so no new charges can be made on it?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5006,
+            "reason": "unauthorized",
+            "details": "I did not make this purchase from ElectroWorld Online."
+          },
+          "result": "Dispute DSP-1002 filed for transaction #5006 (ElectroWorld Online, -$649.99). Status: open. A specialist will review it and contact the customer within 10 business days. If the card used for this charge isn't frozen yet, offer to freeze it.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "c",
+    "customer_message": "Yes, freeze my card ending 9034.",
+    "output": {
+      "status": 200,
+      "session_id": "3a4921a7-1f03-48a8-b049-f80e4395c647",
+      "reply": "Your card ending in 9034 is now frozen. New purchases will be declined, which stops the unauthorized activity.\n\nKeep in mind: freezing doesn't cancel or replace the card—it just blocks new charges. If you need to unfreeze it or get a replacement card, call Tidewell Bank support at **1-800-555-0199** (Monday–Friday, 8am–8pm).\n\nA specialist will be in touch within 10 business days about your dispute. Is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9034",
+            "reason": "suspicious_activity"
+          },
+          "result": "Card ending in 9034 is now frozen (reason: suspicious activity). New purchases on this card will be declined. Freezing doesn't cancel or replace the card, and the customer's accounts and money aren't affected. Cards can't be unfrozen in chat; to unfreeze or replace it, the customer can call Tidewell Bank support at 1-800-555-0199. This customer has no other active cards.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

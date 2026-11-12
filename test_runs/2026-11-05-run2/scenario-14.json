@@ -1,0 +1,50 @@
+[
+  {
+    "conversation": "s14",
+    "customer_message": "Hi, I'm Liam Tremblay, 2001-01-30, card 5580. What's my balance?",
+    "output": {
+      "status": 200,
+      "session_id": "184a0f27-3162-4c0a-a6a6-e8cff2f542f7",
+      "reply": "Your checking account (401) has a balance of **$57.60**. Is there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Liam Tremblay",
+            "date_of_birth": "2001-01-30",
+            "card_last4": "5580"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "Checking (401): $57.60",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s14",
+    "customer_message": "Can you reverse my most recent overdraft fee?",
+    "output": {
+      "status": 200,
+      "session_id": "184a0f27-3162-4c0a-a6a6-e8cff2f542f7",
+      "reply": "Good news! It looks like your most recent overdraft fee (on Nov 1st) has already been reversed—you received a $45.00 credit on Nov 5th. So that's been taken care of. Is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-06 to 2026-11-05, newest first:\n2026-11-05 | #5017 | Checking (401) | Overdraft Fee Reversal | +$45.00 | posted\n2026-11-01 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted\n2026-11-01 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

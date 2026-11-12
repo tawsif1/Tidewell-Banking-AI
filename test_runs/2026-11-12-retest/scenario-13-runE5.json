@@ -1,0 +1,14 @@
+[
+  {
+    "conversation": "q5",
+    "customer_message": "Do you offer mortgages?",
+    "output": {
+      "status": 200,
+      "session_id": "a1d21084-eecc-4ad9-a54e-19f607e8909f",
+      "reply": "Tidewell Bank specializes in checking and savings accounts, cards, and related services. For information about mortgages or other products we might offer, I'd recommend calling our main support line at **1-800-555-0199** (Monday to Friday, 8am to 8pm). They can tell you what options are available and connect you with the right team.\n\nIs there anything else I can help you with today regarding your Tidewell Bank account?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "conversation": "s5",
+    "customer_message": "I'm worried there's more. Can someone from the fraud team look at my account?",
+    "output": {
+      "status": 200,
+      "session_id": "598f4ccf-8eec-4f2d-b561-91810d4cd296",
+      "reply": "I've escalated this to our Fraud team. A specialist will call you at the number on file within 1 hour to review your account and check for any other suspicious activity.\n\n**Your reference number is ESC-3001.** Keep it handy in case you need it.\n\nIs there anything else I can help with in the meantime?",
+      "verified": true,
+      "escalation_id": "ESC-3001",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "fraud",
+            "priority": "high",
+            "summary": "Customer reported an unauthorized $649.99 charge from ElectroWorld Online and is worried there may be more fraudulent activity on their account. Dispute has been filed and card frozen.",
+            "still_needed": "Review account for additional suspicious transactions and advise on next steps.",
+            "customer_sentiment": "worried",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Fraud team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 1 hour. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

@@ -1,0 +1,157 @@
+[
+  {
+    "customer_message": "Hi, I'm James Okafor, 1975-11-03, card 9034. I want to dispute the Gas Station 24 charge from about two and a half months ago.",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "4b4fa6f1-496d-4247-a3a3-5f902c7a187d",
+      "reply": "Perfect! I found it. You have a Gas Station 24 charge from August 22 for $52.30 (Transaction ID #5007).\n\nCan you tell me what happened with this charge? For example, did you not make this purchase, not receive what you paid for, or was it the wrong amount?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "2026-11-02 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-10-21 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted\n2026-08-22 | #5007 | Checking (201) | Gas Station 24 | -$52.30 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Yes, that one. I didn't make that purchase.",
+    "session_arg": "4b4fa6f1-496d-4247-a3a3-5f902c7a187d",
+    "output": {
+      "status": 200,
+      "session_id": "4b4fa6f1-496d-4247-a3a3-5f902c7a187d",
+      "reply": "Got it—you're saying you didn't make that Gas Station 24 purchase for $52.30 on August 22. Before I file the dispute, let me confirm the details:\n\n- **Transaction:** Gas Station 24, $52.30 on August 22, 2026\n- **Transaction ID:** #5007\n- **Reason:** Unauthorized (you didn't make this purchase)\n\nIs that correct?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "Yes",
+    "session_arg": "4b4fa6f1-496d-4247-a3a3-5f902c7a187d",
+    "output": {
+      "status": 200,
+      "session_id": "4b4fa6f1-496d-4247-a3a3-5f902c7a187d",
+      "reply": "I've run into an issue: that transaction from August 22 is more than 60 days old, which is outside our standard dispute window. \n\nTo move forward with this dispute, you'll need to contact Tidewell Bank support directly at **1-800-555-0199**. They're available Monday to Friday, 8am to 8pm, and they can review your case and help you with this older charge.\n\nIs there anything else I can help you with today?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5007,
+            "reason": "unauthorized",
+            "details": "Customer did not make this purchase"
+          },
+          "result": "Transaction #5007 is more than 60 days old, outside the dispute window. Tell the customer to call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Dispute the Streamly charge.",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "3f960aec-4c41-47ea-ab04-49abaadf71b8",
+      "reply": "Great! I found the Streamly charge—it's a $15.99 subscription from October 31st (Transaction #5002, posted).\n\nBefore I file the dispute, can you tell me why you're disputing this charge? For example:\n- Did you not authorize it?\n- Did you not receive the service?\n- Were you charged the wrong amount?\n- Something else?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 30
+          },
+          "result": "2026-11-04 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-03 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-10-31 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted\n2026-10-30 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-10-24 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-10-16 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "I didn't authorize it.",
+    "session_arg": "3f960aec-4c41-47ea-ab04-49abaadf71b8",
+    "output": {
+      "status": 200,
+      "session_id": "3f960aec-4c41-47ea-ab04-49abaadf71b8",
+      "reply": "It looks like there's already an open dispute on that Streamly charge! The dispute ID is **DSP-1001**. \n\nDo you need help with anything else, or would you like me to escalate this to a specialist to check on the status of that dispute?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5002,
+            "reason": "unauthorized",
+            "details": "Did not authorize this Streamly subscription charge."
+          },
+          "result": "Transaction #5002 already has a dispute: DSP-1001 (status: open).",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Dispute the Coffee Corner charge.",
+    "session_arg": "3f960aec-4c41-47ea-ab04-49abaadf71b8",
+    "output": {
+      "status": 200,
+      "session_id": "3f960aec-4c41-47ea-ab04-49abaadf71b8",
+      "reply": "I can help with that. The Coffee Corner charge is $4.75 from today (November 4th, Transaction #5003), and it's currently pending.\n\nJust to confirm before I file the dispute—why are you disputing this charge? For example:\n- Did you not authorize it?\n- Were you charged the wrong amount?\n- Something else?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "Yes, I didn't authorize that one either.",
+    "session_arg": "3f960aec-4c41-47ea-ab04-49abaadf71b8",
+    "output": {
+      "status": 200,
+      "session_id": "3f960aec-4c41-47ea-ab04-49abaadf71b8",
+      "reply": "The Coffee Corner charge is still pending, so I can't dispute it just yet. It should post within a few business days, and then you'll be able to dispute it.\n\nSince you have unauthorized charges on your account, would you like me to freeze your card to prevent any further unauthorized transactions?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "reason": "unauthorized",
+            "details": "Did not authorize this Coffee Corner charge.",
+            "transaction_id": 5003
+          },
+          "result": "Transaction #5003 is still pending and can't be disputed until it posts, usually within a few business days.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

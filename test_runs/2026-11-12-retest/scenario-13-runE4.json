@@ -1,0 +1,23 @@
+[
+  {
+    "conversation": "q4",
+    "customer_message": "Do your savings accounts come with a debit card?",
+    "output": {
+      "status": 200,
+      "session_id": "c1bb1441-3789-412d-a599-856501b5e989",
+      "reply": "No, Tidewell Bank savings accounts don't come with a debit card. Savings accounts are designed for setting money aside and earning interest. If you need a debit card for everyday spending, a checking account comes with one. (Source: Account types > Savings accounts)",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "savings account debit card"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Account types > Savings accounts\nA Tidewell Bank savings account is for setting money aside and earning interest. Savings accounts don't come with a debit card.\n\nSource: Account types > Checking accounts\nA Tidewell Bank checking account is for everyday spending, bill payments, and deposits. Checking accounts come with a debit card and have a monthly account fee of $16.95.",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

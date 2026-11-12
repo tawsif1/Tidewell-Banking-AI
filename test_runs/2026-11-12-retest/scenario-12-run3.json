@@ -1,0 +1,38 @@
+[
+  {
+    "customer_message": "I'm locked out of online banking. Just get me a human.",
+    "output": {
+      "status": 200,
+      "session_id": "1c1b8355-f88a-4e2b-96df-4060a10b6d1b",
+      "reply": "A specialist from our Account Access team will look into this. Since you're not verified, please call Tidewell Bank support at **1-800-555-0199** and mention your reference number **ESC-3001**. \n\nWe're open Monday to Friday, 8am to 8pm. They'll help you regain access.",
+      "verified": false,
+      "escalation_id": "ESC-3001",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting to speak with a specialist.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "customer_message": "Are you sure someone's coming? Get me a person.",
+    "output": {
+      "status": 200,
+      "session_id": "1c1b8355-f88a-4e2b-96df-4060a10b6d1b",
+      "reply": "I understand your frustration. To be clear: no one will call you. You'll need to call us.\n\nPlease call **1-800-555-0199** and give them your reference number **ESC-3001**. Our team is available Monday to Friday, 8am to 8pm, and they'll get you back into your account.",
+      "verified": false,
+      "escalation_id": "ESC-3001",
+      "tool_events": []
+    }
+  }
+]

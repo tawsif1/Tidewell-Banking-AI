@@ -1,0 +1,69 @@
+[
+  {
+    "conversation": "s10",
+    "customer_message": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. What accounts do I have?",
+    "output": {
+      "status": 200,
+      "session_id": "5fb24ec6-e5bf-4d6e-9451-db6cef9ab6dd",
+      "reply": "I've verified your identity, but the system shows no accounts associated with your profile. This is unusual. You may want to contact our support team at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to investigate further. Is there anything else I can help with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "No accounts found for this customer.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s10",
+    "customer_message": "I'd like to talk to a person.",
+    "output": {
+      "status": 200,
+      "session_id": "5fb24ec6-e5bf-4d6e-9451-db6cef9ab6dd",
+      "reply": "I've created a support ticket for you. A specialist from our Account Access team will call you at the number on file within 1 business day. Your reference number is **ESC-3002**—keep this handy in case you need to follow up.",
+      "verified": true,
+      "escalation_id": "ESC-3002",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "normal",
+            "summary": "Sofia Rossi has verified her identity but no accounts are showing in the system. She needs a specialist to investigate why her accounts aren't accessible.",
+            "still_needed": "Determine why the customer's accounts aren't displaying and resolve account access issue.",
+            "customer_sentiment": "calm",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3002 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 1 business day. Give the customer the reference ESC-3002.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s10",
+    "customer_message": "Can you get me a person?",
+    "output": {
+      "status": 200,
+      "session_id": "5fb24ec6-e5bf-4d6e-9451-db6cef9ab6dd",
+      "reply": "You're already set up with a specialist! A person from our Account Access team will call you at the number on file within 1 business day with reference **ESC-3002**.\n\nIf you need to reach someone sooner, you can also call our support line at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and mention your reference number.",
+      "verified": true,
+      "escalation_id": "ESC-3002",
+      "tool_events": []
+    }
+  }
+]

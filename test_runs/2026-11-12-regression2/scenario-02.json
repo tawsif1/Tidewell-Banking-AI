@@ -1,0 +1,95 @@
+[
+  {
+    "conversation": "s2",
+    "customer_message": "What are my balances?",
+    "output": {
+      "status": 200,
+      "session_id": "ff0e4e5c-ebc4-49e2-8379-71f1f8628523",
+      "reply": "I'd be happy to help you check your balances! First, I need to verify your identity.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "conversation": "s2",
+    "customer_message": "Maria Chen, 1988-04-12, card 0000",
+    "output": {
+      "status": 200,
+      "session_id": "ff0e4e5c-ebc4-49e2-8379-71f1f8628523",
+      "reply": "The details didn't match our records. Let me try again — could you double-check and provide the last 4 digits of your card?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "0000"
+          },
+          "result": "The details provided don't match our records.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s2",
+    "customer_message": "Sorry, it's card 1111",
+    "output": {
+      "status": 200,
+      "session_id": "ff0e4e5c-ebc4-49e2-8379-71f1f8628523",
+      "reply": "Those details didn't match either. Let me verify the information with you:\n- Full name: Maria Chen\n- Date of birth: April 12, 1988\n- Card last 4 digits: 1111\n\nIs all of this correct, or should something be different?",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "1111"
+          },
+          "result": "The details provided don't match our records.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s2",
+    "customer_message": "Maybe card 2222",
+    "output": {
+      "status": 200,
+      "session_id": "ff0e4e5c-ebc4-49e2-8379-71f1f8628523",
+      "reply": "I'm sorry, but verification is now locked after multiple unsuccessful attempts. \n\nTo regain access, please call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm). They'll help you verify your identity and check your balances.",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "card_last4": "2222",
+            "date_of_birth": "1988-04-12"
+          },
+          "result": "Verification is now locked after too many failed attempts. Tell the customer to call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  },
+  {
+    "conversation": "s2",
+    "customer_message": "Maria Chen, 1988-04-12, card 4821",
+    "output": {
+      "status": 200,
+      "session_id": "ff0e4e5c-ebc4-49e2-8379-71f1f8628523",
+      "reply": "I appreciate you providing that information, but verification is currently locked on your account after the previous failed attempts. You'll need to contact Tidewell Bank support directly to unlock it.\n\nPlease call **1-800-555-0199** (Monday to Friday, 8am to 8pm) and they'll help you verify your identity and access your account.",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  }
+]

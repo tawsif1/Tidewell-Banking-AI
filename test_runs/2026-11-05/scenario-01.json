@@ -1,0 +1,43 @@
+[
+  {
+    "customer_message": "What are my balances?",
+    "session_arg": "new",
+    "output": {
+      "status": 200,
+      "session_id": "683346dd-9cd7-4591-8f61-98eb057d6572",
+      "reply": "I'd be happy to help you check your balances! To do that, I need to verify your identity first.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format, for example 1990-05-15)\n3. The last 4 digits of your card",
+      "verified": false,
+      "escalation_id": null,
+      "tool_events": []
+    }
+  },
+  {
+    "customer_message": "Maria Chen, born 1988-04-12, card ending 4821",
+    "session_arg": "683346dd-9cd7-4591-8f61-98eb057d6572",
+    "output": {
+      "status": 200,
+      "session_id": "683346dd-9cd7-4591-8f61-98eb057d6572",
+      "reply": "Here are your balances:\n\n- **Checking (Account 101):** $2,450.75\n- **Savings (Account 102):** $10,200.00\n\nIs there anything else I can help you with?",
+      "verified": true,
+      "escalation_id": null,
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "Checking (101): $2,450.75\nSavings (102): $10,200.00",
+          "is_error": false
+        }
+      ]
+    }
+  }
+]

@@ -5,6 +5,7 @@ import numpy as np
 import voyageai
 import time
 from dotenv import load_dotenv
+from db import pool
 
 load_dotenv()
 vo = voyageai.Client()   # reads VOYAGE_API_KEY from the environment
@@ -77,32 +78,27 @@ def build_index() -> None:
         json.dump(chunks, f, ensure_ascii=False, indent=2)
     print(f"Indexed {len(chunks)} chunks")
 
-_index_cache: list[dict] | None = None
 
 
-def get_index() -> list[dict]:
-    """Load the saved index the first time it's needed, then reuse it."""
-    global _index_cache
-    if _index_cache is None:
-        if not INDEX_PATH.exists():
-            raise FileNotFoundError("Help center index not found. Run rag.py to build it.")
-        _index_cache = json.loads(INDEX_PATH.read_text(encoding="utf-8"))
-    return _index_cache
+def top_matches(query_embedding: list[float], k: int) -> list[dict]:
+    """The k help center chunks closest to the query embedding, best first, with a similarity score."""
+    q = np.array(query_embedding)  # pgvector's adapter sends numpy arrays as vectors
+    with pool.connection() as conn:
+        return conn.execute(
+            """
+            SELECT id, article, section, source, text, 1 - (embedding <=> %s) AS score
+            FROM help_center_chunks
+            ORDER BY embedding <=> %s
+            LIMIT %s
+            """,
+            (q, q, k),
+        ).fetchall()
 
 
 def search(query: str, k: int = 3) -> list[dict]:
     """Return the k chunks closest in meaning to the query, best first."""
-    chunks = get_index()
     query_embedding = vo.embed([query], model=EMBED_MODEL, input_type="query").embeddings[0]
-
-    # Keep scores in a separate list, so the shared cache is never modified
-    scored = [(float(np.dot(c["embedding"], query_embedding)), c) for c in chunks]
-    scored.sort(key=lambda pair: pair[0], reverse=True)
-    
-    return [
-        {**{key: value for key, value in c.items() if key != "embedding"}, "score": score}
-        for score, c in scored[:k]
-    ]    
+    return top_matches(query_embedding, k)
 
 
 if __name__ == "__main__":
