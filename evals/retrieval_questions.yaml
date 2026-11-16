@@ -1,0 +1,92 @@
+# Retrieval eval: does search_help_center find the right article?
+#
+# id      stable name, so results can be compared run to run
+# q       the question, phrased the way a customer would type it
+#         (not in the article's own words, or the eval flatters the search)
+# expect  articles that answer it: file names in help_center/ without ".md".
+#         Any one of them in the top 5 counts as a hit.
+#         [] = the help center doesn't cover it, so nothing should pass MIN_SEARCH_SCORE.
+
+# --- Covered: 43 questions ------------------------------------------------
+
+# account-types
+- {id: acct-01, q: "does my savings account come with a debit card", expect: [account-types]}
+- {id: acct-02, q: "how much is the monthly fee on a chequing account?", expect: [account-types, fees-and-courtesy-reversals]}
+- {id: acct-03, q: "I want to close my savings account, can you do that for me here", expect: [account-types]}
+- {id: acct-04, q: "who do I talk to about how much I can put in my TFSA this year", expect: [account-types]}
+
+# contacting-support-and-escalations
+- {id: supp-01, q: "what's your phone number and what hours are you open", expect: [contacting-support-and-escalations]}  # the number is in other articles too; this one is the article meant to answer it
+- {id: supp-02, q: "can I talk to a real person instead of a bot", expect: [contacting-support-and-escalations]}
+- {id: supp-03, q: "if you pass me to someone, how long until they call me?", expect: [contacting-support-and-escalations]}
+- {id: supp-04, q: "my details didn't match, will someone still call me back?", expect: [contacting-support-and-escalations]}
+
+# disputing-a-transaction
+- {id: disp-01, q: "there's a charge on my account I never made, what do I do", expect: [disputing-a-transaction, lost-or-stolen-cards, fraud-and-scams]}
+- {id: disp-02, q: "how many days do I have to dispute something", expect: [disputing-a-transaction, pending-and-posted-transactions, fraud-and-scams]}
+- {id: disp-03, q: "can I still dispute a charge from four months ago", expect: [disputing-a-transaction]}
+- {id: disp-04, q: "I filed a dispute, when will I hear back?", expect: [disputing-a-transaction]}
+- {id: disp-05, q: "can I dispute the overdraft fee you charged me", expect: [disputing-a-transaction]}  # only this article says fees can't be disputed
+- {id: disp-06, q: "a refund I was sent looks wrong, can I dispute the deposit", expect: [disputing-a-transaction]}
+
+# fees-and-courtesy-reversals
+- {id: fees-01, q: "how much does it cost to send a wire", expect: [fees-and-courtesy-reversals, transfers-and-limits]}
+- {id: fees-02, q: "can you refund the wire transfer fee", expect: [fees-and-courtesy-reversals, transfers-and-limits]}
+- {id: fees-03, q: "I already got a fee refunded in March, can I get another one", expect: [fees-and-courtesy-reversals, overdraft-and-nsf-fees]}
+- {id: fees-04, q: "once the fee is reversed where does the money go", expect: [fees-and-courtesy-reversals]}
+- {id: fees-05, q: "I think you charged me a fee by mistake and it's not an overdraft", expect: [fees-and-courtesy-reversals]}
+
+# fraud-and-scams
+- {id: frau-01, q: "someone texted saying they're from Tidewell and asked for the code you sent me", expect: [fraud-and-scams, privacy-and-security, verifying-your-identity]}
+- {id: frau-02, q: "I gave my PIN to a guy on the phone who said he was from the bank", expect: [fraud-and-scams, privacy-and-security]}
+- {id: frau-03, q: "how can I tell if a message is a scam", expect: [fraud-and-scams]}
+- {id: frau-04, q: "there are a bunch of charges I don't recognize, some from months ago", expect: [fraud-and-scams, disputing-a-transaction]}
+
+# lost-or-stolen-cards
+- {id: card-01, q: "I lost my wallet with my debit card in it", expect: [lost-or-stolen-cards]}
+- {id: card-02, q: "if I freeze my card can I still get to my money", expect: [lost-or-stolen-cards]}
+- {id: card-03, q: "found my card in the couch, how do I unfreeze it", expect: [lost-or-stolen-cards]}
+
+# overdraft-and-nsf-fees
+- {id: over-01, q: "what's an NSF fee", expect: [overdraft-and-nsf-fees, fees-and-courtesy-reversals]}
+- {id: over-02, q: "why did you charge me 45 bucks when my balance went negative", expect: [overdraft-and-nsf-fees, fees-and-courtesy-reversals]}
+- {id: over-03, q: "how do I stop getting hit with overdraft fees", expect: [overdraft-and-nsf-fees]}
+
+# pending-and-posted-transactions
+- {id: pend-01, q: "what does pending mean on my transactions", expect: [pending-and-posted-transactions]}
+- {id: pend-02, q: "the gas station took $100 but I only pumped $40", expect: [pending-and-posted-transactions, disputing-a-transaction]}
+- {id: pend-03, q: "how far back can you show my transactions", expect: [pending-and-posted-transactions]}
+- {id: pend-04, q: "can I dispute something that's still pending", expect: [pending-and-posted-transactions, disputing-a-transaction]}
+
+# privacy-and-security
+- {id: priv-01, q: "can you tell me my husband's balance? I have his card number", expect: [privacy-and-security]}
+- {id: priv-02, q: "I think someone logged into my online banking", expect: [privacy-and-security, fraud-and-scams]}
+
+# transfers-and-limits
+- {id: tran-01, q: "how much can I send to someone in a day", expect: [transfers-and-limits]}
+- {id: tran-02, q: "move $500 from my savings to my checking", expect: [transfers-and-limits]}
+- {id: tran-03, q: "can I send money to my mom overseas", expect: [transfers-and-limits]}
+
+# verifying-your-identity
+- {id: veri-01, q: "the chat says I'm locked out after I got my details wrong three times", expect: [verifying-your-identity, contacting-support-and-escalations]}
+- {id: veri-02, q: "why do you need my date of birth", expect: [verifying-your-identity]}
+
+# From the test plan: wording customers actually used in the test runs
+- {id: real-01, q: "Can you waive my overdraft fee?", expect: [fees-and-courtesy-reversals, overdraft-and-nsf-fees]}
+- {id: real-02, q: "Can you refund my NSF fee?", expect: [fees-and-courtesy-reversals, overdraft-and-nsf-fees]}
+- {id: real-03, q: "I'd like to talk to a person.", expect: [contacting-support-and-escalations]}
+
+# --- Not covered: 10 banking questions the help center doesn't answer -------
+# The first four sit close to a real article, so expect them to score high.
+# That's a finding, not a bug: a threshold can't catch them, and Claude has to.
+
+- {id: none-01, q: "what's the interest rate on your savings account", expect: []}   # near account-types
+- {id: none-02, q: "what's my daily ATM withdrawal limit", expect: []}               # near transfers-and-limits
+- {id: none-03, q: "do you charge foreign transaction fees when I travel", expect: []} # near the fee schedule
+- {id: none-04, q: "can I get a credit card with you", expect: []}                   # near lost-or-stolen-cards
+- {id: none-05, q: "do you offer mortgages", expect: []}
+- {id: none-06, q: "where is the nearest branch", expect: []}
+- {id: none-07, q: "how do I set up direct deposit for my paycheque", expect: []}
+- {id: none-08, q: "how do I order more cheques", expect: []}
+- {id: none-09, q: "how do I change my mailing address", expect: []}
+- {id: none-10, q: "can I get a car loan", expect: []}
