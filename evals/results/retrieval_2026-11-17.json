@@ -1,0 +1,1498 @@
+{
+  "summary": {
+    "date": "2026-11-17",
+    "threshold": 0.43,
+    "hit@1": 39,
+    "hit@5": 43,
+    "usable_hit@5": 42,
+    "covered": 43,
+    "rejected": 3,
+    "not_covered": 10
+  },
+  "questions": [
+    {
+      "id": "acct-01",
+      "expect": [
+        "account-types"
+      ],
+      "top5": [
+        {
+          "article": "account-types",
+          "score": 0.621
+        },
+        {
+          "article": "account-types",
+          "score": 0.565
+        },
+        {
+          "article": "account-types",
+          "score": 0.495
+        },
+        {
+          "article": "account-types",
+          "score": 0.465
+        },
+        {
+          "article": "account-types",
+          "score": 0.458
+        }
+      ]
+    },
+    {
+      "id": "acct-02",
+      "expect": [
+        "account-types",
+        "fees-and-courtesy-reversals"
+      ],
+      "top5": [
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.577
+        },
+        {
+          "article": "account-types",
+          "score": 0.576
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.478
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.461
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.451
+        }
+      ]
+    },
+    {
+      "id": "acct-03",
+      "expect": [
+        "account-types"
+      ],
+      "top5": [
+        {
+          "article": "account-types",
+          "score": 0.586
+        },
+        {
+          "article": "account-types",
+          "score": 0.527
+        },
+        {
+          "article": "account-types",
+          "score": 0.509
+        },
+        {
+          "article": "account-types",
+          "score": 0.489
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.466
+        }
+      ]
+    },
+    {
+      "id": "acct-04",
+      "expect": [
+        "account-types"
+      ],
+      "top5": [
+        {
+          "article": "account-types",
+          "score": 0.54
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.373
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.352
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.35
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.349
+        }
+      ]
+    },
+    {
+      "id": "supp-01",
+      "expect": [
+        "contacting-support-and-escalations"
+      ],
+      "top5": [
+        {
+          "article": "account-types",
+          "score": 0.533
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.529
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.482
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.478
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.473
+        }
+      ]
+    },
+    {
+      "id": "supp-02",
+      "expect": [
+        "contacting-support-and-escalations"
+      ],
+      "top5": [
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.537
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.505
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.481
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.474
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.466
+        }
+      ]
+    },
+    {
+      "id": "supp-03",
+      "expect": [
+        "contacting-support-and-escalations"
+      ],
+      "top5": [
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.448
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.408
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.388
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.378
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.372
+        }
+      ]
+    },
+    {
+      "id": "supp-04",
+      "expect": [
+        "contacting-support-and-escalations"
+      ],
+      "top5": [
+        {
+          "article": "verifying-your-identity",
+          "score": 0.486
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.441
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.411
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.41
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.407
+        }
+      ]
+    },
+    {
+      "id": "disp-01",
+      "expect": [
+        "disputing-a-transaction",
+        "lost-or-stolen-cards",
+        "fraud-and-scams"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.66
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.656
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.65
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.643
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.619
+        }
+      ]
+    },
+    {
+      "id": "disp-02",
+      "expect": [
+        "disputing-a-transaction",
+        "pending-and-posted-transactions",
+        "fraud-and-scams"
+      ],
+      "top5": [
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.59
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.579
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.561
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.546
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.53
+        }
+      ]
+    },
+    {
+      "id": "disp-03",
+      "expect": [
+        "disputing-a-transaction"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.475
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.467
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.446
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.401
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.394
+        }
+      ]
+    },
+    {
+      "id": "disp-04",
+      "expect": [
+        "disputing-a-transaction"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.591
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.518
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.515
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.496
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.494
+        }
+      ]
+    },
+    {
+      "id": "disp-05",
+      "expect": [
+        "disputing-a-transaction"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.616
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.561
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.56
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.544
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.539
+        }
+      ]
+    },
+    {
+      "id": "disp-06",
+      "expect": [
+        "disputing-a-transaction"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.534
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.525
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.502
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.481
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.456
+        }
+      ]
+    },
+    {
+      "id": "fees-01",
+      "expect": [
+        "fees-and-courtesy-reversals",
+        "transfers-and-limits"
+      ],
+      "top5": [
+        {
+          "article": "transfers-and-limits",
+          "score": 0.642
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.594
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.575
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.507
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.499
+        }
+      ]
+    },
+    {
+      "id": "fees-02",
+      "expect": [
+        "fees-and-courtesy-reversals",
+        "transfers-and-limits"
+      ],
+      "top5": [
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.608
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.582
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.559
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.556
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.554
+        }
+      ]
+    },
+    {
+      "id": "fees-03",
+      "expect": [
+        "fees-and-courtesy-reversals",
+        "overdraft-and-nsf-fees"
+      ],
+      "top5": [
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.514
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.503
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.476
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.453
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.441
+        }
+      ]
+    },
+    {
+      "id": "fees-04",
+      "expect": [
+        "fees-and-courtesy-reversals"
+      ],
+      "top5": [
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.6
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.519
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.513
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.504
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.503
+        }
+      ]
+    },
+    {
+      "id": "fees-05",
+      "expect": [
+        "fees-and-courtesy-reversals"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.577
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.559
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.554
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.545
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.534
+        }
+      ]
+    },
+    {
+      "id": "frau-01",
+      "expect": [
+        "fraud-and-scams",
+        "privacy-and-security",
+        "verifying-your-identity"
+      ],
+      "top5": [
+        {
+          "article": "fraud-and-scams",
+          "score": 0.522
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.501
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.496
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.471
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.467
+        }
+      ]
+    },
+    {
+      "id": "frau-02",
+      "expect": [
+        "fraud-and-scams",
+        "privacy-and-security"
+      ],
+      "top5": [
+        {
+          "article": "fraud-and-scams",
+          "score": 0.6
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.545
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.54
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.524
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.523
+        }
+      ]
+    },
+    {
+      "id": "frau-03",
+      "expect": [
+        "fraud-and-scams"
+      ],
+      "top5": [
+        {
+          "article": "fraud-and-scams",
+          "score": 0.645
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.521
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.509
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.494
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.481
+        }
+      ]
+    },
+    {
+      "id": "frau-04",
+      "expect": [
+        "fraud-and-scams",
+        "disputing-a-transaction"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.45
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.445
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.431
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.427
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.426
+        }
+      ]
+    },
+    {
+      "id": "card-01",
+      "expect": [
+        "lost-or-stolen-cards"
+      ],
+      "top5": [
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.466
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.461
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.454
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.453
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.451
+        }
+      ]
+    },
+    {
+      "id": "card-02",
+      "expect": [
+        "lost-or-stolen-cards"
+      ],
+      "top5": [
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.665
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.582
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.557
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.534
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.533
+        }
+      ]
+    },
+    {
+      "id": "card-03",
+      "expect": [
+        "lost-or-stolen-cards"
+      ],
+      "top5": [
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.612
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.581
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.577
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.566
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.553
+        }
+      ]
+    },
+    {
+      "id": "over-01",
+      "expect": [
+        "overdraft-and-nsf-fees",
+        "fees-and-courtesy-reversals"
+      ],
+      "top5": [
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.634
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.584
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.572
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.56
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.559
+        }
+      ]
+    },
+    {
+      "id": "over-02",
+      "expect": [
+        "overdraft-and-nsf-fees",
+        "fees-and-courtesy-reversals"
+      ],
+      "top5": [
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.518
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.479
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.449
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.433
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.415
+        }
+      ]
+    },
+    {
+      "id": "over-03",
+      "expect": [
+        "overdraft-and-nsf-fees"
+      ],
+      "top5": [
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.594
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.562
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.552
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.545
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.524
+        }
+      ]
+    },
+    {
+      "id": "pend-01",
+      "expect": [
+        "pending-and-posted-transactions"
+      ],
+      "top5": [
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.704
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.648
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.604
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.588
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.586
+        }
+      ]
+    },
+    {
+      "id": "pend-02",
+      "expect": [
+        "pending-and-posted-transactions",
+        "disputing-a-transaction"
+      ],
+      "top5": [
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.368
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.345
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.338
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.338
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.337
+        }
+      ]
+    },
+    {
+      "id": "pend-03",
+      "expect": [
+        "pending-and-posted-transactions"
+      ],
+      "top5": [
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.585
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.468
+        },
+        {
+          "article": "account-types",
+          "score": 0.455
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.442
+        },
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.441
+        }
+      ]
+    },
+    {
+      "id": "pend-04",
+      "expect": [
+        "pending-and-posted-transactions",
+        "disputing-a-transaction"
+      ],
+      "top5": [
+        {
+          "article": "pending-and-posted-transactions",
+          "score": 0.565
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.537
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.485
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.481
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.478
+        }
+      ]
+    },
+    {
+      "id": "priv-01",
+      "expect": [
+        "privacy-and-security"
+      ],
+      "top5": [
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.516
+        },
+        {
+          "article": "account-types",
+          "score": 0.486
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.484
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.48
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.476
+        }
+      ]
+    },
+    {
+      "id": "priv-02",
+      "expect": [
+        "privacy-and-security",
+        "fraud-and-scams"
+      ],
+      "top5": [
+        {
+          "article": "privacy-and-security",
+          "score": 0.594
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.542
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.539
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.515
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.511
+        }
+      ]
+    },
+    {
+      "id": "tran-01",
+      "expect": [
+        "transfers-and-limits"
+      ],
+      "top5": [
+        {
+          "article": "transfers-and-limits",
+          "score": 0.619
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.488
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.488
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.453
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.387
+        }
+      ]
+    },
+    {
+      "id": "tran-02",
+      "expect": [
+        "transfers-and-limits"
+      ],
+      "top5": [
+        {
+          "article": "transfers-and-limits",
+          "score": 0.46
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.458
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.44
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.437
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.424
+        }
+      ]
+    },
+    {
+      "id": "tran-03",
+      "expect": [
+        "transfers-and-limits"
+      ],
+      "top5": [
+        {
+          "article": "transfers-and-limits",
+          "score": 0.552
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.538
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.533
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.48
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.455
+        }
+      ]
+    },
+    {
+      "id": "veri-01",
+      "expect": [
+        "verifying-your-identity",
+        "contacting-support-and-escalations"
+      ],
+      "top5": [
+        {
+          "article": "verifying-your-identity",
+          "score": 0.563
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.442
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.436
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.428
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.425
+        }
+      ]
+    },
+    {
+      "id": "veri-02",
+      "expect": [
+        "verifying-your-identity"
+      ],
+      "top5": [
+        {
+          "article": "verifying-your-identity",
+          "score": 0.51
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.453
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.439
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.406
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.4
+        }
+      ]
+    },
+    {
+      "id": "real-01",
+      "expect": [
+        "fees-and-courtesy-reversals",
+        "overdraft-and-nsf-fees"
+      ],
+      "top5": [
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.587
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.576
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.575
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.565
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.554
+        }
+      ]
+    },
+    {
+      "id": "real-02",
+      "expect": [
+        "fees-and-courtesy-reversals",
+        "overdraft-and-nsf-fees"
+      ],
+      "top5": [
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.616
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.612
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.588
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.564
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.559
+        }
+      ]
+    },
+    {
+      "id": "real-03",
+      "expect": [
+        "contacting-support-and-escalations"
+      ],
+      "top5": [
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.535
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.486
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.474
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.465
+        },
+        {
+          "article": "account-types",
+          "score": 0.458
+        }
+      ]
+    },
+    {
+      "id": "none-01",
+      "expect": [],
+      "top5": [
+        {
+          "article": "account-types",
+          "score": 0.513
+        },
+        {
+          "article": "account-types",
+          "score": 0.445
+        },
+        {
+          "article": "account-types",
+          "score": 0.415
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.382
+        },
+        {
+          "article": "account-types",
+          "score": 0.37
+        }
+      ]
+    },
+    {
+      "id": "none-02",
+      "expect": [],
+      "top5": [
+        {
+          "article": "transfers-and-limits",
+          "score": 0.582
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.512
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.511
+        },
+        {
+          "article": "account-types",
+          "score": 0.483
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.468
+        }
+      ]
+    },
+    {
+      "id": "none-03",
+      "expect": [],
+      "top5": [
+        {
+          "article": "transfers-and-limits",
+          "score": 0.564
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.531
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.527
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.52
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.511
+        }
+      ]
+    },
+    {
+      "id": "none-04",
+      "expect": [],
+      "top5": [
+        {
+          "article": "privacy-and-security",
+          "score": 0.458
+        },
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.453
+        },
+        {
+          "article": "account-types",
+          "score": 0.45
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.45
+        },
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.445
+        }
+      ]
+    },
+    {
+      "id": "none-05",
+      "expect": [],
+      "top5": [
+        {
+          "article": "account-types",
+          "score": 0.446
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.432
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.423
+        },
+        {
+          "article": "privacy-and-security",
+          "score": 0.423
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.421
+        }
+      ]
+    },
+    {
+      "id": "none-06",
+      "expect": [],
+      "top5": [
+        {
+          "article": "contacting-support-and-escalations",
+          "score": 0.316
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.311
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.302
+        },
+        {
+          "article": "fraud-and-scams",
+          "score": 0.291
+        },
+        {
+          "article": "account-types",
+          "score": 0.29
+        }
+      ]
+    },
+    {
+      "id": "none-07",
+      "expect": [],
+      "top5": [
+        {
+          "article": "account-types",
+          "score": 0.475
+        },
+        {
+          "article": "account-types",
+          "score": 0.469
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.464
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.454
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.445
+        }
+      ]
+    },
+    {
+      "id": "none-08",
+      "expect": [],
+      "top5": [
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.401
+        },
+        {
+          "article": "overdraft-and-nsf-fees",
+          "score": 0.395
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.393
+        },
+        {
+          "article": "disputing-a-transaction",
+          "score": 0.39
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.388
+        }
+      ]
+    },
+    {
+      "id": "none-09",
+      "expect": [],
+      "top5": [
+        {
+          "article": "lost-or-stolen-cards",
+          "score": 0.48
+        },
+        {
+          "article": "transfers-and-limits",
+          "score": 0.464
+        },
+        {
+          "article": "account-types",
+          "score": 0.461
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.458
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.453
+        }
+      ]
+    },
+    {
+      "id": "none-10",
+      "expect": [],
+      "top5": [
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.411
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.403
+        },
+        {
+          "article": "verifying-your-identity",
+          "score": 0.401
+        },
+        {
+          "article": "account-types",
+          "score": 0.388
+        },
+        {
+          "article": "fees-and-courtesy-reversals",
+          "score": 0.385
+        }
+      ]
+    }
+  ]
+}
