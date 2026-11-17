@@ -31,7 +31,7 @@ REVERSIBLE_FEE_TYPES = {"overdraft", "nsf"}
 FEE_REVERSAL_WINDOW_DAYS = 90         # only recent fees can be reversed
 COURTESY_REVERSAL_PERIOD_DAYS = 365   # one courtesy reversal per customer per year
 
-MIN_SEARCH_SCORE = 0.45               # only show help center sections at least this relevant
+MIN_SEARCH_SCORE = 0.43             # only show help center sections at least this relevant
 SEARCH_TOP_K = 5                      # how many help center sections to return, at most
 
 ESCALATION_QUEUES = {

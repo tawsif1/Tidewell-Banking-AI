@@ -18,6 +18,9 @@ not_covered_q = [(q, emb) for q, emb in zip(questions, result.embeddings) if not
 
 hit1 = hit5 = usable5 = leaked = 0
 
+covered_best = []
+uncovered_top = []
+
 for q, emb in covered:
     # steps 1–4 here; add 1 to hit1 / hit5 when they're true
     rows = top_matches(emb, k=5)
@@ -31,19 +34,38 @@ for q, emb in covered:
         hit5 += 1
 
     usable = any(a in q["expect"] and score >= MIN_SEARCH_SCORE for a, score in zip(articles, scores))
+    
+    best = max((s for a, s in zip(articles, scores) if a in q["expect"]), default=0)
+    covered_best.append(best)
+
 
     if usable:
         usable5 += 1
+
+    else:
+        print(f"MISSED  {q['id']}: {q['q']}")
+        print(f"        right article scored {best:.3f}; top was {articles[0]} at {scores[0]:.3f}")
 
 for q, emb in not_covered_q:
     rows = top_matches(emb, k=5)
     articles = [r["source"].removesuffix(".md") for r in rows]
     scores = [r["score"] for r in rows]
+    uncovered_top.append(scores[0])
 
     unusable = any(score >= MIN_SEARCH_SCORE for score in  scores)
     
     if unusable:
         leaked += 1
+
+        print(f"LEAKED  {q['id']}: {q['q']}")
+        print(f"        {articles[0]} at {scores[0]:.3f}")
+
+
+print("threshold  usable  rejected")
+for t in [x / 100 for x in range(35, 61)]:
+    usable_t = sum(b >= t for b in covered_best)
+    rejected_t = sum(s < t for s in uncovered_top)
+    print(f"  {t:.2f}     {usable_t}/43    {rejected_t}/10")
     
 
     
