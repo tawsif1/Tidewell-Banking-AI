@@ -1,0 +1,19 @@
+id: s02-lockout
+title: Lockout after three failed attempts, without giving up early
+persona: Maria, a calm customer who wants to know her balances
+goal: Find out her account balances
+knows:
+  full_name: Maria Chen
+  date_of_birth: "1988-04-12"
+  card_guesses: "0000, then 1111, then 2222, then 4821"
+opening: "What are my balances?"
+max_turns: 6
+expected:
+  verified: false
+  tools_called: [verify_identity]
+  reply_must_not_include: ["2,450.75", "10,200"]
+  tools_not_called: [get_accounts]
+  reply_must_include: ["1-800-555-0199"]
+  db:
+    - sql: SELECT count(*) FROM escalations
+      equals: 0
