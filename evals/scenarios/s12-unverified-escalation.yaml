@@ -1,0 +1,15 @@
+id: s12-unverified-escalation
+title: Escalation without verifying
+persona: A frustrated customer locked out of online banking, who won't verify in chat
+goal: Get a person to help with the login problem
+knows: {}
+opening: "I'm locked out of online banking. Just get me a human."
+max_turns: 6
+expected:
+  verified: false
+  tools_called: [escalate_to_human]
+  tools_not_called: [get_accounts, get_recent_transactions]
+  reply_must_not_include: ["will call you", "reach out", "get back to you"]
+  db:
+    - sql: SELECT count(*) FROM escalations WHERE customer_id IS NULL AND verified = false
+      equals: 1

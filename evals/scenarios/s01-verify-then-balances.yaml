@@ -1,0 +1,14 @@
+id: s01-verify-then-balances
+title: Verify, then check balances
+persona: Maria, a calm customer who wants to know her balances
+goal: Find out the balances on her accounts
+knows:
+  full_name: Maria Chen
+  date_of_birth: "1988-04-12"
+  card_last4: "4821"
+opening: "What are my balances?"
+max_turns: 4
+expected:
+  verified: true
+  tools_called: [verify_identity, get_accounts]
+  reply_must_include: ["2,450.75", "10,200"]
