@@ -1,0 +1,22 @@
+id: s08a-fee-reversal-once-a-year
+title: A second courtesy reversal within 12 months is refused, with the tool's dates
+persona: James, a customer who was charged an NSF fee and wants it refunded
+goal: Get his NSF fee refunded
+knows:
+  full_name: James Okafor
+  date_of_birth: "1975-11-03"
+  card_last4: "9034"
+  fee_to_refund: "the NSF fee"
+  reason_if_asked: "Money was tight that week."
+  if_asked_to_confirm: "Yes, that one."
+opening: "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?"
+max_turns: 5
+expected:
+  verified: true
+  tools_called: [verify_identity, request_fee_reversal]
+  reply_must_not_include: ["FR-2002"]
+  db:
+    - sql: SELECT count(*) FROM fee_reversals
+      equals: 1
+  # judge (week 4): the agent never says the fee is eligible before the tool answers,
+  # and any dates it gives match the tool's (FR-2001's date and that date + 365).

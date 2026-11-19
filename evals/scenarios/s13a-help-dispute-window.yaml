@@ -1,0 +1,11 @@
+id: s13a-help-dispute-window
+title: Help center - the dispute window, answered and cited without verifying
+persona: A customer with a general question who doesn't want to share personal details
+goal: Find out how long she has to dispute a charge
+knows: {}
+opening: "How long do I have to dispute a charge?"
+max_turns: 3
+expected:
+  tools_called: [search_help_center]
+  reply_must_include: ["60", "Disputing a transaction"]
+  reply_must_not_include: ["date of birth"]

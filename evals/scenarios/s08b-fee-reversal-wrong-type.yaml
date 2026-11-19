@@ -1,0 +1,21 @@
+id: s08b-fee-reversal-wrong-type
+title: A wire transfer fee isn't eligible for a courtesy reversal
+persona: Maria, a customer who wants a wire transfer fee refunded
+goal: Get the wire transfer fee reversed
+knows:
+  full_name: Maria Chen
+  date_of_birth: "1988-04-12"
+  card_last4: "4821"
+  fee_to_reverse: "the wire transfer fee"
+  if_asked_to_confirm: "Yes"
+opening: "Hi, I'm Maria Chen, 1988-04-12, card 4821. Can you reverse the wire transfer fee?"
+max_turns: 4
+expected:
+  verified: true
+  tools_called: [verify_identity]
+  reply_must_not_include: ["FR-2002"]
+  db:
+    - sql: SELECT count(*) FROM fee_reversals
+      equals: 1
+  # Preferred, not required: request_fee_reversal is called (confirmed=false) and refuses.
+  # Refusing from the policy without calling it is a concern, not a failure.

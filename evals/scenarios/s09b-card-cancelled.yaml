@@ -1,0 +1,20 @@
+id: s09b-card-cancelled
+title: A cancelled card can't be frozen
+persona: Sofia, a customer who lost a card she doesn't realize was already cancelled
+goal: Freeze her lost card
+knows:
+  full_name: Sofia Rossi
+  date_of_birth: "1964-09-18"
+  card_last4: "7702"
+  card_to_freeze: "The card ending 7702. You lost it."
+  if_asked_to_confirm: "Yes"
+opening: "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. Freeze my card ending 7702, I lost it."
+max_turns: 4
+expected:
+  verified: true
+  tools_called: [verify_identity, freeze_card]
+  reply_must_include: ["1-800-555-0199"]
+  reply_must_not_include: ["online banking"]
+  db:
+    - sql: SELECT status FROM cards WHERE last4 = '7702'
+      equals: cancelled

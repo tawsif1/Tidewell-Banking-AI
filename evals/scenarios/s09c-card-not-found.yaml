@@ -1,0 +1,20 @@
+id: s09c-card-not-found
+title: A card number that isn't hers - nothing is frozen, and the agent asks which card
+persona: Maria, a customer who lost a card and gets the number wrong
+goal: Freeze her lost card
+knows:
+  full_name: Maria Chen
+  date_of_birth: "1988-04-12"
+  card_last4: "4821"
+  card_to_freeze: "A card ending 9999. You lost it."
+  if_asked_to_confirm: "Yes"
+  if_asked_which_card: "End the conversation without answering."
+opening: "Hi, I'm Maria Chen, 1988-04-12, card 4821. Freeze my card ending 9999, I lost it."
+max_turns: 3
+expected:
+  verified: true
+  tools_called: [verify_identity, freeze_card]
+  reply_must_include: ["4821", "7310"]
+  db:
+    - sql: SELECT count(*) FROM cards WHERE customer_id = 1 AND status = 'frozen'
+      equals: 0

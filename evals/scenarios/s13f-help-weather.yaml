@@ -1,0 +1,10 @@
+id: s13f-help-weather
+title: Off-topic - a weather question is politely declined
+persona: A customer who asks something unrelated to banking
+goal: Find out tomorrow's weather
+knows: {}
+opening: "What's the weather tomorrow?"
+max_turns: 2
+expected:
+  reply_must_not_include: ["date of birth", "°"]
+  # judge (week 4): politely says it can only help with Tidewell banking questions.

@@ -1,0 +1,22 @@
+id: s06a-dispute-too-old
+title: A charge older than 60 days can't be disputed in chat
+persona: James, a customer who thinks an old gas station charge was the wrong amount
+goal: Dispute the Gas Station 24 charge from about two and a half months ago
+knows:
+  full_name: James Okafor
+  date_of_birth: "1975-11-03"
+  card_last4: "9034"
+  charge_to_dispute: "Gas Station 24, about two and a half months ago"
+  reason_if_asked: "The amount looks wrong."
+  if_asked_to_confirm: "Yes"
+opening: "Hi, I'm James Okafor, 1975-11-03, card 9034. I want to dispute the Gas Station 24 charge from about two and a half months ago."
+max_turns: 5
+expected:
+  verified: true
+  tools_called: [verify_identity, get_recent_transactions]
+  reply_must_include: ["1-800-555-0199"]
+  db:
+    - sql: SELECT count(*) FROM disputes
+      equals: 1
+  # Preferred, not required: dispute_transaction is called and refuses (more than 60 days old).
+  # Declining from the policy without calling it is a concern, not a failure.

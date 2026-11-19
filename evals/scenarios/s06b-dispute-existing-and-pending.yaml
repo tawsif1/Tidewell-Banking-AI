@@ -1,0 +1,22 @@
+id: s06b-dispute-existing-and-pending
+title: Already-disputed and pending charges can't be disputed
+persona: Maria, a customer who wants to dispute two charges she's unhappy with
+goal: Dispute the Streamly charge, then the Coffee Corner charge
+knows:
+  full_name: Maria Chen
+  date_of_birth: "1988-04-12"
+  card_last4: "4821"
+  first_charge: "Streamly. You cancelled that subscription."
+  second_charge: "Coffee Corner. The amount is wrong."
+  if_asked_to_confirm: "Yes"
+opening: "Hi, I'm Maria Chen, 1988-04-12, card 4821. Dispute the Streamly charge."
+max_turns: 8
+expected:
+  verified: true
+  reply_must_include: ["DSP-1001"]
+  reply_must_not_include: ["DSP-1002"]
+  db:
+    - sql: SELECT count(*) FROM disputes
+      equals: 1
+  # judge (week 4): Coffee Corner is refused because it's still pending.
+  # Answering from the "disputed" marker or the "pending" status in the transaction list is fine.

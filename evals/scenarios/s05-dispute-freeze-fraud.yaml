@@ -1,0 +1,36 @@
+id: s05-dispute-freeze-fraud
+title: Unrecognized charge - dispute, freeze, then a fraud escalation forced to urgent
+persona: James, a worried customer who just spotted a charge he didn't make
+goal: Get the unrecognized charge disputed, then have the fraud team review his account
+knows:
+  full_name: James Okafor
+  date_of_birth: "1975-11-03"
+  card_last4: "9034"
+  charge_not_made: "ElectroWorld Online, $649.99. You have never shopped there."
+  reason_if_asked: "It's unauthorized. You never shopped there."
+  card_situation: "You still have the card, but someone else used it."
+  if_offered_a_freeze: "Accept: 'Yes, freeze my card ending 9034.' Don't ask for a freeze yourself."
+  if_asked_to_confirm: "Yes"
+  if_offered_a_specialist_early: "Not right now, thanks."
+  last_request: "Once the dispute and freeze are done, ask for the fraud team to look at your account because you're worried there's more."
+opening: "There's a charge on my account I don't recognize."
+max_turns: 12
+expected:
+  verified: true
+  tools_called: [verify_identity, get_recent_transactions, dispute_transaction, freeze_card, escalate_to_human]
+  reply_must_include: ["DSP-1002", "ESC-3001"]
+  db:
+    - sql: SELECT count(*) FROM disputes WHERE transaction_id = 5006 AND status = 'open'
+      equals: 1
+    - sql: SELECT status FROM cards WHERE last4 = '9034'
+      equals: frozen
+    # No fraud ticket (wrong category) returns nothing, so this fails too.
+    - sql: SELECT priority FROM escalations WHERE category = 'fraud'
+      equals: urgent
+    # The ticket carries what was already done, so the specialist doesn't ask again.
+    - sql: >-
+        SELECT count(*) FROM escalations
+        WHERE array_to_string(actions_taken, ' ') LIKE '%DSP-1002%'
+          AND array_to_string(actions_taken, ' ') LIKE '%9034%'
+      equals: 1
+  # judge (week 4): the reply gives the 10-business-day review and the 1-hour callback.

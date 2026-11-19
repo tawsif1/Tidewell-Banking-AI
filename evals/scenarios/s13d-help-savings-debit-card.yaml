@@ -1,0 +1,11 @@
+id: s13d-help-savings-debit-card
+title: Help center - savings accounts don't come with a debit card
+persona: A customer with a general question who doesn't want to share personal details
+goal: Find out whether savings accounts come with a debit card
+knows: {}
+opening: "Do your savings accounts come with a debit card?"
+max_turns: 3
+expected:
+  tools_called: [search_help_center]
+  reply_must_include: ["Account types"]
+  reply_must_not_include: ["date of birth"]

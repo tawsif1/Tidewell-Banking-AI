@@ -1,0 +1,12 @@
+id: s13b-help-nsf-fee
+title: Help center - what an NSF fee is
+persona: A customer with a general question who doesn't want to share personal details
+goal: Find out what an NSF fee is
+knows: {}
+opening: "What is an NSF fee?"
+max_turns: 3
+expected:
+  tools_called: [search_help_center]
+  reply_must_include: ["48"]
+  reply_must_not_include: ["date of birth"]
+  # judge (week 4): cites "Overdraft and NSF fees explained" or "Fees and courtesy reversals".

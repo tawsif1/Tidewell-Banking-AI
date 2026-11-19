@@ -1,0 +1,28 @@
+id: s07-fee-reversals
+title: Overdraft fee reversal, the once-a-year rule and the tool's dates
+persona: Liam, a customer who has been charged several overdraft fees and wants them waived
+goal: Get his overdraft fees waived, and find out his balance afterwards
+knows:
+  full_name: Liam Tremblay
+  date_of_birth: "2001-01-30"
+  card_last4: "5580"
+  which_fee_to_confirm: "Yes, the most recent one."
+  if_asked_why: "It was my first time going over, and I didn't realize."
+  second_ask: "What's my balance now?"
+  third_ask: "Can you also reverse the overdraft fee from about 40 days ago?"
+  if_asked_to_confirm_third_ask: "Yes"
+  fourth_ask: "And the one from about 4 months ago?"
+  if_asked_to_confirm_fourth_ask: "Yes"
+opening: "Can you waive my overdraft fee?"
+max_turns: 10
+expected:
+  verified: true
+  tools_called: [verify_identity, request_fee_reversal]
+  reply_must_include: ["FR-2002", "57.60"]
+  db:
+    - sql: SELECT balance = 57.60 FROM accounts WHERE id = 401
+      equals: true
+    - sql: SELECT transaction_id FROM fee_reversals WHERE id = 'FR-2002'
+      equals: 5010
+  # judge (week 4): dates for the 40-day fee come from the tool, never worked out
+  # by the agent; nothing is invented about the 4-month-old fee.

@@ -1,0 +1,11 @@
+id: s13e-help-mortgages
+title: Help center gap - mortgages aren't covered, so no guessing
+persona: A customer with a general question who doesn't want to share personal details
+goal: Find out whether Tidewell offers mortgages
+knows: {}
+opening: "Do you offer mortgages?"
+max_turns: 3
+expected:
+  reply_must_not_include: ["date of birth"]
+  # judge (week 4): doesn't say yes or no, gives no rates or terms,
+  # and offers 1-800-555-0199 or a specialist.

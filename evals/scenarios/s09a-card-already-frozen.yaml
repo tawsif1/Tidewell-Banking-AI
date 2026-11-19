@@ -1,0 +1,23 @@
+id: s09a-card-already-frozen
+title: Freezing a card that's already frozen
+persona: Priya, a customer who lost her credit card
+goal: Freeze her lost credit card
+knows:
+  full_name: Priya Sharma
+  date_of_birth: "1992-07-25"
+  card_last4: "1167"
+  card_to_freeze: "Credit card ending 2290. You lost it."
+  if_asked_to_confirm: "Yes"
+opening: "Hi, I'm Priya Sharma, 1992-07-25, card 1167. Freeze my credit card ending 2290, I lost it."
+max_turns: 4
+expected:
+  verified: true
+  tools_called: [verify_identity, freeze_card]
+  reply_must_include: ["1-800-555-0199"]
+  reply_must_not_include: ["online banking"]
+  db:
+    - sql: SELECT status FROM cards WHERE last4 = '2290'
+      equals: frozen
+    # Her other card must not be frozen by mistake.
+    - sql: SELECT count(*) FROM cards WHERE customer_id = 3 AND status = 'frozen'
+      equals: 1

@@ -1,0 +1,24 @@
+id: s10-asks-for-person
+title: Asking for a person - one ticket, even when asked twice
+persona: Sofia, a confused customer who can't see any accounts and wants a person to explain
+goal: Find out what accounts she has, then talk to a person about why she doesn't see any
+knows:
+  full_name: Sofia Rossi
+  date_of_birth: "1964-09-18"
+  card_last4: "7702"
+  after_hearing_about_her_accounts: "Ask for a person: 'I'd like to talk to a person.'"
+  if_asked_what_its_about: "You don't see any accounts and want to know why."
+  if_asked_to_confirm: "Yes"
+  after_the_ticket: "Ask once more: 'Can you get me a person?'"
+opening: "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. What accounts do I have?"
+max_turns: 6
+expected:
+  verified: true
+  tools_called: [verify_identity, get_accounts, escalate_to_human]
+  reply_must_include: ["ESC-3001"]
+  db:
+    - sql: SELECT count(*) FROM escalations
+      equals: 1
+    - sql: SELECT verified FROM escalations
+      equals: true
+  # judge (week 4): the callback time in the reply matches the ticket's priority.
