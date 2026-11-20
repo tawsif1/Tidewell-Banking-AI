@@ -39,4 +39,4 @@ services:
     staticPublishPath: dist
     envVars:
       - key: VITE_API_URL
-        value: https://tidewell-api.onrender.com
+        value: https://tidewell-api-q27h.onrender.com
