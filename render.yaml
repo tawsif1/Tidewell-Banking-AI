@@ -1,0 +1,42 @@
+# Render Blueprint: Render > New > Blueprint > pick this repo.
+# If a name below is already taken on Render, change it and update the two URLs to match.
+databases:
+  - name: tidewell-db
+    plan: free              # the free database expires after 30 days; use a paid plan to keep it
+    databaseName: tidewell
+    user: tidewell
+
+services:
+  - type: web
+    name: tidewell-api
+    runtime: python
+    plan: free              # sleeps after 15 minutes idle; the first request after that takes about a minute
+    buildCommand: pip install -r requirements.txt
+    # deploy_init.py creates the tables and demo data only if they don't exist yet.
+    startCommand: python deploy_init.py && uvicorn myapi:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /docs
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: DATABASE_URL
+        fromDatabase:
+          name: tidewell-db
+          property: connectionString
+      - key: ALLOWED_ORIGINS
+        value: https://tidewell-ui.onrender.com
+      - key: ANTHROPIC_API_KEY
+        sync: false         # you enter this in the Render dashboard
+      - key: ANTHROPIC_WORKSPACE_ID
+        sync: false
+      - key: VOYAGE_API_KEY
+        sync: false
+
+  - type: web
+    name: tidewell-ui
+    runtime: static
+    rootDir: ui
+    buildCommand: npm ci && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://tidewell-api.onrender.com
