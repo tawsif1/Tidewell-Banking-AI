@@ -1,0 +1,12 @@
+{
+  "scenario": "s13e-help-mortgages",
+  "turns": [
+    {
+      "customer": "Do you offer mortgages?",
+      "agent": "Tidewell Bank focuses on consumer banking services like checking and savings accounts, debit and credit cards, and dispute resolution. I don't have information about mortgage products.\n\nFor details on what services we offer, I'd recommend calling Tidewell Bank at **1-800-555-0199** (Monday to Friday, 8am to 8pm), and our team can let you know if we have mortgage options or can point you in the right direction.\n\nIs there anything else I can help you with today?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null
+}

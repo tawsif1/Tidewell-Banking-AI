@@ -1,0 +1,60 @@
+{
+  "scenario": "s02-lockout",
+  "turns": [
+    {
+      "customer": "What are my balances?",
+      "agent": "I'd be happy to help you check your balances. First, I need to verify your identity.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "tool_events": []
+    },
+    {
+      "customer": "My name is Maria Chen. My date of birth is 1988-04-12. And the last 4 digits of my card are 0000.",
+      "agent": "The details you provided don't match our records. This could be a typo or the information might be slightly different than what we have on file.\n\nPlease try again with:\n1. Your full name\n2. Your date of birth (YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "0000"
+          },
+          "result": "The details provided don't match our records.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Let me try again. Maria Chen, 1988-04-12, and 1111 for the last 4 digits.",
+      "agent": "Those details didn't match either. Let me pull up your account information with the correct details. Please try once more\u2014make sure the:\n1. Full name matches exactly as it appears on your account\n2. Date of birth is correct\n3. Last 4 digits of your card are accurate\n\nIf you're having trouble remembering, you can also call Tidewell Bank support at 1-800-555-0199 (Monday\u2013Friday, 8am\u20138pm) and they can help verify your identity over the phone.",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "1111"
+          },
+          "result": "The details provided don't match our records.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I'm sorry for the confusion. Let me try once more. Maria Chen, 1988-04-12, and 2222 for the last 4 digits.",
+      "agent": "I'm sorry\u2014after three attempts, your verification is now locked for security. \n\nTo access your account and check your balances, please call Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm). They'll help you verify your identity and get your account information.",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "2222"
+          },
+          "result": "Verification is now locked after too many failed attempts. Tell the customer to call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": false,
+  "escalation_id": null
+}

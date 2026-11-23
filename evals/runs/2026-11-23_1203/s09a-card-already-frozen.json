@@ -1,0 +1,32 @@
+{
+  "scenario": "s09a-card-already-frozen",
+  "turns": [
+    {
+      "customer": "Hi, I'm Priya Sharma, 1992-07-25, card 1167. Freeze my credit card ending 2290, I lost it.",
+      "agent": "Good news \u2013 your card ending in 2290 is already frozen, so no new purchases can be made on it. \n\nIf you need to unfreeze it or order a replacement card, please call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm. They'll help you with that.\n\nIs there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Priya Sharma",
+            "date_of_birth": "1992-07-25",
+            "card_last4": "1167"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "2290",
+            "reason": "lost"
+          },
+          "result": "Card ending in 2290 is already frozen. Cards can't be unfrozen or replaced in chat; the customer can call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null
+}

@@ -1,0 +1,12 @@
+{
+  "scenario": "s13f-help-weather",
+  "turns": [
+    {
+      "customer": "What's the weather tomorrow?",
+      "agent": "I'm here to help with Tidewell Bank accounts and services, so I can't help with weather forecasts. \n\nIs there anything I can assist you with regarding your bank account?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null
+}

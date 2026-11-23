@@ -1,0 +1,63 @@
+{
+  "scenario": "s08b-fee-reversal-wrong-type",
+  "turns": [
+    {
+      "customer": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Can you reverse the wire transfer fee?",
+      "agent": "Unfortunately, the wire transfer fee doesn't qualify for a courtesy reversal\u2014those only apply to NSF (non-sufficient funds) and overdraft fees. \n\nIf you believe the fee was charged in error, you can reach Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm) to discuss it further. Is there anything else I can help you with?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-24 to 2026-11-23, newest first:\n2026-11-22 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-21 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-18 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-17 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-11-11 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-11-03 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5015,
+            "reason": "Customer requesting reversal of wire transfer fee",
+            "confirmed": false
+          },
+          "result": "Transaction #5015 isn't eligible for a courtesy reversal. Only nsf and overdraft fees qualify. If the customer believes it was charged in error, they can call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I understand, but I'd really appreciate if you could make an exception this time. Can you please look into reversing it for me? I've been a good customer and this was an unexpected charge.",
+      "agent": "I've created a ticket (reference **ESC-3001**) and sent it to our Billing team. A specialist will call you at the number on file within 1 business day to review your situation and explore what options might be available.\n\nIs there anything else I can help you with today?",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "fees",
+            "priority": "normal",
+            "summary": "Maria Chen is requesting consideration for a courtesy reversal of a $25 wire transfer fee from November 17th (transaction #5015). The fee doesn't qualify under the standard NSF/overdraft reversal policy, but she notes she's been a good customer and found the charge unexpected.",
+            "still_needed": "Specialist to review whether any exceptions or alternative options can be offered for this wire transfer fee.",
+            "customer_sentiment": "calm",
+            "requested_by_customer": false
+          },
+          "result": "Escalation ESC-3001 sent to the Billing team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 1 business day. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, that works for me. Thanks for escalating it\u2014I appreciate your help.",
+      "agent": "You're welcome, Maria! I'm glad I could help. A specialist will be in touch soon. Have a great day!",
+      "tool_events": []
+    }
+  ],
+  "verified": true,
+  "escalation_id": "ESC-3001"
+}

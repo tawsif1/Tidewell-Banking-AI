@@ -1,0 +1,36 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket is ready. **Please call us at 1-800-555-0199** and quote reference **ESC-3001**. Our Account Access team will help restore your access. We're open Monday to Friday, 8am to 8pm.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Specialist to investigate the lockout, verify the customer's identity, and restore online banking access or guide them through recovery.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I need to talk to someone now, not call later. Can't you just connect me to a person right here in this chat?",
+      "agent": "I understand this is frustrating. Unfortunately, I can't transfer you to a live chat agent\u2014this tool creates a support ticket for our team to handle.\n\nYour best option right now is to **call 1-800-555-0199** with your reference number **ESC-3001**. Our team can help you faster by phone, and we're open today (Monday) until 8pm.\n\nIs there anything else I can help with while you're here?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's literally no way to talk to an actual person in this chat? That's the worst customer service I've ever seen.",
+      "agent": "I hear your frustration, and I genuinely wish I could connect you to someone right here. Unfortunately, this chat system doesn't have live agent support\u2014I can only create tickets for our team to follow up on.\n\n**Calling is your fastest option right now:** 1-800-555-0199, reference **ESC-3001**. Our Account Access specialists can help you immediately over the phone, and we're open until 8pm today.\n\nI know it's not ideal, but they'll be able to get you back into online banking much quicker than waiting for a callback. I'm sorry we can't do better through chat.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001"
+}

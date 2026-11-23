@@ -1,0 +1,50 @@
+{
+  "scenario": "s06b-dispute-existing-and-pending",
+  "turns": [
+    {
+      "customer": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Dispute the Streamly charge.",
+      "agent": "I found the Streamly charge! I can see it's already been disputed:\n\n**Streamly Subscription** \u2014 November 18, 2026 \u2014 $15.99 \u2014 Transaction #5002 \u2014 **Already disputed (case #DSP-1001)**\n\nIt looks like this charge has already been reported and a dispute case is open. Is there anything else you need help with regarding this dispute, or would you like to speak with a specialist about it?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-24 to 2026-11-23, newest first:\n2026-11-22 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-21 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-18 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-17 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-11-11 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-11-03 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Oh, I didn't realize it was already disputed. That's good. But I also need to dispute a charge from Coffee Corner. The amount is wrong on that one.",
+      "agent": "I found the Coffee Corner charge:\n\n**Coffee Corner** \u2014 November 22, 2026 \u2014 $4.75 \u2014 Transaction #5003 \u2014 pending\n\nYou're saying the amount is wrong. Can you tell me what the correct amount should have been, or what happened with that charge?",
+      "tool_events": []
+    },
+    {
+      "customer": "Yeah, I was only charged for one coffee but this shows $4.75. It should've been less than that. I need to dispute this charge because the amount doesn't match what I actually ordered.",
+      "agent": "The charge is still pending, so I can't dispute it yet. Once it posts to your account (usually within a few business days), you'll be able to dispute it. I'd recommend reaching out again once it's posted, and I can help you file the dispute right away.\n\nIs there anything else I can help with today?",
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5003,
+            "reason": "incorrect_amount",
+            "details": "Charged $4.75 for one coffee, but the amount should have been less than what was ordered."
+          },
+          "result": "Transaction #5003 is still pending and can't be disputed until it posts, usually within a few business days.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null
+}

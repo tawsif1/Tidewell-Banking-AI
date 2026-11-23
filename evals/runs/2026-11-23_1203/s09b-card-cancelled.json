@@ -1,0 +1,32 @@
+{
+  "scenario": "s09b-card-cancelled",
+  "turns": [
+    {
+      "customer": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. Freeze my card ending 7702, I lost it.",
+      "agent": "Good news, Sofia! Your card ending in 7702 is already cancelled, so it can't be used. That's even better than a freeze\u2014you're fully protected.\n\nTo order a replacement card, please call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm. Is there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "7702",
+            "reason": "lost"
+          },
+          "result": "Card ending in 7702 has been cancelled and cannot be frozen. A cancelled card can't be used, so nothing more is needed for it. To order a replacement card, the customer can call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null
+}
