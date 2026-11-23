@@ -445,3 +445,23 @@ These are the answers to "why did you build it this way?"
 - **Claude Code plays the customer against the live API,** and judges from the tool events and the database, not from how the reply sounds.
 - **The test plan carries its own context:** every tool message, the demo data, scripted answers for each customer, and a list of things that aren't failures. Without that, the tester scored by its own guesses.
 - **Tool tests run without the agent,** so a failure points at the code or at the agent, never both.
+
+
+## Search calibration
+
+**MIN_SEARCH_SCORE: 0.43, set from the retrieval eval** (`python -m evals.retrieval_eval`, 53 labelled questions: 43 the help center covers, 10 it doesn't). Results: `evals/results/retrieval_2026-11-17.json`.
+
+| Metric | At 0.45 (old) | At 0.43 |
+|---|---|---|
+| hit@1 | 39/43 (91%) | 39/43 (91%) |
+| hit@5 | 43/43 (100%) | 43/43 (100%) |
+| Usable hit@5 (right article at or above the threshold) | 39/43 | 42/43 |
+| Uncovered questions rejected | 4/10 | 3/10 |
+
+**Why 0.43:** a sweep from 0.35 to 0.60 found the most right answers at 0.42–0.44, and 0.43 is the middle of that range. A blocked good answer can't be recovered, while a leaked bad one is still caught by "answer only from these sections", so ties go to keeping good answers.
+
+**What no threshold can fix:**
+- **Near-misses leak at any usable threshold.** Interest rates, the ATM limit and foreign fees score 0.51–0.58 against nearby articles; blocking them needs 0.59, which loses 26 good answers. The agent's grounding instruction is the only defense here.
+- **pend-02 ("took $100 but I only pumped $40") scores 0.368.** The embedding model misses "gas station hold". Keyword search should catch it: a test case for hybrid search in Phase 3.
+
+**Caveat:** 53 questions is small; one question moves a metric by about 2%.
