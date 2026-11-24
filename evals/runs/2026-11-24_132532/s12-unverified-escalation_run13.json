@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created: **ESC-3001**. \n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote reference **ESC-3001**. The Account Access team will help you regain access to your online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs help regaining access.",
+            "still_needed": "Reset or unlock customer's online banking access.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need to talk to someone now. This is frustrating. Can't you just connect me to a person right now instead of making me call?",
+      "agent": "I understand this is frustrating. I'm not able to transfer you to a live agent directly through chat, but your ticket **ESC-3001** is ready for the Account Access team.\n\nYour best option right now is to call **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote **ESC-3001**. Since you've already created a ticket, the specialist will have your information and won't make you repeat everything.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's literally no one available in chat right now? Not even during business hours?",
+      "agent": "I understand your frustration. I'm an automated support assistant\u2014I can help with account questions, disputes, fees, and card issues, but I can't connect you to a live person through chat. \n\nFor account access issues like being locked out of online banking, you do need to speak with a specialist, and phone is the way to reach them: **1-800-555-0199** (Monday to Friday, 8am to 8pm). Your ticket **ESC-3001** is already in the queue, so they'll have your details ready.\n\nI'm sorry I can't do more through this chat.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

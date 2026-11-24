@@ -465,3 +465,5 @@ These are the answers to "why did you build it this way?"
 - **pend-02 ("took $100 but I only pumped $40") scores 0.368.** The embedding model misses "gas station hold". Keyword search should catch it: a test case for hybrid search in Phase 3.
 
 **Caveat:** 53 questions is small; one question moves a metric by about 2%.
+
+Contact promises to unverified customers under pushback (s12). When an unverified customer refused to call and demanded a person, the agent invented options ("a specialist may reach out", "visit a branch", "leave a message") about 1 time in 10. Prompt and tool rules saying what not to say didn't change the rate (2/20). A tool result with no next step made it 7/20. Giving the agent a pushback script, "acknowledge their frustration and repeat this same option", brought it to 0/20. Measured with python -m evals.run s12-unverified-escalation --repeat 20.

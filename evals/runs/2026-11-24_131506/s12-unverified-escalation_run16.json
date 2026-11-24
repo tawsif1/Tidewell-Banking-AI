@@ -1,0 +1,83 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your ticket has been created and sent to our Account Access team. Here's what happens next: a specialist will review your case and contact you to help restore your access.\n\n**Your reference number is ESC-3001.** Keep this handy in case you need to follow up.\n\nIf you need to reach us in the meantime, call **1-800-555-0199**, Monday to Friday, 8am to 8pm, and mention your reference number.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs to regain access to their account.",
+            "still_needed": "Help customer reset their online banking access or unlock their account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. None Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I need someone now, not later. This is ridiculous. Can't you just transfer me to a person right now instead of making me wait?",
+      "agent": "I understand this is frustrating. Unfortunately, I'm not able to do a live transfer\u2014this tool creates a support ticket that routes to a specialist, but it's not a real-time connection.\n\nYour best option to reach someone right now is to **call 1-800-555-0199** and quote your reference number **ESC-3001**. That way you'll speak to someone immediately instead of waiting for a callback.\n\nThey're open Monday to Friday, 8am to 8pm. I'm sorry I can't connect you directly\u2014I wish I could.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

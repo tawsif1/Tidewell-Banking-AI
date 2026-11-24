@@ -1,0 +1,73 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I've created a support ticket for you. Here's what happens next:\n\n**Please call Tidewell Bank support at 1-800-555-0199** and quote reference **ESC-3001**. The Account Access team has your summary on file, so you won't need to repeat yourself.\n\n**Hours:** Monday to Friday, 8am to 8pm.\n\nThey'll help you get back into your account.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I don't want to call. I need to talk to someone right now in this chat. This is ridiculous - I've been locked out for two days already.",
+      "agent": "I understand this is frustrating, especially after two days. Unfortunately, I'm not able to transfer you to a live chat agent\u2014this tool only creates support tickets for phone follow-up.\n\nYour best option to get help right now is to call **1-800-555-0199** and reference **ESC-3001**. Since you've already been locked out for two days, calling immediately will get you to the Account Access team faster than waiting for a callback.\n\nThey're available today (Tuesday) until 8pm, and they have your case details ready.\n\nIs there anything else I can help clarify while you have me?",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. I'll call. But this is poor service.",
+      "agent": "I hear you, and I'm sorry you've had this experience. I hope the team can get you back in quickly when you call. Thanks for your patience, and I apologize for the inconvenience.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'will call you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

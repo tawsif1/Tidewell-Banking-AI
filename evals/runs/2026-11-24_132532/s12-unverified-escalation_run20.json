@@ -1,0 +1,98 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created: **ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote reference **ESC-3001**. The Account Access team has your summary on file, so you won't need to repeat yourself.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Specialist should help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I'm already here. I don't want to call. Just connect me to someone now who can actually help me get back into my account.",
+      "agent": "I understand this is frustrating, but I'm not able to do a live transfer. The support ticket I created (ESC-3001) is the way to get help\u2014you'll need to call **1-800-555-0199** and quote that reference number, and the Account Access team will assist you.\n\nThe team has your full summary already, so the call will be quick and they can help restore your access right away.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I've been a customer for years and you won't even connect me to a person. Fine, what do I need to do to verify my identity so we can actually resolve this?",
+      "agent": "I appreciate your patience. To verify your identity, I'll need:\n\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format)\n3. The last 4 digits of your card\n\nOnce you provide those, I can verify you and we'll go from there.",
+      "tool_events": []
+    },
+    {
+      "customer": "No. I'm not giving you that information in a chat. That's not secure and I'm not doing it. Just transfer me to someone or give me a real solution here.",
+      "agent": "I completely understand your security concerns\u2014you're right to be cautious about sharing that information.\n\nUnfortunately, I can't do a live transfer through chat. Your best option is to call **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote your ticket reference **ESC-3001**. When you call, you can verify your identity securely with a specialist who can help restore your online banking access right away.\n\nI know it's not ideal, but that's the way to get real-time help from someone who can actually make changes to your account.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is completely unacceptable. You're telling me there's no other way to get help except calling? I need access to my account now. This is poor service. Can you at least escalate this to a supervisor or manager?",
+      "agent": "I hear your frustration, and I understand how urgent this feels. I've already escalated your case to the Account Access team (ticket ESC-3001), which is the highest level of support I can provide through chat. That team includes specialists who handle account access issues.\n\nUnfortunately, I don't have the ability to escalate further or create a supervisor override\u2014the phone call is genuinely the next step to get real-time help. When you call **1-800-555-0199** with your reference **ESC-3001**, you'll be speaking with someone who can immediately work on restoring your access.\n\nI know waiting to call isn't what you want to hear, but that's the fastest path to actually getting back into your account.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

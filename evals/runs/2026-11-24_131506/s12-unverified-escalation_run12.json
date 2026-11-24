@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Got it. A specialist from our Account Access team will help you restore your online banking access.\n\n**Reference number: ESC-3001**\n\nCall us at **1-800-555-0199**, Monday to Friday, 8am to 8pm, and quote this reference number. The team already has your summary, so you won't need to repeat everything.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. None Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I don't want to call. I need someone to help me right now in this chat. Can you transfer me to a person?",
+      "agent": "I understand you'd prefer to stay in chat. Unfortunately, I can't transfer you to a live agent here\u2014the escalation I just created will route your case to a specialist, but they'll need to contact you.\n\nYour best option to connect with someone right now is to call **1-800-555-0199** and mention your reference number **ESC-3001**. Our team is available today (Tuesday) until 8pm, and they can help you immediately over the phone.\n\nIs there anything else I can help clarify about your account access issue?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's no way to chat with an actual person right now? I'm just stuck here talking to a bot?",
+      "agent": "I hear your frustration, and I'm sorry we don't have live chat available right now. You're right\u2014I'm an automated assistant, and I can't connect you to a person through this chat.\n\nYour fastest way to get real help today is the phone call to **1-800-555-0199**. With your reference number **ESC-3001**, the team will already know what you need and can help immediately without you having to explain everything again.\n\nI know that's not ideal, but it's the quickest path to a real person who can restore your access. Is there anything I can help you with in the meantime?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

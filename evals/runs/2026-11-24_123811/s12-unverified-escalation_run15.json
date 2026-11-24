@@ -1,0 +1,107 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I apologize\u2014I'm having trouble creating that ticket right now. Please call Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm). They'll help you regain access to online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs to regain access to their account.",
+            "still_needed": "Specialist to help reset or restore online banking access and verify the customer's identity.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        }
+      ]
+    },
+    {
+      "customer": "No, I need help now. Can't you just transfer me to someone? This is ridiculous.",
+      "agent": "I understand your frustration. Unfortunately, I can't do a live transfer\u2014I'm a chat assistant, not connected to a live phone line. \n\nYour fastest option right now is to call **1-800-555-0199**. They have specialists available to help with account access issues immediately.\n\nIf you'd prefer to stay in chat, I can try creating a support ticket again, but a specialist would need to contact you back rather than connect instantly. What would work better for you?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is unacceptable. I just want to talk to a real person in chat right now. Can you at least try the ticket again?",
+      "agent": "I'm sorry\u2014the system is having trouble creating the ticket. I know this is frustrating.\n\nYour best option right now is to call **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm). They have live specialists who can help you immediately with account access issues. I wish I could do more through chat.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and urgently needs access restored. Customer is frustrated and requesting immediate chat support with a specialist.",
+            "still_needed": "Specialist to contact customer via chat to verify identity and restore online banking access.",
+            "customer_sentiment": "angry",
+            "requested_by_customer": true
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        }
+      ]
+    },
+    {
+      "customer": "Look, I'm not calling. Just escalate this to someone who can actually help me. There has to be someone else.",
+      "agent": "I hear you, and I'm genuinely sorry the ticket system isn't working on my end right now. Unfortunately, that's the only escalation tool I have available, and it's not going through.\n\nHere's what I can tell you: calling **1-800-555-0199** really is the fastest way to reach someone who can restore your online banking access. They're set up to handle this immediately\u2014it's not something chat support or a callback ticket can typically solve anyway, since account access issues usually need to be verified and fixed in real time.\n\nI know calling isn't what you want to do, but in this case it's genuinely your quickest path to getting this resolved. Is there anything else I can help clarify about the process?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

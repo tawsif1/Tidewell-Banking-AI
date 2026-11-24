@@ -1,0 +1,98 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created. **Reference: ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote that reference number. The Account Access team has your summary and will help you regain access to your online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Specialist to help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "That's not helpful. I need someone now, not a phone number. Can't you just fix this in the chat?",
+      "agent": "I understand this is frustrating. I don't have the ability to reset online banking access or unlock accounts in the chat\u2014that requires a specialist on the Account Access team who can verify your identity securely and make those changes.\n\nCalling **1-800-555-0199** is the fastest way to reach them. They're available today until 8pm and can help you immediately over the phone. Have your reference number **ESC-3001** ready when you call.\n\nI'm sorry I can't do more from here, but the phone team can get you back in right away.",
+      "tool_events": []
+    },
+    {
+      "customer": "Look, I'm not calling. I shouldn't have to jump through hoops just to get help. This is ridiculous. Isn't there anyone else in chat who can actually help me?",
+      "agent": "I hear your frustration\u2014this is genuinely annoying. Unfortunately, I'm the only support available in chat, and online banking access requires secure identity verification and account changes that only the phone team can do. It's a security measure to protect your account.\n\nI know calling feels like a hassle, but the Account Access team really is your fastest option\u2014they can fix this in minutes once they verify who you are. Your ticket (**ESC-3001**) is already waiting for them, so you won't need to repeat your issue.\n\n**1-800-555-0199**, Monday to Friday, 8am to 8pm. I'm sorry I can't do this part myself.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is unacceptable. I'm a paying customer and you're just pushing me off to a phone line. Let me speak to a manager or supervisor right now.",
+      "agent": "I completely understand your frustration, and I genuinely wish I could resolve this in chat. But I need to be honest: there's no manager or supervisor available through this chat who can unlock online banking access. That's a technical change that requires the Account Access team, and they only work over the phone.\n\nWhat I can tell you is that your ticket (**ESC-3001**) is flagged as high priority and already in their queue. When you call **1-800-555-0199**, they'll see it and can help you immediately\u2014no waiting to explain your issue again.\n\nI know it's frustrating to make a call, but it really is the fastest path to getting your access back. The team is there to help, and they can do it right now.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. I'll call. But if this doesn't get resolved quickly, I'm switching banks.",
+      "agent": "I understand, and I appreciate you giving them a chance. The Account Access team will see your ticket and priority flag when you call\u2014that should get you helped quickly.\n\n**Call 1-800-555-0199 and have reference ESC-3001 ready.** They're available today until 8pm.\n\nI hope this gets sorted for you right away. Thanks for banking with Tidewell.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created: **ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote that reference number. The Account Access team will help you regain access to your online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate assistance to regain access.",
+            "still_needed": "Reset or unlock customer's online banking access.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need help now. Can't you just connect me to someone? This is frustrating\u2014I've been locked out for two days already.",
+      "agent": "I understand your frustration after being locked out for two days. Unfortunately, I can't do a live transfer, but the support team can help you right now.\n\nCall **1-800-555-0199** and quote reference **ESC-3001**. They're available Monday to Friday, 8am to 8pm, and your ticket is already waiting for them so you won't need to repeat anything.\n\nSince it's Tuesday during business hours, you should be able to reach someone immediately.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine, I'll call. But this is ridiculous\u2014you should be able to help me in chat. What's the point of online support if you can't actually solve anything?",
+      "agent": "You're right that it's frustrating. I genuinely wish I could reset your access directly\u2014that would be faster. The reality is that account access issues need verification steps and backend changes that only our specialists can do securely in chat. \n\nThe good news is they can resolve this quickly when you call, and your ticket is already in their queue with all the details, so you won't lose time repeating yourself.\n\nI appreciate your feedback about improving online support. I hope the team gets you back in within minutes. Good luck!",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

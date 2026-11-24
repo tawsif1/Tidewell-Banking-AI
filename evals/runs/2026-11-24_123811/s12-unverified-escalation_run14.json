@@ -1,0 +1,102 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I apologize for the technical issue. Please call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm. They'll help you regain access to your online banking right away.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs help regaining access.",
+            "still_needed": "Specialist to help unlock the account or reset credentials.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        }
+      ]
+    },
+    {
+      "customer": "No, I don't want to call. I'm already here chatting. Can't you just connect me to someone who can actually help instead of giving me a phone number?",
+      "agent": "I understand your frustration. Unfortunately, I'm not able to make a live transfer to a person through this chat. The support team can only be reached by calling **1-800-555-0199** (Monday to Friday, 8am to 8pm).\n\nI know that's not ideal when you're already here, but they'll be able to unlock your account access quickly. Is there anything else I can help with in the meantime?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's no way to get a real person through chat? That's terrible customer service. I'm not calling a number - I want to chat with an actual human here, now. Can you at least escalate this or put in a request for someone to contact me?",
+      "agent": "I sincerely apologize \u2014 the system isn't allowing me to process an escalation at the moment. I know this is frustrating, but the only way to reach a specialist is to call **1-800-555-0199** (Monday to Friday, 8am to 8pm). \n\nI understand you prefer not to call, but the team on that line can unlock your access much faster than waiting. They're equipped to handle account access issues immediately.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking. Requesting chat support through escalation rather than phone contact.",
+            "still_needed": "Determine if support can reach customer via chat or if phone call is required. Customer strongly prefers not to call.",
+            "customer_sentiment": "angry",
+            "requested_by_customer": true
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        }
+      ]
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

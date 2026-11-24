@@ -1,0 +1,78 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created: **ESC-3001**\n\nThe Account Access team has the details, so you won't need to repeat yourself. Please call Tidewell Bank support at **1-800-555-0199** and quote your reference number **ESC-3001**. We're open Monday to Friday, 8am to 8pm.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Verify customer identity and unlock their online banking access or reset their credentials.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I don't want to call. I need someone to help me right now. Can't you just transfer me to a person in chat?",
+      "agent": "I understand this is frustrating, but I'm not able to transfer you to a live chat agent. The support ticket I created (ESC-3001) goes to our Account Access team, but they'll need you to call them to verify your identity and help restore your access.\n\nCalling **1-800-555-0199** with your reference **ESC-3001** is the quickest way to get this resolved. They're available Monday to Friday, 8am to 8pm, and they'll have your full details ready.\n\nIs there anything else I can help you with in the meantime?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's literally no way to talk to an actual person in this chat? I'm locked out of my account and you won't help me.",
+      "agent": "I hear your frustration, and I'm sorry you're locked out. Here's what I can tell you honestly:\n\nI'm an AI assistant without the ability to verify your identity or unlock accounts\u2014that requires a human specialist. The ticket I created ensures the right team has your information and is ready to help the moment you call.\n\n**Calling 1-800-555-0199 with reference ESC-3001 is genuinely the fastest way to get your access restored.** The team will verify you and fix this right away. They have your ticket already, so you won't start from scratch.\n\nI wish I could do more from here, but this is the path that actually solves your problem. I'm sorry I can't offer another option.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

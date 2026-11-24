@@ -1,0 +1,107 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I apologize for the technical issue. Please call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm. They'll help you regain access to your online banking right away.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Verify customer identity and restore their online banking access or provide next steps.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        }
+      ]
+    },
+    {
+      "customer": "No, I need to talk to someone now. I'm not calling back. Can't you just transfer me to a person instead of giving me a number?",
+      "agent": "I understand your frustration. Unfortunately, I'm not able to transfer you to a live person directly through this chat. What I can do is create a support ticket for you, but I want to be honest: that's not an immediate transfer\u2014a specialist will contact you after reviewing your ticket.\n\nYour fastest option right now is to call **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm). They can help you get back into online banking immediately.\n\nIs there anything else I can help you with while you decide?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. You're a bank support chat and you can't actually help anyone. I'm not calling, and I'm not waiting for some ticket. Just escalate this to someone who can actually do something.",
+      "agent": "I apologize\u2014I'm experiencing a technical issue with creating that ticket. I understand this is frustrating. \n\nYour best path forward is to call **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm). They have the tools to unlock your account and restore your access right away. I know that's not the immediate solution you wanted, and I'm sorry I can't do more from this chat.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking. They are very upset and have declined calling support or waiting for a callback. Needs urgent assistance.",
+            "still_needed": "Contact customer and resolve their online banking access issue immediately.",
+            "customer_sentiment": "angry",
+            "requested_by_customer": true
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        }
+      ]
+    },
+    {
+      "customer": "This is unacceptable. I want a supervisor or manager\u2014someone who can actually help me right now. There has to be another way.",
+      "agent": "I completely understand your frustration, and I wish I could do more. The reality is:\n\n- I don't have the ability to unlock online banking accounts or transfer you to a live supervisor through this chat.\n- The escalation system I use is currently having technical issues.\n- **Calling 1-800-555-0199 is genuinely your fastest option** to reach someone with the access to help you immediately.\n\nI know you don't want to call, but the account access team on that line can restore your online banking right away\u2014they have the tools I simply don't have access to in this chat.\n\nIf you absolutely cannot call right now, you could also visit a Tidewell Bank branch in person during business hours, and they can help restore your access.\n\nI'm sorry I can't offer more than this. Is there anything else I can try to help?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

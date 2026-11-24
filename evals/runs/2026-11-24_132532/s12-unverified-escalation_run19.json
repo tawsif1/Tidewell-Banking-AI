@@ -1,0 +1,93 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I've created a support ticket for you (reference **ESC-3001**) and the Account Access team has all the details.\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote your reference number. They'll help you regain access to your online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Help customer regain access to online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "This isn't helpful. I need someone to actually help me right now, not a phone number. Can't you just connect me to a person in this chat?",
+      "agent": "I understand this is frustrating. Unfortunately, I can't transfer you to a live chat agent\u2014this tool creates a support ticket that the team will work on, but it's not a live connection.\n\nYour best option right now is to call **1-800-555-0199** (Monday to Friday, 8am to 8pm). They can help you immediately over the phone. Have your reference number **ESC-3001** ready when you call.\n\nI'm sorry I can't do more from here, but the phone team will get you sorted quickly.",
+      "tool_events": []
+    },
+    {
+      "customer": "No, this is ridiculous. I've been locked out for two days. There has to be someone I can talk to right now. What if I can't call during business hours? This is terrible customer service.",
+      "agent": "I hear your frustration\u2014being locked out for two days is really annoying, and I wish I could connect you live right now. Unfortunately, I genuinely don't have the ability to do a live transfer in this chat, and that's a limitation of this system, not a choice.\n\nHere's what I can tell you: **1-800-555-0199** is your fastest path to actual help. They're open Monday to Friday, 8am to 8pm, and they can resolve account access issues immediately.\n\nI know that may not work if you can't call during those hours. If that's the case, I'd recommend:\n- Calling as soon as you can during business hours, even if it's just for a few minutes\n- Quoting your reference **ESC-3001** so they know you've already escalated\n\nI wish there were an after-hours option I could offer you, but I don't have information about other support channels right now. I'm genuinely sorry I can't do more.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. But this better get resolved when I call. I shouldn't have to jump through hoops just to get back into my own account.",
+      "agent": "You're absolutely right\u2014you shouldn't have to jump through hoops to access your own account. That's frustrating, and I'm sorry you're dealing with this.\n\nWhen you call **1-800-555-0199** with your reference **ESC-3001**, the Account Access team will have your full situation and can work on getting you back in quickly. They're the ones who can actually fix this.\n\nI hope it gets sorted out as soon as you reach them.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

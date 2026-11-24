@@ -1,0 +1,73 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your ticket has been created: **ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** and quote reference **ESC-3001**. They're available Monday to Friday, 8am to 8pm. The team will have your summary and can help you regain access.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs help regaining access.",
+            "still_needed": "Specialist to help reset account access or unlock online banking.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need help now. I'm not calling. Can't you just connect me to someone in chat who can actually fix this?",
+      "agent": "I understand this is frustrating. Unfortunately, I can't do a live chat transfer\u2014my system doesn't support that. The escalation I just created (ESC-3001) goes to a specialist team, but the only way to reach them is by phone at **1-800-555-0199**.\n\nI know that's not ideal, but the Account Access team has the tools to actually unlock your account, and they'll have your full details ready when you call. Using your reference number ESC-3001 means you won't need to repeat anything.\n\nIs there anything else I can help clarify while you have me here?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's literally no way to chat with an actual person? Not even email support or anything?",
+      "agent": "You're right to be frustrated. I don't have access to email support or live chat options\u2014phone is the only channel I have available. I apologize that I can't offer more.\n\nThat said, here's what I'd suggest: call **1-800-555-0199** with your reference **ESC-3001**. When you reach them, you can ask if there are other contact methods available (like email or callback options) that I might not know about. They may have solutions I'm not aware of.\n\nI know it's not the answer you wanted, but that team really is your best option to get this fixed.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'will call you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

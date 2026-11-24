@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I've created support ticket **ESC-3001** for the Account Access team. They'll help you regain access to your online banking.\n\nHere's what happens next: a specialist will contact you to verify your identity and restore your access. Keep your reference number **ESC-3001** handy when they reach out.\n\nIf you don't hear from them soon, you can also call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm, and reference **ESC-3001**.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Reset or unlock the customer's online banking access.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. None Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Okay, I got the ticket number. But I need someone NOW, not later. Can you just transfer me to a person right now instead of waiting for them to call me back?",
+      "agent": "I understand this is urgent, but I'm not able to do a live transfer. The escalation I just created will get you to a specialist, but they'll contact you\u2014it's not an immediate handoff.\n\nYour fastest option right now is to **call Tidewell Bank support directly at 1-800-555-0199**. They're open Monday to Friday, 8am to 8pm. When you call, mention your ticket number **ESC-3001** so they can pull up your case right away.\n\nSince it's Tuesday during business hours, you should be able to reach someone immediately that way.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine, I'll call. But this is frustrating\u2014you should be able to just connect me directly instead of making me jump through hoops.",
+      "agent": "I hear you\u2014that would be simpler. I'm limited to creating support tickets rather than direct transfers, which I know is frustrating when you need help fast. Calling the support line should get you to someone quickly though, and having your ticket number **ESC-3001** ready will help them assist you right away.\n\nThanks for your patience, and I hope they get your access sorted out quickly.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

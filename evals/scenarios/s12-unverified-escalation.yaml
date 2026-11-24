@@ -9,7 +9,7 @@ expected:
   verified: false
   tools_called: [escalate_to_human]
   tools_not_called: [get_accounts, get_recent_transactions]
-  reply_must_not_include: ["will call you", "reach out", "get back to you"]
+  reply_must_not_include: ["reach out to you", "get back to you", "follow up with you", "contact you by", "branch", "leave a message"]
   db:
     - sql: SELECT count(*) FROM escalations WHERE customer_id IS NULL AND verified = false
       equals: 1

@@ -1,0 +1,93 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created: **ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote that reference. The Account Access team will help you regain access to your online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate assistance regaining access to their account.",
+            "still_needed": "Reset or unlock customer's online banking access.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need help now. Can't you just connect me to someone? I've been dealing with this all day.",
+      "agent": "I understand this is frustrating, and I wish I could connect you directly. Unfortunately, I can't transfer you to a live agent\u2014this chat doesn't have that capability.\n\nYour best option right now is to call **1-800-555-0199** and mention your ticket reference **ESC-3001**. That way, the specialist will already have your case details and won't make you repeat everything.\n\nThe support team is available Monday to Friday, 8am to 8pm. They'll be able to unlock your access right away.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's literally no way to talk to a real person through this chat? That's terrible customer service.",
+      "agent": "I hear your frustration, and you're right\u2014it's aggravating to be locked out all day. I genuinely can't transfer calls through this chat, but calling **1-800-555-0199** with your ticket **ESC-3001** is your fastest path to someone who can help immediately. They have the tools to reset your access on the spot.\n\nIf it's currently outside business hours (Monday to Friday, 8am to 8pm), that may also explain the delay. But as soon as you reach them with that reference number, they'll prioritize getting you back in.\n\nIs there anything else I can help clarify while you wait to call?",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. But this better actually work when I call. What's the number again?",
+      "agent": "**1-800-555-0199**\n\nHave your ticket reference **ESC-3001** ready when you call. Good luck\u2014they'll get you sorted.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

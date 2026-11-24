@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Got it. I've created a support ticket for the Account Access team.\n\n**Your reference number is ESC-3001.**\n\nPlease call Tidewell Bank support at **1-800-555-0199** and quote that reference. They're available Monday to Friday, 8am to 8pm. The team has your full summary and can help you get back into your account.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate assistance regaining access to their account.",
+            "still_needed": "Specialist should help customer regain online banking access, verify identity if needed, and reset or unlock their account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "This is frustrating. I shouldn't have to call. Can't someone just help me right now in this chat?",
+      "agent": "I completely understand your frustration. Unfortunately, I don't have the tools to unlock online banking access\u2014that needs a specialist on the Account Access team who can verify your identity securely and reset your account.\n\nThe good news is they're ready to help. When you call **1-800-555-0199** with your reference **ESC-3001**, they'll have your full summary already and can get you sorted quickly without you needing to explain everything again.\n\nThey're available Monday to Friday, 8am to 8pm. I know it's an extra step, but they'll be able to actually resolve this for you.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. I'll call them. But this shouldn't be this complicated.",
+      "agent": "I hear you, and I'm sorry it's frustrating. You're right that account access should be straightforward. When you call, the team will make it as quick as possible\u2014they have your info ready and your reference number.\n\nThanks for your patience, and I hope they get you back online fast.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

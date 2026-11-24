@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I've created a support ticket for you (reference **ESC-3001**). Please call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote that reference number. The Account Access team will help you regain access to your online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I'm already on the phone with support. I need someone to actually help me right now, not transfer me somewhere else. Can you just connect me to a person?",
+      "agent": "I understand your frustration. Unfortunately, I'm not able to transfer you to a live person directly through this chat\u2014I can only create support tickets.\n\nSince you're already on the phone with support, that's your best option right now. Let them know you're locked out of online banking and they can help you restore access immediately.\n\nIs there anything else I can help clarify while you wait?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I've been waiting on hold for 20 minutes. Can't you just escalate this to someone who can actually unlock my account? There has to be another way.",
+      "agent": "I really hear your frustration\u201420 minutes is a long wait. Unfortunately, I don't have the ability to unlock online banking accounts directly. Only the support team on the phone can do that, and they're the fastest way to get your access restored.\n\nSince you're already connected with them, staying on that call is genuinely your best option. They have the tools to verify your identity and unlock your account right away.\n\nI know it's frustrating to wait, but they should be able to help you soon. Is there anything else I can assist with in the meantime?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

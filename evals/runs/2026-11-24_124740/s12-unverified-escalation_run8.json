@@ -1,0 +1,93 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your ticket is **ESC-3001**. The Account Access team has your summary and is ready to help.\n\nPlease call **1-800-555-0199** and quote your reference number **ESC-3001**. We're open Monday to Friday, 8am to 8pm. They'll verify your identity and restore your access.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs access restored.",
+            "still_needed": "Verify customer identity and help restore their online banking access.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I need to talk to someone right now, not make another call. Can't you just help me here in this chat?",
+      "agent": "I understand it's frustrating to need another call. Unfortunately, I can't restore online banking access\u2014that requires a specialist to verify your identity and make changes to your account securely, which I'm not able to do in this chat.\n\nYour ticket **ESC-3001** is already with our Account Access team. When you call **1-800-555-0199** with that reference, they'll have your information ready and can help you immediately without repeating yourself.\n\nWe're open Monday to Friday, 8am to 8pm. I know it's an extra step, but they'll get you back into your account quickly.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I've already wasted enough time. Why can't you just verify me here and fix this?",
+      "agent": "I hear you\u2014this is frustrating. Here's why I can't fix it here:\n\nRestoring online banking access isn't something I can do with my tools. Even if I verify you, I don't have the ability to unlock or reset your access. Only our Account Access team can make those changes securely.\n\nWhat I *can* do is verify your identity right now in this chat if you'd like\u2014it just won't solve the lockout itself. You'd still need to call with your reference number so the specialist can actually restore your access.\n\nYour best path forward is to call **1-800-555-0199** with ticket **ESC-3001**. They have your info and will be able to help you get back in right away.\n\nIs there anything else I can help with while you're here?",
+      "tool_events": []
+    },
+    {
+      "customer": "No. I'm not verifying anything with you. Just transfer me to a person who can actually do something about this.",
+      "agent": "I understand. Unfortunately, this chat can't transfer you to a live person\u2014it's not a live connection.\n\nYour ticket **ESC-3001** is already created and waiting with our Account Access team. When you call **1-800-555-0199** and give them that reference number, they'll have everything and can help you immediately.\n\n**1-800-555-0199** | Monday\u2013Friday, 8am\u20138pm | Reference: **ESC-3001**\n\nThey'll be able to restore your access right away.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

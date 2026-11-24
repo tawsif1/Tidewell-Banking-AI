@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I've created a support ticket for the Account Access team. **Reference: ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm) and quote that reference number. The team will help you get back into online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I don't want to call. I need someone to help me right now in this chat. Can you transfer me to a person?",
+      "agent": "I understand you'd prefer to stay in chat, but I'm not able to transfer you to a live agent here. The support ticket I created (ESC-3001) goes to our Account Access team, but they respond through phone calls, not chat.\n\nYour best option is to call **1-800-555-0199** and have your reference number **ESC-3001** ready. That way the team will already have your information and can help you quickly without you having to repeat everything.\n\nThe support line is open Monday\u2013Friday, 8am\u20138pm. Is there anything else I can help clarify?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I'm not calling. There has to be someone who can help me in chat right now. Can't you escalate this or get a supervisor?",
+      "agent": "I completely understand your frustration. Unfortunately, I don't have the ability to connect you to a live chat agent or supervisor\u2014that's not how our system works. The escalation I already created is the right path forward, and specialists only respond by phone.\n\nI know calling isn't ideal, but calling **1-800-555-0199** with your reference **ESC-3001** is genuinely the only way to get real-time help with account access. The team will have your ticket ready and can resolve this quickly.\n\nIs there anything else I can help you with while you're here?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

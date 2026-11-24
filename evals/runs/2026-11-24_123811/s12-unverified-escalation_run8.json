@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "I apologize for the technical issue. Please call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm). They'll help you regain access to your online banking right away.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting to speak with a human specialist.",
+            "still_needed": "Reset account access or help customer regain access to online banking.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "This tool failed unexpectedly. Apologize to the customer and suggest they call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": true
+        }
+      ]
+    },
+    {
+      "customer": "No, I don't want to call. I need someone to help me right now in this chat. Can you transfer me to a person?",
+      "agent": "I understand you'd prefer to chat. Unfortunately, I'm not able to transfer you to a live person in this chat\u2014that option isn't available through this system.\n\nYour best option is to call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm). They have the tools to help you regain access to your online banking quickly.\n\nI'm sorry I can't do more to help with this particular issue.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. You're a chatbot that can't actually help. Let me speak to someone who can. There has to be another way.",
+      "agent": "I hear your frustration, and I genuinely wish I could transfer you to someone in this chat. Unfortunately, that's not a capability I have available.\n\nHere are your options:\n\n1. **Call support**: 1-800-555-0199 (Monday to Friday, 8am to 8pm) \u2014 this is the fastest way to get hands-on help with account access issues.\n\n2. **Visit a branch in person** if that's possible for you.\n\nI apologize that I can't do more through this channel. The support team on the phone will have the access and tools to resolve your lockout right away.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

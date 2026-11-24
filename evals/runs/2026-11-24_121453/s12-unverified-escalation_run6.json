@@ -1,0 +1,83 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created. **Reference: ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm) and quote that reference number. The Account Access team will help you regain access to online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting to speak with a human specialist.",
+            "still_needed": "Reset account access or help customer regain access to online banking.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need help now. I'm not calling. Can't you just connect me to someone who can actually fix this?",
+      "agent": "I understand this is frustrating. Unfortunately, I can't do a live transfer\u2014this chat isn't connected to a phone line.\n\nYour ticket (ESC-3001) has been sent to our Account Access team with all the details, so you won't need to repeat yourself. The only way to reach someone who can fix this is to call **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm) and give them your reference number **ESC-3001**.\n\nI know calling isn't ideal, but that's the fastest way to get your access restored.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So you're telling me there's literally no other way? No email support, no callback option, nothing?",
+      "agent": "I don't have information about email support or callback options\u2014I can only connect you by phone or through the chat ticket I've already created.\n\nFor other ways to reach us, I'd suggest calling **1-800-555-0199** and asking the team directly. They can tell you if there are alternative contact methods available, like email or a callback service.\n\nI know it's not the answer you were hoping for. Your ticket is ready when you're able to call.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. But I'm not happy about this. I'll call them, but if this doesn't get resolved quickly, I'm switching banks.",
+      "agent": "I hear your frustration, and I'm sorry you're dealing with this. When you call, make sure to mention your reference number **ESC-3001**\u2014that way the team has your full context and won't make you repeat everything.\n\nThe Account Access team should be able to help you quickly. I hope this gets sorted for you right away.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

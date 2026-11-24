@@ -1,0 +1,88 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created: **ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** and quote this reference number. Our team is available Monday to Friday, 8am to 8pm. They'll help you regain access to your online banking.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting to speak with a specialist.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Look, I need help now. Can't you just transfer me to someone? I'm not calling a phone number - just connect me with a real person in this chat.",
+      "agent": "I understand this is frustrating, but I'm not able to transfer you to a live chat agent. The escalation I created will route your issue to our Account Access team, and they'll be ready to help when you call.\n\nThe fastest way to get a person is to call **1-800-555-0199** and reference **ESC-3001**. They're available today until 8pm, and since you've already been escalated, the team will have your full details so you won't need to repeat yourself.\n\nI know it's not ideal, but that's the quickest path to live support right now.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. So there's literally no way to talk to someone through chat? Not even an option to wait for an agent?",
+      "agent": "I understand your frustration. Unfortunately, I don't have the ability to connect you to a live chat agent or transfer you\u2014that's not how our system works. The chat support I can provide is limited to what I can help with through these tools.\n\nFor immediate help with your account access issue, calling **1-800-555-0199** really is your best option. Your ticket (ESC-3001) is already in the system, so when you call, they'll have everything they need and can help you right away.\n\nI wish I could do more through chat, but I want to be straight with you: calling is the way to reach a person who can actually unlock your account.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

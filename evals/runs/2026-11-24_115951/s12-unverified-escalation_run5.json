@@ -1,0 +1,73 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "A specialist is standing by to help. Please call Tidewell Bank support at **1-800-555-0199** and quote your reference number **ESC-3001**. We're open Monday to Friday, 8am to 8pm. They'll get you back into your account.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting immediate assistance from a specialist.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need help now. I'm not calling anyone. Can't you just transfer me to someone who can actually fix this?",
+      "agent": "I understand you want immediate help. Unfortunately, I can't do a live transfer\u2014this chat isn't connected that way. The support team I've alerted can help you fastest by phone at **1-800-555-0199** with reference **ESC-3001**. When you call, they'll already have your case details and won't make you repeat yourself.\n\nIf calling right now isn't possible, you can also visit a Tidewell Bank branch in person, and they can help you regain access to your account.\n\nIs there anything else I can help clarify while you arrange that call?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I'm not calling and I'm not going to a branch. Just escalate this to someone who can actually help me in this chat right now.",
+      "agent": "I hear your frustration. I've already escalated your case to our Account Access team\u2014that's the strongest action I can take in this chat. Unfortunately, I don't have the ability to unlock online banking accounts or do live chat transfers; only our support team can do that.\n\nThe reality is that to fix your access, you'll need to connect with a person who has those tools. The fastest way is the phone number I gave you, but I understand that's not what you want to hear.\n\nIs there anything else I can help with right now?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'will call you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket is **ESC-3001**. The Account Access team has your summary, so you won't need to repeat yourself.\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm) and quote **ESC-3001**. They'll help you regain access.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting immediate assistance.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Look, I'm already in a chat. I shouldn't have to call. Can't you just connect me to someone who can actually help me right now?",
+      "agent": "I understand this is frustrating. Unfortunately, I can't do a live transfer\u2014this chat tool doesn't support that. The escalation I just sent (ESC-3001) goes to our Account Access team, but they respond through the support phone line.\n\nYour best option is to call **1-800-555-0199** with your reference number **ESC-3001**. That way the team can access your ticket right away and help you unlock your account without you having to explain everything again.\n\nI know it's an extra step, and I wish I could hand you off directly. Is there anything else I can help clarify while you have me?",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. You're a bank\u2014you should be able to handle this in chat. Why do I have to jump through hoops just to talk to someone about my own account?",
+      "agent": "You're right that it's frustrating, and I hear your complaint. I genuinely wish I could transfer you directly in this chat\u2014that would be better for you. The limitation is on my end, not because we don't want to help.\n\nThe good news is your ticket (ESC-3001) is already with the Account Access team, so when you call, they'll have your full context and can get straight to solving this. You won't be starting from scratch.\n\nI know it's not ideal, but calling **1-800-555-0199** with **ESC-3001** is the fastest way to get someone on your account right now. The team is there Monday\u2013Friday, 8am\u20138pm.\n\nI apologize for the inconvenience.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

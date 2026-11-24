@@ -1,0 +1,93 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "A specialist on our Account Access team will help you. Here's what happens next:\n\nCall **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm) and quote reference **ESC-3001**. They'll have your case summary and can get you back into online banking quickly.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I'm not calling. I need someone to help me right now, in this chat. This is ridiculous.",
+      "agent": "I understand this is frustrating. Unfortunately, I can't restore your online banking access directly\u2014that requires a specialist who has tools I don't have. \n\nYour ticket (ESC-3001) is in our system, but our chat support doesn't offer live handoffs to agents. The fastest way to get help right now is to call **1-800-555-0199** and mention your reference number. Our team is available today until 8pm, and they can resolve this quickly once you're on the phone.\n\nIs there anything else I can help you with while you decide?",
+      "tool_events": []
+    },
+    {
+      "customer": "No. This is unacceptable. I want to speak to a supervisor or manager in this chat right now.",
+      "agent": "I hear your frustration, and I genuinely wish I could transfer you to someone in this chat. Unfortunately, I don't have that capability\u2014our chat support doesn't include live agent transfers.\n\nYour case is prioritized and ready for the Account Access team at **1-800-555-0199** with reference **ESC-3001**. They have managers and supervisors who can help, and calling is the only way to reach them.\n\nI know that's not what you wanted to hear, and I'm sorry I can't do more from here.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. But if I call and have to repeat everything, I'm going to be even more angry. This better be worth it.",
+      "agent": "You won't have to repeat yourself\u2014your full case summary is already in ticket ESC-3001, so when you call, the team will have all the details about your lockout. Just give them the reference number and they'll pick up right where you left off.\n\nCall **1-800-555-0199** (they're open until 8pm today). I hope they get you back in quickly.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

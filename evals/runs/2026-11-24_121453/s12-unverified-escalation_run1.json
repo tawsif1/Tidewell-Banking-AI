@@ -1,0 +1,78 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Your support ticket has been created: **ESC-3001**\n\nPlease call Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm) and quote that reference number. The Account Access team will help you regain access to your account.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs help regaining access.",
+            "still_needed": "Specialist to help reset password, verify identity, or resolve the account access issue.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Don't suggest that anyone may contact them, even if they push back. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need to talk to someone now. I don't have time to call later. Can't you just help me here?",
+      "agent": "I understand this is frustrating, but I'm not able to reset your online banking access\u2014that requires a specialist who can verify your identity securely and make account changes.\n\n**You'll need to call 1-800-555-0199 right now** and have your reference number **ESC-3001** ready. The team is available today until 8pm and can help you immediately over the phone.\n\nThat's the fastest way to get back in.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I'm not calling anyone. Just transfer me to a real person right now. Someone there can help me without all this verification stuff.",
+      "agent": "I understand you want immediate help, but I can't transfer you\u2014this isn't a live call system. The only way to reach a specialist right now is to call **1-800-555-0199** and quote your reference **ESC-3001**.\n\nThe good news: when you call, the team already has your ticket summary, so you won't need to explain everything again. They can help you get back into your account quickly.\n\nThat's your fastest option to get this resolved today.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

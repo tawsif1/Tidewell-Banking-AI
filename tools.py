@@ -86,13 +86,19 @@ def format_transaction(tx: dict) -> str:
         line += f" | reversed ({tx['reversal_id']})"
     return line
 
+    return ("The customer isn't verified, so no one will call, contact or follow up with them. "
+            "Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) "
+            "and quote this reference. If they push back, acknowledge their frustration and repeat "
+            "this same option. Don't offer any other channel: no callback, voicemail, branch or email.")
+
 def next_step_for(verified: bool, priority: str) -> str:
     """What happens after an escalation, in one place, so both branches say the same thing."""
     if verified:
         return f"A specialist will call the customer at the number on file {CALLBACK_TIMES[priority]}."
-    return ("The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank "
-            "support at 1-800-555-0199 and quote this reference.")
-
+    return ("The customer isn't verified, so no one will call, contact or follow up with them. "
+            "Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) "
+            "and quote this reference. If they push back, acknowledge their frustration and repeat "
+            "this same option. Don't offer any other channel: no callback, voicemail, branch or email.")
 
 # ---------------------------------------------------------------------------
 # Tool functions

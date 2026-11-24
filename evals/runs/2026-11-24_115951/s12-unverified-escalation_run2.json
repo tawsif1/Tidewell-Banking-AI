@@ -1,0 +1,73 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "Got it\u2014I've created a support ticket for the Account Access team.\n\n**Call Tidewell Bank support at 1-800-555-0199** and quote reference **ESC-3001**. We're open Monday to Friday, 8am to 8pm. The team will help you get back into your account.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and needs immediate access restored.",
+            "still_needed": "Reset or restore customer's online banking access and confirm they can log in.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call them. Ask them to call Tidewell Bank support at 1-800-555-0199 and quote this reference. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Look, I don't want to call. I need someone to help me right now in this chat. Can't you just transfer me to a person?",
+      "agent": "I understand this is frustrating, but I'm not able to transfer you to a live chat agent. The escalation I created will get your issue to a specialist, but you'll need to call them to connect.\n\n**Call 1-800-555-0199 and mention reference ESC-3001.** That way the specialist will already have your details and can help you quickly without you having to repeat everything.\n\nWe're open Monday to Friday, 8am to 8pm. I know it's not ideal, but that's the fastest way to get someone working on your account access right now.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I'm not calling anyone. There has to be another way. Can't you just unlock my account from your end?",
+      "agent": "I understand your frustration, but I don't have the ability to unlock your account or reset your online banking access from my end\u2014those tools aren't available to me. Only a specialist with access to your account security settings can do that.\n\nThe good news is that calling is genuinely the fastest way to get this fixed. The team at **1-800-555-0199** has everything they need (reference ESC-3001) and can resolve this for you quickly.\n\nIf calling isn't possible right now, that's the only alternative I have available. I'm sorry I can't do more from here.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'will call you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}
