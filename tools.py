@@ -84,7 +84,7 @@ def format_transaction(tx: dict) -> str:
         line += f" | disputed ({tx['dispute_id']})"
     if tx["reversal_id"]:
         line += f" | reversed ({tx['reversal_id']})"
-    return line\
+    return line
 
 def next_step_for(verified: bool, priority: str) -> str:
     """What happens after an escalation, in one place, so both branches say the same thing."""
@@ -358,7 +358,9 @@ def request_fee_reversal(session: Session, transaction_id: int, reason: str, con
                     "charged in error, they can call Tidewell Bank support at 1-800-555-0199.")
         if fee["date"] < date.today() - timedelta(days=FEE_REVERSAL_WINDOW_DAYS):
             return (f"Transaction #{transaction_id} is more than {FEE_REVERSAL_WINDOW_DAYS} days old, "
-                    "outside the reversal window.")
+                    "outside the reversal window.Fees can't be disputed. If the "
+                    "customer believes the fee was charged in error, they can call Tidewell Bank "
+                    "support at 1-800-555-0199.")
         recent = conn.execute(
             """
             SELECT reversed_on FROM fee_reversals
@@ -371,8 +373,9 @@ def request_fee_reversal(session: Session, transaction_id: int, reason: str, con
         if recent is not None:
             next_eligible = recent["reversed_on"] + timedelta(days=COURTESY_REVERSAL_PERIOD_DAYS)
             return (f"This customer already received a courtesy reversal on {recent['reversed_on']}. "
-                    f"They'll be eligible again on {next_eligible}.")
-
+                    f"They'll be eligible again on {next_eligible}. Fees can't be disputed. If the "
+                    "customer believes the fee was charged in error, they can call Tidewell Bank "
+                    "support at 1-800-555-0199.")
                 # 6. Only checking? Report what would happen, and change nothing.
         if not confirmed:
             return (f"Fee #{transaction_id} ({fee['description']}, {format_amount(fee['amount'])}) qualifies for a "
