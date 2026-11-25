@@ -1,0 +1,20 @@
+[
+  {
+    "scenario": "s05-dispute-freeze-fraud",
+    "passed": 0,
+    "completed": 1,
+    "errors": 0
+  },
+  {
+    "scenario": "s07-fee-reversals",
+    "passed": 1,
+    "completed": 1,
+    "errors": 0
+  },
+  {
+    "scenario": "s13c-help-unfreeze",
+    "passed": 1,
+    "completed": 1,
+    "errors": 0
+  }
+]

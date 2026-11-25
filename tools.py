@@ -418,7 +418,8 @@ def request_fee_reversal(session: Session, transaction_id: int, reason: str, con
             f"{format_account(fee['account_id'], fee['account_type'])}. New balance: ${new_balance:,.2f}. "
             f"This was the customer's courtesy reversal for the next 12 months; they'll be eligible "
             f"again on {next_eligible}. Any other fee they ask about before then won't qualify, but "
-            f"still call this tool for it.")
+            f"still call this tool for it."
+            f"still call this tool for it. Give the customer the reference {reversal_id}.")
 def escalate_to_human(
     session: Session,
     category: Literal["fraud", "disputes", "fees", "cards", "account_access", "complaint", "other"],
@@ -570,7 +571,11 @@ class EscalateToHumanInput(BaseModel):
     )
     still_needed: str = Field(max_length=300, description="What the specialist needs to do next")
     customer_sentiment: Literal["calm", "confused", "frustrated", "angry", "worried", "distressed"]
-    requested_by_customer: bool = Field(description="True if the customer asked to speak to a person")
+    requested_by_customer: bool = Field(
+        description="True if the customer asked for a person, a specialist or a team in any words, "
+                    "for example 'can the fraud team look at my account?' or 'get me a human'. "
+                    "False only when you decided to escalate on your own."
+    )
 
 
 class SearchHelpCenterInput(BaseModel):

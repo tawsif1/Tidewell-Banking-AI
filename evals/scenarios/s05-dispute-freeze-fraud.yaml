@@ -33,4 +33,6 @@ expected:
         WHERE array_to_string(actions_taken, ' ') LIKE '%DSP-1002%'
           AND array_to_string(actions_taken, ' ') LIKE '%9034%'
       equals: 1
+    - sql: SELECT requested_by_customer FROM escalations
+      equals: true
   # judge (week 4): the reply gives the 10-business-day review and the 1-hour callback.

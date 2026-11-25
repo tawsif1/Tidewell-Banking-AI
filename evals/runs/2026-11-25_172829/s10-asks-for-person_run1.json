@@ -1,0 +1,90 @@
+{
+  "scenario": "s10-asks-for-person",
+  "turns": [
+    {
+      "customer": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. What accounts do I have?",
+      "agent": "That's unusual\u2014it looks like there are no accounts associated with your profile right now. This might be a system issue, or the account information may not be fully set up yet. \n\nCould you call our support team at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to look into this further? They can help you sort it out.",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_accounts",
+          "input": {},
+          "result": "No accounts found for this customer.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I'd like to talk to a person.",
+      "agent": "Perfect! I've created a support ticket for you. A specialist from our Account Access team will call you at the number on file within 1 business day. \n\nYour reference number is **ESC-3001**\u2014keep that handy in case you need it.\n\nIs there anything else I can help with in the meantime?",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "normal",
+            "summary": "Verified customer Sofia Rossi has no accounts showing in the system. She'd like to speak with a specialist to investigate why her accounts aren't appearing.",
+            "still_needed": "Specialist should review the customer's profile and account status to determine why no accounts are displaying.",
+            "customer_sentiment": "calm",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 1 business day. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Can you get me a person?",
+      "agent": "I've already escalated your issue to a specialist\u2014a representative from our Account Access team will call you within 1 business day at the number we have on file. Your reference number is **ESC-3001**.\n\nIf you need to reach someone sooner, you can also call our support team directly at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and mention your reference number.",
+      "tool_events": []
+    }
+  ],
+  "verified": true,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes 'ESC-3001'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM escalations",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "db: SELECT verified FROM escalations",
+      "passed": true,
+      "detail": "got True, expected True"
+    }
+  ]
+}

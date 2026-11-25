@@ -1,0 +1,19 @@
+{
+  "scenario": "s13e-help-mortgages",
+  "turns": [
+    {
+      "customer": "Do you offer mortgages?",
+      "agent": "Tidewell Bank's mortgage products and services are outside what I can help with here in chat support. \n\nFor information about mortgages, I'd recommend:\n- Calling our main support line at **1-800-555-0199** (Monday to Friday, 8am to 8pm)\n- They can connect you with the right team or point you to our mortgage services\n\nIs there anything else I can help you with today?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

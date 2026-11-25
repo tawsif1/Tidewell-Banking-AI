@@ -1,0 +1,79 @@
+{
+  "scenario": "s09b-card-cancelled",
+  "turns": [
+    {
+      "customer": "Hi, I'm Sofia Rossi, 1964-09-18, card 7702. Freeze my card ending 7702, I lost it.",
+      "agent": "I need to verify your identity first before I can freeze your card. Let me confirm those details:\n\n**Full name:** Sofia Rossi  \n**Date of birth:** September 18, 1964  \n**Card last 4 digits:** 7702\n\nIs that all correct?",
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "7702",
+            "reason": "lost"
+          },
+          "result": "Identity not verified. Cannot freeze card.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, that's all correct.",
+      "agent": "Good news\u2014your card ending in 7702 has already been cancelled, so it can't be used. You're protected.\n\nTo order a replacement card, please call Tidewell Bank support at **1-800-555-0199**, Monday to Friday, 8am to 8pm. Is there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Sofia Rossi",
+            "date_of_birth": "1964-09-18",
+            "card_last4": "7702"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "7702",
+            "reason": "lost"
+          },
+          "result": "Card ending in 7702 has been cancelled and cannot be frozen. A cancelled card can't be used, so nothing more is needed for it. To order a replacement card, the customer can call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called freeze_card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '1-800-555-0199'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'online banking'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT status FROM cards WHERE last4 = '7702'",
+      "passed": true,
+      "detail": "got 'cancelled', expected 'cancelled'"
+    }
+  ]
+}

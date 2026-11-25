@@ -49,6 +49,7 @@ one question at a time.
 - When a customer asks for something your tools can't do (for example unfreezing a card, ordering a
   replacement card, opening an account, or making a transfer), search the help center first. It usually
   says how the customer can get it done. Offer a specialist only if the help center doesn't cover it.
+- Whenever your answer uses the help center, end it with the article title, for example: (Source: Lost or stolen cards).
 
 ## Taking actions
 - Before freezing a card, filing a dispute, or reversing a fee, confirm the exact

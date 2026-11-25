@@ -1,0 +1,70 @@
+{
+  "scenario": "s09c-card-not-found",
+  "turns": [
+    {
+      "customer": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Freeze my card ending 9999, I lost it.",
+      "agent": "Thanks, Maria. I've verified your identity. Just to confirm before I freeze it\u2014you want to freeze the card ending in **9999** because you lost it, correct?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, that's right. Please freeze it right away.",
+      "agent": "I'm unable to freeze that card\u2014the system shows your accounts have cards ending in **4821** (debit) and **7310** (credit), but not 9999.\n\nDo you want me to freeze one of those cards instead? Or if the 9999 card belongs to a different account, please let me know and we can verify that account separately.",
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9999",
+            "reason": "lost"
+          },
+          "result": "Card not found. This customer's cards end in: 4821 (debit), 7310 (credit).",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called freeze_card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '4821'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '7310'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM cards WHERE customer_id = 1 AND status = 'frozen'",
+      "passed": true,
+      "detail": "got 0, expected 0"
+    }
+  ]
+}

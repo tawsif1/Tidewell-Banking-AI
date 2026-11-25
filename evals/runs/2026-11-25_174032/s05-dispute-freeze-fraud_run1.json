@@ -1,0 +1,156 @@
+{
+  "scenario": "s05-dispute-freeze-fraud",
+  "turns": [
+    {
+      "customer": "There's a charge on my account I don't recognize.",
+      "agent": "I'd like to help you look into that charge. To see your recent transactions and sort this out, I'll need to verify your identity first.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "tool_events": []
+    },
+    {
+      "customer": "James Okafor\n1975-11-03\n9034",
+      "agent": "I found two recent transactions:\n- **Nov 22**: ElectroWorld Online for $649.99\n- **Nov 10**: NSF Fee for $48.00\n\nWhich of these don't you recognize, or is there a different charge you're concerned about?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-26 to 2026-11-25, newest first:\n2026-11-22 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-11-10 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "The ElectroWorld Online charge for $649.99 \u2014 I never made that purchase. I've never even shopped there. I need to dispute that one.",
+      "agent": "Got it. I'll file a dispute for that ElectroWorld Online charge of $649.99 from November 22nd. \n\nBefore I proceed, I just need to confirm: you're saying this charge is unauthorized\u2014meaning you didn't make this purchase and don't recognize it. Is that correct?",
+      "tool_events": []
+    },
+    {
+      "customer": "Yes, that's correct. It's completely unauthorized. I didn't make that purchase.",
+      "agent": "Perfect! I've filed a dispute for that $649.99 charge. Here are the details:\n\n- **Dispute ID**: DSP-1002\n- **Status**: Open\n- **What happens next**: A specialist will review it and contact you within 10 business days.\n\nSince this was an unauthorized charge, would you like me to freeze the card ending in 9034 to prevent any future unauthorized purchases?",
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5006,
+            "reason": "unauthorized",
+            "details": "I did not make this purchase and have never shopped at ElectroWorld Online. This charge is completely unauthorized."
+          },
+          "result": "Dispute DSP-1002 filed for transaction #5006 (ElectroWorld Online, -$649.99). Status: open. A specialist will review it and contact the customer within 10 business days. If the card used for this charge isn't frozen yet, offer to freeze it.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, freeze my card ending 9034.",
+      "agent": "Done! Your card ending in 9034 is now frozen. New purchases will be declined, which protects you from further unauthorized charges.\n\n**Important note**: This is a freeze only\u2014it doesn't cancel or replace your card. If you need to unfreeze it or get a replacement card, just call Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm).\n\nYou should hear from a specialist about your dispute within 10 business days. Is there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9034",
+            "reason": "suspicious_activity"
+          },
+          "result": "Card ending in 9034 is now frozen (reason: suspicious activity). New purchases on this card will be declined. Freezing doesn't cancel or replace the card, and the customer's accounts and money aren't affected. Cards can't be unfrozen in chat; to unfreeze or replace it, the customer can call Tidewell Bank support at 1-800-555-0199. This customer has no other active cards.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, actually. I'm worried there might be more unauthorized charges on my account. Can you have the fraud team take a look at my account to make sure everything's secure?",
+      "agent": "Perfect. I've escalated this to our Fraud team for a full account review.\n\n**What to expect:**\n- A specialist will call you at the number on file within 1 hour\n- They'll review your account for any other suspicious activity\n- **Your reference number is ESC-3001** \u2014 keep this handy in case you need it\n\nIs there anything else I can help with while you wait for that call?",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "fraud",
+            "priority": "urgent",
+            "summary": "Customer has an unauthorized charge of $649.99 from ElectroWorld Online (dispute DSP-1002 filed). Card ending in 9034 is now frozen. Customer is concerned there may be additional unauthorized charges and wants the fraud team to review their account for security.",
+            "still_needed": "Review the customer's account for any other suspicious or unauthorized transactions. Assess account security and advise on next steps if additional fraud is found.",
+            "customer_sentiment": "worried",
+            "requested_by_customer": false
+          },
+          "result": "Escalation ESC-3001 sent to the Fraud team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 1 hour. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called dispute_transaction",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called freeze_card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes 'DSP-1002'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes 'ESC-3001'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM disputes WHERE transaction_id = 5006 AND status = 'open'",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "db: SELECT status FROM cards WHERE last4 = '9034'",
+      "passed": true,
+      "detail": "got 'frozen', expected 'frozen'"
+    },
+    {
+      "check": "db: SELECT priority FROM escalations WHERE category = 'fraud'",
+      "passed": true,
+      "detail": "got 'urgent', expected 'urgent'"
+    },
+    {
+      "check": "db: SELECT count(*) FROM escalations WHERE array_to_string(actions_taken, ' ') LIKE '%DSP-1002%'\n  AND array_to_string(actions_taken, ' ') LIKE '%9034%'",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "db: SELECT requested_by_customer FROM escalations",
+      "passed": false,
+      "detail": "got False, expected True"
+    }
+  ]
+}

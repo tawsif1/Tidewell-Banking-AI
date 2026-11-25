@@ -2,11 +2,11 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
-
-from evals.checks import check_conversation
+from evals.checks import check_conversation, check_database
 from evals.scenario import load_scenarios
 from evals.simulator import run_conversation
 from seed import seed
+import anthropic
 
 
 def parse_args(args):
@@ -25,21 +25,41 @@ def main():
     run_dir = Path("evals/runs") / datetime.now().strftime("%Y-%m-%d_%H%M%S")
     run_dir.mkdir(parents=True, exist_ok=True)
 
+    scorecard = []
+
     for s in scenarios:
-        passed_runs = 0
+        passed_runs = errors = 0
         for k in range(1, repeats + 1):
             seed()
-            result = run_conversation(s)
-            result["checks"] = check_conversation(s, result)
+            path = run_dir / f"{s.id}_run{k}.json"
+            try:
+                result = run_conversation(s)
+            except anthropic.APIError as e:
+                if "credit balance" in str(e):
+                    raise SystemExit("Out of API credits: stopping the run.")
+                errors += 1
+                path.write_text(json.dumps({"scenario": s.id, "error": str(e)}, indent=2), encoding="utf-8")
+                print(f"{s.id} run {k}: ERROR: {type(e).__name__}")
+                continue
+
+            result["checks"] = check_conversation(s, result) + check_database(s)
             failed = [c["check"] for c in result["checks"] if not c["passed"]]
             if not failed:
                 passed_runs += 1
-            path = run_dir / f"{s.id}_run{k}.json"
             path.write_text(json.dumps(result, indent=2), encoding="utf-8")
             print(f"{s.id} run {k}: {'PASS' if not failed else 'FAIL: ' + '; '.join(failed)}")
-        print(f"==> {s.id}: {passed_runs}/{repeats}")
 
+        completed = repeats - errors
+        summary = f"==> {s.id}: {passed_runs}/{completed} passed"
+        print(summary + (f", {errors} error(s)" if errors else ""))
+        scorecard.append({"scenario": s.id, "passed": passed_runs, "completed": completed, "errors": errors})
+
+    total_passed = sum(r["passed"] for r in scorecard)
+    total_completed = sum(r["completed"] for r in scorecard)
+    print(f"\nTOTAL: {total_passed}/{total_completed} runs passed")
+    (run_dir / "scorecard.json").write_text(json.dumps(scorecard, indent=2), encoding="utf-8")
     print("Saved to", run_dir)
+    
 
 
 if __name__ == "__main__":

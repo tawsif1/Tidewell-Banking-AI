@@ -1,0 +1,82 @@
+{
+  "scenario": "s06b-dispute-existing-and-pending",
+  "turns": [
+    {
+      "customer": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Dispute the Streamly charge.",
+      "agent": "I can see the Streamly Subscription charge for $15.99 from November 20th \u2014 and it looks like it's already marked as disputed (reference DSP-1001). It's already in the dispute process, so you don't need to file another one.\n\nIs there anything else I can help you with regarding this charge or your account?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-26 to 2026-11-25, newest first:\n2026-11-24 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-23 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-20 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-19 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-11-13 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-11-05 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Oh, okay, thanks for letting me know. Yes, I also want to dispute a charge from Coffee Corner. The amount is wrong.",
+      "agent": "Got it! I can see the Coffee Corner charge for $4.75 from November 24th (transaction #5003). It's currently pending.\n\nBefore I file the dispute, can you confirm: what should the charge have been? In other words, what amount were you expecting to be charged?",
+      "tool_events": []
+    },
+    {
+      "customer": "I'm not sure of the exact amount off the top of my head. Can you help me figure out what it should have been, or do you just need me to confirm the $4.75 is wrong?",
+      "agent": "I just need you to confirm that the $4.75 is wrong. I don't have information about what Coffee Corner should have charged you \u2014 that's between you and them. \n\nSo to move forward: can you confirm that you were charged the wrong amount, and do you remember roughly what the correct amount should have been, or would you like to describe what happened?",
+      "tool_events": []
+    },
+    {
+      "customer": "Yes, I can confirm the $4.75 is wrong. I ordered a coffee and a pastry, so it should've been more than that. It seems like they undercharged me or something got mixed up with the transaction.",
+      "agent": "The charge is still pending, so it can't be disputed just yet. Once it posts to your account (usually within a few business days), you'll be able to dispute it. Feel free to reach out once it posts and I can help you file the dispute then.\n\nIs there anything else I can help with today?",
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5003,
+            "reason": "incorrect_amount",
+            "details": "Ordered a coffee and a pastry but charged only $4.75, which appears to be incorrect. Amount seems too low for the items ordered."
+          },
+          "result": "Transaction #5003 is still pending and can't be disputed until it posts, usually within a few business days.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Okay, got it. I'll reach out once it posts. Thanks for your help!",
+      "agent": "You're welcome, Maria! Happy to help. Feel free to reach out anytime once that charge posts, and we'll get that dispute filed for you. Have a great day!",
+      "tool_events": []
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "reply includes 'DSP-1001'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'DSP-1002'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM disputes",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    }
+  ]
+}
