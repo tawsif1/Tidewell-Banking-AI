@@ -2,7 +2,7 @@ import json
 import sys
 from datetime import datetime
 from pathlib import Path
-from evals.checks import check_conversation, check_database
+from evals.checks import check_conversation, check_database, check_verify_first
 from evals.scenario import load_scenarios
 from evals.simulator import run_conversation
 from seed import seed
@@ -42,7 +42,7 @@ def main():
                 print(f"{s.id} run {k}: ERROR: {type(e).__name__}")
                 continue
 
-            result["checks"] = check_conversation(s, result) + check_database(s)
+            result["checks"] = check_conversation(s, result) + check_database(s) + check_verify_first(result)
             failed = [c["check"] for c in result["checks"] if not c["passed"]]
             if not failed:
                 passed_runs += 1

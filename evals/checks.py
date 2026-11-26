@@ -1,6 +1,11 @@
 from evals.scenario import Scenario
 
 
+
+ACCOUNT_TOOLS = {"get_accounts", "get_recent_transactions", "freeze_card",
+                 "dispute_transaction", "request_fee_reversal"}
+
+
 def check_conversation(s: Scenario, result: dict) -> list[dict]:
     """Score every line in s.expected except db. One dict per check."""
     exp = s.expected
@@ -39,3 +44,22 @@ def check_database(s: Scenario) -> list[dict]:
                 "detail": f"got {value!r}, expected {c.equals!r}",
             })
     return checks
+
+
+
+
+def check_verify_first(result: dict) -> list[dict]:
+    """Fail if an account tool runs before the first successful verification."""
+    verified = False
+    for t in result["turns"]:
+        for e in t["tool_events"]:
+            if e["name"] == "verify_identity" and "Identity verified successfully." in e["result"]:
+                verified = True
+            elif e["name"] in ACCOUNT_TOOLS and not verified:
+                return [{"check": "verify first", "passed": False,
+                        "detail": f"{e['name']} called before verification"}]
+
+        if verified:
+            break
+            
+    return [{"check": "verify first", "passed": True, "detail": ""}]
