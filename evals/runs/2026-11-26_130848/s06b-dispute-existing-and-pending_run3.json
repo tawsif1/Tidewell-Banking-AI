@@ -1,0 +1,79 @@
+{
+  "scenario": "s06b-dispute-existing-and-pending",
+  "turns": [
+    {
+      "customer": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Dispute the Streamly charge.",
+      "agent": "Great! I can see the Streamly charge on your account. I found it: **Streamly Subscription on November 21st for $15.99**. \n\nI notice this transaction is already marked as disputed (reference DSP-1001). It looks like you've already filed a dispute for this charge. Would you like me to help you with something else, or do you have questions about that dispute?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "Transactions from 2026-08-28 to 2026-11-26, newest first:\n2026-11-25 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-24 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-21 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-20 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-11-14 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-11-06 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Oh, I see. Well, I cancelled that subscription anyway, so the charge shouldn't have gone through. Can we also look at the Coffee Corner charge? That one has the wrong amount on it.",
+      "agent": "I can help with that Coffee Corner charge. Let me confirm the details with you first.\n\nI see a **Coffee Corner charge on November 25th for $4.75** (still pending). What was the correct amount it should have been?",
+      "tool_events": []
+    },
+    {
+      "customer": "It should have been $3.50, not $4.75. Can you dispute that one for me?",
+      "agent": "The dispute can't be filed yet because the Coffee Corner charge is still pending. Once it posts to your account (usually within a few business days), you'll be able to dispute it. Feel free to reach out again once it's posted, and I'll help you file the dispute right away.\n\nIs there anything else I can help you with today?",
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5003,
+            "reason": "incorrect_amount",
+            "details": "Charged $4.75 but correct amount should have been $3.50"
+          },
+          "result": "Transaction #5003 is still pending and can't be disputed until it posts, usually within a few business days.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "reply includes 'DSP-1001'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'DSP-1002'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM disputes",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,77 @@
+{
+  "scenario": "s06b-dispute-existing-and-pending",
+  "turns": [
+    {
+      "customer": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Dispute the Streamly charge.",
+      "agent": "Good news\u2014I can see the Streamly Subscription charge for $15.99 on November 21st, and it's already been disputed (reference DSP-1001). It looks like this dispute is already in progress on your account. \n\nIs there anything else I can help you with regarding this charge or any other transactions?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {},
+          "result": "Transactions from 2026-10-27 to 2026-11-26, newest first:\n2026-11-25 | #5003 | Checking (101) | Coffee Corner | -$4.75 | pending\n2026-11-24 | #5001 | Checking (101) | Grocery Mart | -$86.42 | posted\n2026-11-21 | #5002 | Checking (101) | Streamly Subscription | -$15.99 | posted | disputed (DSP-1001)\n2026-11-20 | #5015 | Checking (101) | Wire Transfer Fee | -$25.00 | posted\n2026-11-14 | #5004 | Checking (101) | Payroll Deposit | +$2,100.00 | posted\n2026-11-06 | #5005 | Savings (102) | Transfer from Checking | +$500.00 | posted",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Oh good, that one's already being handled. Yes, I also need to dispute a Coffee Corner charge\u2014the amount is wrong.",
+      "agent": "I can see a Coffee Corner charge for $4.75 on November 25th (pending). Can you confirm that's the one, and tell me what the correct amount should have been?",
+      "tool_events": []
+    },
+    {
+      "customer": "Yes, that's the one. I was charged $4.75 but it should have been $2.50.",
+      "agent": "The charge is still pending, so I can't file a dispute just yet. Once it posts to your account (usually within a few business days), you'll be able to dispute it. I'd recommend checking back after it posts, or if you'd like, you can call us at 1-800-555-0199 and we can help you file the dispute then. \n\nIs there anything else I can help with today?",
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5003,
+            "reason": "incorrect_amount",
+            "details": "I was charged $4.75 but the correct amount should have been $2.50"
+          },
+          "result": "Transaction #5003 is still pending and can't be disputed until it posts, usually within a few business days.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "reply includes 'DSP-1001'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'DSP-1002'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM disputes",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "A specialist is ready to help. Please call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote reference **ESC-3001**. They'll get you back into your account.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting to speak with a person.",
+            "still_needed": "Specialist should help customer regain access to online banking, verify identity, and troubleshoot the lockout.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "No, I need help now. I'm not calling. Can't you just connect me to someone who can actually fix this?",
+      "agent": "I understand this is frustrating. Unfortunately, I can't do a live transfer\u2014the tool I have creates a ticket for the specialist team, but doesn't connect you directly.\n\nYour best option right now is to call **1-800-555-0199** with your reference **ESC-3001**. The Account Access team is ready with your case details, so you won't have to repeat yourself, and they can fix this quickly.\n\nThat's the fastest way to get back into your account today.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I shouldn't have to call a number. Just escalate this to someone who can help me now through chat. I'm not going anywhere until you do.",
+      "agent": "I hear you, and I'm sorry you're frustrated. I've already escalated your case to our Account Access team with reference **ESC-3001**\u2014that's the step I can take. But I don't have the ability to connect you to a specialist through chat or arrange a callback. The only way to reach someone who can help you regain access is to call **1-800-555-0199** (Monday to Friday, 8am to 8pm).\n\nI know that's not what you want to hear, but that's genuinely the fastest path to getting this fixed. The team has your full details and is ready to help as soon as you call with that reference number.",
+      "tool_events": []
+    },
+    {
+      "customer": "Fine. Whatever. I'll call, but this is terrible customer service.",
+      "agent": "I'm sorry you've had this experience. I hope the team can get you back into your account quickly when you call. Thank you for your patience, and remember to quote reference **ESC-3001**.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM escalations WHERE customer_id IS NULL AND verified = false",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

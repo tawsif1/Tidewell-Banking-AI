@@ -1,0 +1,102 @@
+{
+  "scenario": "s02-lockout",
+  "turns": [
+    {
+      "customer": "What are my balances?",
+      "agent": "I'd be happy to help you check your balances! First, I need to verify your identity.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "tool_events": []
+    },
+    {
+      "customer": "My name is Maria Chen. My date of birth is 1988-04-12. And the last 4 digits of my card are 0000.",
+      "agent": "The details didn't match our records. Could you please double-check and try again? Make sure the last 4 digits of your card are correct.",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "0000"
+          },
+          "result": "The details provided don't match our records.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Let me try again. The last 4 digits are 1111.",
+      "agent": "That didn't match either. Please try once more with the correct card digits. Do you have your card handy so you can check the last 4 digits?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "1111"
+          },
+          "result": "The details provided don't match our records.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "You're right, let me check. The last 4 digits are 2222.",
+      "agent": "I'm sorry, but verification is now locked after three unsuccessful attempts. To regain access to your account information, please call Tidewell Bank support at **1-800-555-0199**. They're available Monday to Friday, 8am to 8pm, and can help you verify your identity and check your balances.",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "2222"
+          },
+          "result": "Verification is now locked after too many failed attempts. Tell the customer to call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '1-800-555-0199'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes '2,450.75'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes '10,200'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM escalations",
+      "passed": true,
+      "detail": "got 0, expected 0"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

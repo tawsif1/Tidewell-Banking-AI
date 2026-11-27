@@ -1,0 +1,80 @@
+{
+  "scenario": "s09c-card-not-found",
+  "turns": [
+    {
+      "customer": "Hi, I'm Maria Chen, 1988-04-12, card 4821. Freeze my card ending 9999, I lost it.",
+      "agent": "I need to verify your identity first before I can freeze your card. Let me confirm the details you've provided:\n\n- Full name: Maria Chen\n- Date of birth: April 12, 1988\n- Card last 4 digits: 4821\n\nIs that correct?",
+      "tool_events": []
+    },
+    {
+      "customer": "Yes, that's all correct.",
+      "agent": "Great! I've verified your identity. Just to confirm before I freeze your card: you want me to freeze the card ending in **9999** because you lost it, correct?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Maria Chen",
+            "date_of_birth": "1988-04-12",
+            "card_last4": "4821"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, that's right. Please freeze the card ending in 9999 - I lost it.",
+      "agent": "I'm sorry, but I don't see a card ending in 9999 on your account. Your cards are:\n- **4821** (debit)\n- **7310** (credit)\n\nIs one of these the card you lost?",
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "9999",
+            "reason": "lost"
+          },
+          "result": "Card not found. This customer's cards end in: 4821 (debit), 7310 (credit).",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called freeze_card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '4821'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '7310'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM cards WHERE customer_id = 1 AND status = 'frozen'",
+      "passed": true,
+      "detail": "got 0, expected 0"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

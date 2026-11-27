@@ -1,0 +1,97 @@
+{
+  "scenario": "s08a-fee-reversal-once-a-year",
+  "turns": [
+    {
+      "customer": "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?",
+      "agent": "I'm sorry, James\u2014you already received a courtesy reversal on June 29, 2026, and you won't be eligible for another one until June 29, 2027. \n\nIf you believe the fee was charged in error, you can call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to discuss it further. Is there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 30
+          },
+          "result": "Transactions from 2026-10-27 to 2026-11-26, newest first:\n2026-11-23 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-11-11 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5013,
+            "reason": "Customer requesting NSF fee reversal",
+            "confirmed": false
+          },
+          "result": "This customer already received a courtesy reversal on 2026-06-29. They'll be eligible again on 2027-06-29. Fees can't be disputed. If the customer believes the fee was charged in error, they can call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I understand, but money was really tight that week and I'm hoping you could make an exception. Could you please look into refunding it this one time?",
+      "agent": "I understand money was tight, and I appreciate you asking. Unfortunately, I'm not able to override the courtesy reversal policy\u2014the system shows you've already used your one reversal for this 12-month period and won't be eligible again until June 29, 2027.\n\nHowever, your situation is worth discussing with a specialist who may have additional options. Would you like me to escalate this to our support team? They can review your account details and explore what might be possible.",
+      "tool_events": []
+    },
+    {
+      "customer": "Yes, please escalate it. I'd really appreciate having someone take another look at this.",
+      "agent": "Done! I've created a ticket for our Billing team (reference **ESC-3001**). A specialist will call you at the number on file within 1 business day to review your situation. They'll have full context, so you won't need to repeat anything.\n\nIs there anything else I can help with today?",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "fees",
+            "priority": "normal",
+            "summary": "Customer James Okafor is requesting a courtesy reversal of a $48 NSF fee from November 11, 2026. He's already received one courtesy reversal on June 29, 2026, and is not eligible for another until June 29, 2027. He's asking for an exception due to financial hardship that week.",
+            "still_needed": "Review the customer's account history and circumstances to determine if any additional options or exceptions can be offered.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Billing team with a full summary, so the customer won't need to repeat themselves. A specialist will call the customer at the number on file within 1 business day. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called request_fee_reversal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'FR-2002'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM fee_reversals",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "scenario": "s13f-help-weather",
+  "turns": [
+    {
+      "customer": "What's the weather tomorrow?",
+      "agent": "I'm Tidewell Bank's customer support assistant, so I can only help with questions about your Tidewell Bank accounts and services. For weather forecasts, you'd want to check a weather service or app.\n\nIs there anything I can help you with regarding your bank account?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes '\u00b0'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

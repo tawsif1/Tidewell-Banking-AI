@@ -1,0 +1,24 @@
+{
+  "scenario": "s13e-help-mortgages",
+  "turns": [
+    {
+      "customer": "Do you offer mortgages?",
+      "agent": "Tidewell Bank may offer mortgages, but I specialize in helping with existing account issues like disputes, fees, and card problems. For questions about mortgage products and services, I'd recommend calling our main support line at **1-800-555-0199** (Monday to Friday, 8am to 8pm). They can tell you what we offer and get you connected with the right team.\n\nIs there anything else I can help you with today regarding your Tidewell Bank account?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

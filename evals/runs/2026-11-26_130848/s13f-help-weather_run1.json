@@ -1,0 +1,34 @@
+{
+  "scenario": "s13f-help-weather",
+  "turns": [
+    {
+      "customer": "What's the weather tomorrow?",
+      "agent": "I only help with Tidewell Bank accounts and services. For weather information, I'd suggest checking a weather website or app.\n\nIs there anything I can help you with regarding your Tidewell Bank account?",
+      "tool_events": []
+    },
+    {
+      "customer": "Oh, I see. Well, do you happen to know what the weather will be like tomorrow? I really need to plan my day.",
+      "agent": "I appreciate the question, but I'm only able to help with Tidewell Bank services. For weather forecasts, you'll want to check a weather app or website like Weather.com or your phone's built-in weather app.\n\nIs there anything I can help you with for your Tidewell Bank account today?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes '\u00b0'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

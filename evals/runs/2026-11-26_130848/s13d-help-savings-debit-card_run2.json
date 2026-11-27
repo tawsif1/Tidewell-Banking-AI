@@ -1,0 +1,48 @@
+{
+  "scenario": "s13d-help-savings-debit-card",
+  "turns": [
+    {
+      "customer": "Do your savings accounts come with a debit card?",
+      "agent": "No, savings accounts at Tidewell Bank don't come with a debit card. Savings accounts are designed for setting money aside and earning interest.\n\nIf you need a debit card for everyday spending, a checking account comes with one. (Source: Account types > Savings accounts)",
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "savings account debit card"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Account types > Savings accounts\nA Tidewell Bank savings account is for setting money aside and earning interest. Savings accounts don't come with a debit card.\n\nSource: Account types > Checking accounts\nA Tidewell Bank checking account is for everyday spending, bill payments, and deposits. Checking accounts come with a debit card and have a monthly account fee of $16.95.\n\nSource: Overdraft and NSF fees explained > How to avoid overdraft and NSF fees\nTo avoid overdraft and NSF fees, check your balance before large purchases, and remember that pending transactions will reduce your balance when they post. Keeping a small buffer in your checking account helps cover unexpected charges.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Thanks for clarifying that. So if I wanted both a savings account and a debit card for spending, I'd need to open a checking account as well?",
+      "agent": "Yes, that's right. To have both a savings account and a debit card, you'd need a checking account\u2014that's where the debit card comes with. You can have both account types at the same time.\n\nIf you'd like to open a checking account, I'd recommend calling our support team at 1-800-555-0199 (Monday to Friday, 8am to 8pm) or visiting a branch to get started.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "called search_help_center",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes 'Account types'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

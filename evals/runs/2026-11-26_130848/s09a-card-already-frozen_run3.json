@@ -1,0 +1,80 @@
+{
+  "scenario": "s09a-card-already-frozen",
+  "turns": [
+    {
+      "customer": "Hi, I'm Priya Sharma, 1992-07-25, card 1167. Freeze my credit card ending 2290, I lost it.",
+      "agent": "Great! I've verified your identity. Just to confirm before I freeze it: you want me to freeze the card ending in **2290** because you lost it, correct?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Priya Sharma",
+            "date_of_birth": "1992-07-25",
+            "card_last4": "1167"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, that's correct. Please freeze it right away.",
+      "agent": "Your card ending in 2290 is already frozen, so no new purchases can be made with it. That's good news\u2014you're protected.\n\nIf you need to unfreeze it or order a replacement card, you'll need to call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm). They can help you with that.\n\nIs there anything else I can help you with?",
+      "tool_events": [
+        {
+          "name": "freeze_card",
+          "input": {
+            "card_last4": "2290",
+            "reason": "lost"
+          },
+          "result": "Card ending in 2290 is already frozen. Cards can't be unfrozen or replaced in chat; the customer can call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called freeze_card",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '1-800-555-0199'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'online banking'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT status FROM cards WHERE last4 = '2290'",
+      "passed": true,
+      "detail": "got 'frozen', expected 'frozen'"
+    },
+    {
+      "check": "db: SELECT count(*) FROM cards WHERE customer_id = 3 AND status = 'frozen'",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

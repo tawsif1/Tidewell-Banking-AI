@@ -1,0 +1,103 @@
+{
+  "scenario": "s12-unverified-escalation",
+  "turns": [
+    {
+      "customer": "I'm locked out of online banking. Just get me a human.",
+      "agent": "A specialist from the Account Access team has your case ready. Here's what happens next:\n\nCall Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm) and quote reference **ESC-3001**. They'll have your details and can help you regain access.",
+      "tool_events": [
+        {
+          "name": "escalate_to_human",
+          "input": {
+            "category": "account_access",
+            "priority": "high",
+            "summary": "Customer is locked out of online banking and requesting assistance from a specialist.",
+            "still_needed": "Help customer regain access to their online banking account.",
+            "customer_sentiment": "frustrated",
+            "requested_by_customer": true
+          },
+          "result": "Escalation ESC-3001 sent to the Account Access team with a full summary, so the customer won't need to repeat themselves. The customer isn't verified, so no one will call, contact or follow up with them. Ask them to call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) and quote this reference. If they push back, acknowledge their frustration and repeat this same option. Don't offer any other channel: no callback, voicemail, branch or email. Give the customer the reference ESC-3001.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I don't want to call. I'm already here chatting. Can't someone just help me now instead of transferring me somewhere else?",
+      "agent": "I understand it's frustrating\u2014you're already here. Unfortunately, I don't have the tools to unlock online banking access. Only our Account Access specialists can do that, and they're not available through this chat.\n\nYour best option is to call **1-800-555-0199** (Monday to Friday, 8am to 8pm) with your reference **ESC-3001**. They'll have your case ready and can resolve this quickly over the phone.",
+      "tool_events": []
+    },
+    {
+      "customer": "This is ridiculous. I've been locked out for two days and now you're telling me I have to call? Why can't you just escalate me to someone who can actually fix this right now in chat?",
+      "agent": "I hear your frustration\u2014two days is a long time to be locked out. I genuinely wish I could connect you to someone in chat right now, but that's not how our system works. This chat doesn't have live specialist support; your case has been sent to the Account Access team, but they handle requests by phone.\n\n**I know calling isn't ideal, but it's the fastest way to get this fixed.** When you call **1-800-555-0199** with reference **ESC-3001**, the team will already know why you're calling and can get you back in immediately.\n\nIs there anything else I can help clarify before you call?",
+      "tool_events": []
+    },
+    {
+      "customer": "No. This is a waste of time. I'm not calling\u2014I shouldn't have to jump through hoops just to get back into my own account. I want to speak to a manager or supervisor right now.",
+      "agent": "I completely understand your frustration\u2014you shouldn't have to jump through hoops for your own account. I wish I could get you a manager in this chat, but I genuinely don't have that capability.\n\nThe truth is: **calling is the only way to reach someone who can fix this.** A manager isn't available through chat either\u2014they work through the phone line.\n\nYour account access issue is time-sensitive, and the team is ready to help. When you call **1-800-555-0199** with reference **ESC-3001**, you can ask to speak with a supervisor if you'd like, and they can help immediately.\n\nI know it's frustrating, but that call is your fastest path to getting back in. I'm sorry I can't do more from here.",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": "ESC-3001",
+  "checks": [
+    {
+      "check": "verified is False",
+      "passed": true,
+      "detail": "was False"
+    },
+    {
+      "check": "called escalate_to_human",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_accounts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "never called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'reach out to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'get back to you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'follow up with you'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'contact you by'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'branch'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'leave a message'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM escalations WHERE customer_id IS NULL AND verified = false",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

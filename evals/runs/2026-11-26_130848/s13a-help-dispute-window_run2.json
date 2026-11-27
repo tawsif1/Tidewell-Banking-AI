@@ -1,0 +1,48 @@
+{
+  "scenario": "s13a-help-dispute-window",
+  "turns": [
+    {
+      "customer": "How long do I have to dispute a charge?",
+      "agent": "You have **60 days from the transaction date** to dispute a posted charge. After that, we can't process disputes through chat, but you can call support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to ask about older charges.\n\nIf the charge is still pending, you'll need to wait for it to post before you can dispute it. (Source: Disputing a transaction)",
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "deadline to dispute a charge"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Disputing a transaction > When you can dispute a charge\nYou can dispute a posted charge on your Tidewell Bank account if you didn't make it, didn't receive what you paid for, were charged twice, or were charged the wrong amount. Disputes must be filed within 60 days of the transaction date.\n\nSource: Disputing a transaction > Charges older than 60 days\nCharges older than 60 days can't be disputed through chat. To ask about an older charge, call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.\n\nSource: Pending and posted transactions > Disputing a pending transaction\nPending transactions can't be disputed until they post. If a charge still looks wrong after it posts, you can dispute it within 60 days of the transaction date.\n\nSource: Disputing a transaction > What happens after you file a dispute\nWhen you file a dispute, you receive a case number starting with DSP. A specialist reviews every dispute and contacts you within 10 business days. Each charge can only be disputed once; if a dispute already exists for a charge, we'll share its case number and status.\n\nSource: Disputing a transaction > Pending charges\nPending charges can't be disputed until they post, which usually takes a few business days. Many charges that look wrong while pending, such as hotel or gas station holds, are corrected automatically when they post.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "called search_help_center",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '60'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes 'Disputing a transaction'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

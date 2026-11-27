@@ -1,0 +1,79 @@
+{
+  "scenario": "s06a-dispute-too-old",
+  "turns": [
+    {
+      "customer": "Hi, I'm James Okafor, 1975-11-03, card 9034. I want to dispute the Gas Station 24 charge from about two and a half months ago.",
+      "agent": "Great! I found the Gas Station 24 charge: **September 12, 2026 for $52.30** (Transaction #5007).\n\nCan you tell me why you're disputing this charge? For example, did you not make this purchase, did you not receive what you paid for, or was the amount wrong?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "Transactions from 2026-08-28 to 2026-11-26, newest first:\n2026-11-23 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-11-11 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted\n2026-09-12 | #5007 | Checking (201) | Gas Station 24 | -$52.30 | posted",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "The amount looks wrong. I don't think I was charged the correct price at the pump.",
+      "agent": "I'm sorry, but that charge is more than 60 days old, which is outside our dispute window. You'd need to contact Tidewell Bank support directly to discuss this further.\n\n**Call 1-800-555-0199, Monday to Friday, 8am to 8pm.** They may be able to help you even though it's past the standard deadline.\n\nIs there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5007,
+            "reason": "incorrect_amount",
+            "details": "Charged incorrect amount at the pump. Customer believes the price shown was different from the $52.30 charged."
+          },
+          "result": "Transaction #5007 is more than 60 days old, outside the dispute window. Tell the customer to call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '1-800-555-0199'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM disputes",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

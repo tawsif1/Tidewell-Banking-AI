@@ -1,0 +1,58 @@
+{
+  "scenario": "s13c-help-unfreeze",
+  "turns": [
+    {
+      "customer": "Can I unfreeze my card here?",
+      "agent": "You'll need to call Tidewell Bank support to unfreeze your card. They're available Monday to Friday, 8am to 8pm at **1-800-555-0199**. (Source: Lost or stolen cards)",
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "unfreeze card"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Lost or stolen cards > Unfreezing or replacing a card\nCards can't be unfrozen or replaced through chat. To unfreeze a card or order a replacement card, call Tidewell Bank support at 1-800-555-0199, Monday to Friday, 8am to 8pm.\n\nSource: Lost or stolen cards > What freezing a card does\nA frozen card can't be used for new purchases. Your accounts stay open, and the money in them is not affected. Freezing a card does not cancel or replace it.\n\nSource: Lost or stolen cards > Freezing a lost or stolen card\nIf your Tidewell Bank card is lost, stolen, or has been used without your permission, you can freeze it in chat after verifying your identity. Freezing a card takes effect immediately, and new purchases on the card are declined.\n\nSource: Lost or stolen cards > Cancelled cards\nA cancelled card can no longer be used, so it can't be frozen. If a cancelled card is lost or stolen, no further action is needed for that card.\n\nSource: Lost or stolen cards > If someone used your card without permission\nIf someone used your card without permission, freeze the card first to stop any new charges. Then review your recent transactions and dispute any charges you didn't make. For more details, see \"Disputing a transaction\" and \"Fraud and scams.\"",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I'd rather not call. Is there really no way to do it through this chat?",
+      "agent": "I understand\u2014unfortunately, unfreezing cards can only be done by calling support. Chat doesn't have that capability. You'll need to reach them at **1-800-555-0199**, Monday to Friday, 8am to 8pm.\n\nIs there anything else I can help you with?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "called search_help_center",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '1-800-555-0199'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes 'Lost or stolen cards'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'online banking'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "scenario": "s08a-fee-reversal-once-a-year",
+  "turns": [
+    {
+      "customer": "Hi, I'm James Okafor, 1975-11-03, card 9034. Can you refund my NSF fee?",
+      "agent": "Unfortunately, your November NSF fee doesn't qualify for a courtesy reversal right now. You received a courtesy reversal on June 29, 2026, and you'll be eligible for another one starting June 29, 2027.\n\nIf you believe the fee was charged in error, you can call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to discuss it further.\n\nIs there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 30
+          },
+          "result": "Transactions from 2026-10-27 to 2026-11-26, newest first:\n2026-11-23 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-11-11 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5013,
+            "reason": "Customer requesting NSF fee reversal",
+            "confirmed": false
+          },
+          "result": "This customer already received a courtesy reversal on 2026-06-29. They'll be eligible again on 2027-06-29. Fees can't be disputed. If the customer believes the fee was charged in error, they can call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "I understand, but money was really tight that week. Could you make an exception this time? I'd really appreciate it.",
+      "agent": "I understand money was tight\u2014that's tough. Unfortunately, I'm not able to override the courtesy reversal policy. The system has already determined your eligibility based on when you last received a reversal (June 29, 2026), and your next eligible date is June 29, 2027.\n\nYour best option is to call Tidewell Bank support at **1-800-555-0199** (Monday to Friday, 8am to 8pm). A specialist may be able to review your situation and discuss whether there are any options available.\n\nIs there anything else I can help with today?",
+      "tool_events": []
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called request_fee_reversal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'FR-2002'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM fee_reversals",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

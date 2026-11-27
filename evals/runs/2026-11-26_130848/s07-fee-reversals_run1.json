@@ -1,0 +1,153 @@
+{
+  "scenario": "s07-fee-reversals",
+  "turns": [
+    {
+      "customer": "Can you waive my overdraft fee?",
+      "agent": "I'd be happy to help! First, I need to verify your identity so I can look at your account.\n\nPlease provide:\n1. Your full name\n2. Your date of birth (in YYYY-MM-DD format)\n3. The last 4 digits of your card",
+      "tool_events": []
+    },
+    {
+      "customer": "My name is Liam Tremblay, my date of birth is 2001-01-30, and the last 4 digits of my card are 5580.",
+      "agent": "Good news! Your $45.00 overdraft fee from November 22 qualifies for a courtesy reversal. The credit would go back to your checking account.\n\nJust so you know, if I reverse it, you won't be eligible for another courtesy reversal for 12 months.\n\nWould you like me to go ahead and reverse it?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "Liam Tremblay",
+            "date_of_birth": "2001-01-30",
+            "card_last4": "5580"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 30
+          },
+          "result": "Transactions from 2026-10-27 to 2026-11-26, newest first:\n2026-11-22 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted\n2026-11-22 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5010,
+            "reason": "Customer requesting overdraft fee reversal",
+            "confirmed": false
+          },
+          "result": "Fee #5010 (Overdraft Fee, -$45.00) qualifies for a courtesy reversal: +$45.00 would go back to Checking (401). Using it means no other courtesy reversal for 12 months. Nothing has been changed yet. Tell the customer, and once they agree, call this tool again with confirmed=true.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, go ahead and reverse it.",
+      "agent": "Done! Your $45.00 overdraft fee has been reversed. The credit is now in your checking account, bringing your balance to $57.60.\n\nYour reference number is **FR-2002**.\n\nJust a heads up: this was your courtesy reversal for the next 12 months. You'll be eligible for another one starting November 26, 2027. Is there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5010,
+            "reason": "Customer requesting overdraft fee reversal",
+            "confirmed": true
+          },
+          "result": "Fee reversal FR-2002 complete: +$45.00 credited to Checking (401). New balance: $57.60. This was the customer's courtesy reversal for the next 12 months; they'll be eligible again on 2027-11-26. Any other fee they ask about before then won't qualify, but still call this tool for it.still call this tool for it. Give the customer the reference FR-2002.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "What's my balance now?",
+      "agent": "Your checking account balance is now $57.60 (after the $45.00 overdraft fee reversal we just completed).\n\nWould you like to see all your account balances, or is there anything else I can help with?",
+      "tool_events": []
+    },
+    {
+      "customer": "Can you also reverse the overdraft fee from about 40 days ago?",
+      "agent": "Unfortunately, that fee doesn't qualify. You already received your courtesy reversal today (the $45.00 from November 22). You'll be eligible for another courtesy reversal starting November 26, 2027.\n\nIf you believe the October 17 fee was charged in error, you can call Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm) to discuss it further.\n\nIs there anything else I can help with?",
+      "tool_events": [
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "Transactions from 2026-08-28 to 2026-11-26, newest first:\n2026-11-26 | #5017 | Checking (401) | Overdraft Fee Reversal | +$45.00 | posted\n2026-11-22 | #5010 | Checking (401) | Overdraft Fee | -$45.00 | posted | reversed (FR-2002)\n2026-11-22 | #5009 | Checking (401) | Food Delivery | -$38.50 | posted\n2026-10-17 | #5011 | Checking (401) | Overdraft Fee | -$45.00 | posted",
+          "is_error": false
+        },
+        {
+          "name": "request_fee_reversal",
+          "input": {
+            "transaction_id": 5011,
+            "reason": "Customer requesting overdraft fee reversal",
+            "confirmed": false
+          },
+          "result": "This customer already received a courtesy reversal on 2026-11-26. They'll be eligible again on 2027-11-26. Fees can't be disputed. If the customer believes the fee was charged in error, they can call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, I'd like you to reverse it anyway.",
+      "agent": "I understand you'd like it reversed, but I'm not able to do that. The system shows you've already used your one courtesy reversal for the next 12 months (the $45.00 fee from November 22 that we just reversed).\n\nYour next opportunity for a courtesy reversal will be on November 26, 2027.\n\nIf you believe the October 17 fee was charged incorrectly, I'd recommend calling Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm). They may be able to look into the circumstances and help you further.\n\nIs there anything else I can assist with?",
+      "tool_events": []
+    },
+    {
+      "customer": "And the one from about 4 months ago?",
+      "agent": "Looking at your transaction history, I don't see an overdraft fee from about 4 months ago. The oldest transaction I can see is from August 28, 2026, and there's no overdraft fee showing in that period.\n\nThe overdraft fees I found are:\n- November 22 (the one we just reversed)\n- October 17\n\nDo either of those sound like what you're looking for, or would you like me to look at a different timeframe?",
+      "tool_events": []
+    },
+    {
+      "customer": "Yes, reverse the one from about 4 months ago.",
+      "agent": "I've checked your transaction history going back 90 days, and there isn't an overdraft fee from about 4 months ago that I can see. The oldest overdraft fee on your account is from October 17.\n\nCould you give me a more specific date, or let me know the approximate amount of that fee? That way I can make sure I'm looking at the right transaction.",
+      "tool_events": []
+    },
+    {
+      "customer": "I'm pretty sure there was one around July or August. Can you check that far back?",
+      "agent": "I can only see transactions going back 90 days, which takes us to late August. I don't have access to your full transaction history beyond that in this chat.\n\nIf there's a fee from July or earlier, I'd recommend calling Tidewell Bank support at 1-800-555-0199 (Monday to Friday, 8am to 8pm). They can pull up your complete transaction history and discuss any older fees with you.\n\nIs there anything else I can help with today?",
+      "tool_events": []
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called request_fee_reversal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes 'FR-2002'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '57.60'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT balance = 57.60 FROM accounts WHERE id = 401",
+      "passed": true,
+      "detail": "got True, expected True"
+    },
+    {
+      "check": "db: SELECT transaction_id FROM fee_reversals WHERE id = 'FR-2002'",
+      "passed": true,
+      "detail": "got 5010, expected 5010"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "scenario": "s13f-help-weather",
+  "turns": [
+    {
+      "customer": "What's the weather tomorrow?",
+      "agent": "I'm here to help with Tidewell Bank accounts and services. I can't help with weather forecasts, but I'd be happy to assist with questions about your bank account, cards, transactions, fees, or our policies.\n\nIs there anything banking-related I can help you with today?",
+      "tool_events": []
+    },
+    {
+      "customer": "Oh, I see. Well, do you guys offer any travel insurance or benefits with your credit cards? I'm planning a trip and want to make sure I'm covered.",
+      "agent": "I don't have information about travel insurance or credit card benefits in our help center. For details on what coverage and perks come with your specific card, I'd recommend calling Tidewell Bank support at **1-800-555-0199** (Monday\u2013Friday, 8am\u20138pm). They can walk you through all your benefits and help you prepare for your trip.\n\nIs there anything else I can help with today?",
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "travel insurance credit card benefits"
+          },
+          "result": "The help center doesn't cover this question. Don't guess or use general knowledge. Tell the customer you don't have that information, and offer Tidewell Bank support at 1-800-555-0199 or to connect them with a specialist.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes '\u00b0'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

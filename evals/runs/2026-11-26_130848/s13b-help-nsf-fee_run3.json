@@ -1,0 +1,48 @@
+{
+  "scenario": "s13b-help-nsf-fee",
+  "turns": [
+    {
+      "customer": "What is an NSF fee?",
+      "agent": "An NSF (non-sufficient funds) fee of $48.00 is charged when a payment is declined or returned because your account doesn't have enough money to cover it.\n\nIf you have an NSF fee and think you should have it reversed, you can request a courtesy reversal \u2014 Tidewell Bank allows one per 12 months for fees charged within the last 90 days. (Source: Overdraft and NSF fees explained)",
+      "tool_events": [
+        {
+          "name": "search_help_center",
+          "input": {
+            "query": "NSF fee"
+          },
+          "result": "Answer only from these help center sections. End your answer with the article title it came from, for example: (Source: Disputing a transaction)\n\nSource: Overdraft and NSF fees explained > What an NSF fee is\nAn NSF (non-sufficient funds) fee of $48.00 is charged when a payment is declined or returned because your account doesn't have enough money to cover it.\n\nSource: Fees and courtesy reversals > Fee schedule\nTidewell Bank charges the following fees: an overdraft fee of $45.00, an NSF (non-sufficient funds) fee of $48.00, a wire transfer fee of $25.00, and a monthly account fee of $16.95 on checking accounts.\n\nSource: Disputing a transaction > Fees can't be disputed\nFees, such as overdraft or NSF fees, can't be disputed. Eligible overdraft and NSF fees can be refunded through a courtesy reversal instead. See \"Fees and courtesy reversals.\"\n\nSource: Overdraft and NSF fees explained > Getting an overdraft or NSF fee refunded\nEligible overdraft and NSF fees can be refunded through a courtesy reversal, available once every 12 months for fees charged within the last 90 days. See \"Fees and courtesy reversals.\"\n\nSource: Fees and courtesy reversals > Courtesy reversals\nAs a courtesy, Tidewell Bank can reverse one overdraft or NSF fee every 12 months (365 days). To be eligible, the fee must have been charged within the last 90 days. You can request a courtesy reversal in chat after verifying your identity.",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Thanks for explaining that. That's helpful to know.",
+      "agent": "You're welcome! Happy to help. Is there anything else I can assist you with today?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "called search_help_center",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '48'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

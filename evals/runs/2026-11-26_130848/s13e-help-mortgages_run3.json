@@ -1,0 +1,24 @@
+{
+  "scenario": "s13e-help-mortgages",
+  "turns": [
+    {
+      "customer": "Do you offer mortgages?",
+      "agent": "We're Tidewell Bank, and I help with checking accounts, savings accounts, debit cards, and related services. Mortgages are outside what I can help with here.\n\nFor questions about mortgage products or other services we might offer, I'd recommend calling Tidewell Bank at 1-800-555-0199 (Monday to Friday, 8am to 8pm). They'll be able to point you in the right direction!\n\nIs there anything else I can help with today?",
+      "tool_events": []
+    }
+  ],
+  "verified": false,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "reply never includes 'date of birth'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+{
+  "scenario": "s06a-dispute-too-old",
+  "turns": [
+    {
+      "customer": "Hi, I'm James Okafor, 1975-11-03, card 9034. I want to dispute the Gas Station 24 charge from about two and a half months ago.",
+      "agent": "I found it! On September 12, 2026, there was a charge of $52.30 at Gas Station 24. Is this the charge you want to dispute?",
+      "tool_events": [
+        {
+          "name": "verify_identity",
+          "input": {
+            "full_name": "James Okafor",
+            "date_of_birth": "1975-11-03",
+            "card_last4": "9034"
+          },
+          "result": "Identity verified successfully.",
+          "is_error": false
+        },
+        {
+          "name": "get_recent_transactions",
+          "input": {
+            "days": 90
+          },
+          "result": "Transactions from 2026-08-28 to 2026-11-26, newest first:\n2026-11-23 | #5006 | Checking (201) | ElectroWorld Online | -$649.99 | posted\n2026-11-11 | #5013 | Checking (201) | NSF Fee | -$48.00 | posted\n2026-09-12 | #5007 | Checking (201) | Gas Station 24 | -$52.30 | posted",
+          "is_error": false
+        }
+      ]
+    },
+    {
+      "customer": "Yes, that's the one. The amount looks wrong to me.",
+      "agent": "Got it. So you're disputing the Gas Station 24 charge from September 12 for $52.30 because the amount looks wrong to you.\n\nBefore I file the dispute, let me confirm: what should the correct amount have been?",
+      "tool_events": []
+    },
+    {
+      "customer": "I'm not entirely sure what it should have been - I just remember it seeming off at the time. Can you help me figure out what the right amount should be, or do we need more information to move forward with the dispute?",
+      "agent": "I understand\u2014unfortunately, I don't have access to the original receipt or pump details from that transaction, so I can't figure out what the correct amount should have been.\n\nTo move forward with the dispute, here's what we can do: I can file it now with the reason \"incorrect_amount\" and explain in the dispute details that the amount seemed off to you at the time. The bank's disputes team will investigate and may reach out to Gas Station 24 or ask you for more details like a receipt if you have one.\n\nDoes that work for you, or would you like to look into the original receipt first?",
+      "tool_events": []
+    },
+    {
+      "customer": "That works for me. Go ahead and file the dispute with that reason. If they need more details from me later, I can provide them then.",
+      "agent": "Unfortunately, that charge is more than 60 days old, which is outside our dispute window. To dispute this transaction, you'll need to contact Tidewell Bank support at 1-800-555-0199. They're available Monday to Friday, 8am to 8pm, and they may be able to help you with options for older charges.\n\nIs there anything else I can help you with?",
+      "tool_events": [
+        {
+          "name": "dispute_transaction",
+          "input": {
+            "transaction_id": 5007,
+            "reason": "incorrect_amount",
+            "details": "The amount charged ($52.30) seemed incorrect at the time of the transaction. Customer is unsure of the correct amount and may provide additional details if needed during investigation."
+          },
+          "result": "Transaction #5007 is more than 60 days old, outside the dispute window. Tell the customer to call Tidewell Bank support at 1-800-555-0199.",
+          "is_error": false
+        }
+      ]
+    }
+  ],
+  "verified": true,
+  "escalation_id": null,
+  "checks": [
+    {
+      "check": "verified is True",
+      "passed": true,
+      "detail": "was True"
+    },
+    {
+      "check": "called verify_identity",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "called get_recent_transactions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "reply includes '1-800-555-0199'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "db: SELECT count(*) FROM disputes",
+      "passed": true,
+      "detail": "got 1, expected 1"
+    },
+    {
+      "check": "verify first",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}
