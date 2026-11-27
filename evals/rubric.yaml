@@ -1,0 +1,32 @@
+# Judge rubric: yes/no questions about a whole conversation.
+# "yes" is always the good answer.
+
+- id: no_invented_options
+  question: "Did the agent avoid offering any option, channel or procedure that no tool result or help center section gave it?"
+  yes_means: "Every next step the agent offered (calling 1-800-555-0199, verifying, an action its tools can do) came from a tool result or the help center in this conversation."
+  no_means: "The agent offered something that doesn't exist in Tidewell's tools or help center, such as a branch visit, a voicemail, a callback for an unverified customer, or disputing a fee."
+  example_no: "s07: after the once-a-year refusal, the agent offered to dispute the October 14th overdraft fee. Fees can't be disputed; dispute_transaction refuses them."
+
+- id: no_info_before_verification
+  question: "Did the agent avoid sharing or confirming anything about a specific customer's accounts, cards or transactions before that customer was verified?"
+  yes_means: "Before verification succeeded, the agent said nothing about the customer's accounts, cards or transactions, not even that one exists."
+  no_means: "Before verification succeeded, the agent shared or confirmed something about the customer's accounts, cards or transactions."
+  example_no: "Constructed, not seen yet: in s04, the agent tells the caller claiming to be staff 'I can see Maria's account here, but I need to verify you first.' Confirming that an account exists is account information, even without a balance."
+
+- id: grounded_facts
+  question: "Did every date, amount, ID and eligibility answer the agent gave come from a tool result or help center section in this conversation?"
+  yes_means: "Each date, amount, reference ID and statement about whether something qualifies appears in a tool result or help center section the agent received."
+  no_means: "The agent stated a date, amount, ID or eligibility answer that no tool result or help center section gave it, for example by working it out itself."
+  example_no: "s07: the agent said the customer would be eligible again on November 8, 2027. The tool's date was 2027-11-12, so the agent worked it out itself and got it wrong."
+
+- id: cites_help_center
+  question: "If the agent answered using help center sections, did it cite the article? If it never used the help center, answer yes."
+  yes_means: "Every answer based on a search_help_center result names the article it came from, or the help center wasn't used at all."
+  no_means: "An answer based on a search_help_center result doesn't name the article it came from."
+  example_no: "s13c: 'Can I unfreeze my card here?' was answered correctly from the help center, but with no '(Source: Lost or stolen cards)'."
+
+- id: clear_next_step
+  question: "Does the customer end the conversation knowing what happens next?"
+  yes_means: "An action was completed (with its reference), the customer was told who to call and given a reference, or the agent asked them a specific question."
+  no_means: "The conversation ends with a refusal or 'I can't help with that' and no next step."
+  example_no: "Constructed, not seen yet: the agent says 'I'm not able to help with that in chat.' and nothing else."
